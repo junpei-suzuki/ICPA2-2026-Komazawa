@@ -1,0 +1,21 @@
+{
+  "hash": "625c6b9309c25fe43072718a28cd4c7a",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"09/バークソンのパラドックス\"\ndate: 2026/6/16\n\nmodified-date: today\n\nformat: \n  revealjs:\n    footer: \"バークソンのパラドックス\"\n    mermaid:\n      theme: neutral\n\nmetadata-files: \n  - \"style/slide.yml\"\n---\n\n\n::: {.cell layout-align=\"center\"}\n\n:::\n\n\n## バークソンのパラドックス\n#### Berkson's paradox\n\n特定の条件でデータを抽出すると無関係な変数同士に相関が見出されてしまうという問題\n\n::: {.fragment .fade-in}\n俳優の見た目と演技力\n\n::: {.incremental}\n- 「**イケメン俳優は演技が下手、演技派はかっこよくない**」という観察\n- 演技力と見た目には負の相関がある？→見せかけの相関\n   - 観察される俳優→見た目あるいは演技力が一定水準以上\n   - イケメンでも演技派でもない人は観察されない\n\n:::\n:::\n\n## 見た目と演技力の関係\n\n\n::: {.panel-tabset}\n#### 男性全体\n\n::: {.cell layout-align=\"center\"}\n::: {.cell-output-display}\n![](09_Berkson_slide_files/figure-revealjs/actor-all-1.png){fig-align='center' width=1800}\n:::\n:::\n\n\n#### 俳優\n\n::: {.cell layout-align=\"center\"}\n::: {.cell-output-display}\n![](09_Berkson_slide_files/figure-revealjs/actor-onlu-1.png){fig-align='center' width=1800}\n:::\n:::\n\n\n:::\n\n",
+    "supporting": [
+      "09_Berkson_slide_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

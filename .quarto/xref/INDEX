@@ -1,0 +1,44 @@
+{
+  "index.qmd": {
+    "index.html": "c287a332"
+  },
+  "about.qmd": {
+    "about.html": "6b39b66d"
+  },
+  "00_syllabus.qmd": {
+    "00_syllabus.html": "e205f704"
+  },
+  "app01_pdfexport.qmd": {
+    "app01_pdfexport.html": "8084c138"
+  },
+  "01_intro.qmd": {
+    "01_intro.html": "a0a2f38b"
+  },
+  "01_intro_slid.qmd": {
+    "01_intro_slid.html": "07318b03"
+  },
+  "01_intro_slide.qmd": {
+    "01_intro_slide.html": "30c2c004"
+  },
+  "02_causality_slide.qmd": {
+    "02_causality_slide.html": "4c473eee"
+  },
+  "02_causality.qmd": {
+    "02_causality.html": "f8fecad3"
+  },
+  "03_statR_slide.qmd": {
+    "03_statR_slide.html": "01f7f030"
+  },
+  "03_statR.qmd": {
+    "03_statR.html": "fb55a6e0"
+  },
+  "04_OLSbasics.qmd": {
+    "04_OLSbasics.html": "e962083b"
+  },
+  "04_OLSbasics_slide.qmd": {
+    "04_OLSbasics_slide.html": "bf09faca"
+  },
+  "04_OLSbasics_quiz.qmd": {
+    "04_OLSbasics_quiz.html": "2e33f9f1"
+  }
+}

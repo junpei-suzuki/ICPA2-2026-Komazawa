@@ -1,0 +1,9 @@
+```{r}
+#| include: false
+set.seed(19940309) # Someone's birthday
+pacman::p_load(tidyverse,
+               ggrepel)
+# Load the package(s)
+theme_set(theme_bw(base_family = "Hiragino Sans")) # Set ggplot theme
+```
+

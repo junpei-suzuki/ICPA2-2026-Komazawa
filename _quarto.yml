@@ -1,0 +1,64 @@
+project:
+  type: website
+  output-dir: docs
+  render: 
+    - "*.qmd"
+
+lang: ja
+
+website:
+  title: "現代政治分析入門1@駒大2026"
+  page-footer: 
+    right: "@2026 Junpei Suzuki"
+  sidebar:
+    style: floating
+    search: true
+    collapse-level: 2
+    contents:
+      - text: "シラバス"
+        href: 00_syllabus.qmd
+      - text: ---
+      - section: イントロダクション
+        contents: 
+        - text: "01/はじめに"
+          href: 01_intro.qmd
+        - text: "02/数量データと因果推論"
+          href: 02_causality.qmd
+        - text: "03/統計学とR言語"
+          href: 03_statR.qmd
+      - section: 二変量回帰分析
+        contents: 
+        - text: "04/基本編"
+          href: 04_OLSbasics.qmd
+        - text: "05/応用編"
+        - text: "06/発展編"
+        - text: "07/復習編"
+      - section: 統計的仮説検定
+        contents: 
+        - text: "08/基本編"
+        - text: "09/応用編"
+        - text: "10/発展編"
+      - section: 多変量回帰分析
+        contents: 
+        - text: "11/基本編"
+        - text: "12/応用編"
+        - text: "13/発展編"
+      - section: ふりかえり
+        contents: 
+        - text: "14/授業全体のふりかえり"
+        - text: "15/理解度の確認"
+      - section: "付録"
+        contents:
+        - text: "付録01/スライドの保存方法"
+          href: app01_pdfexport.qmd
+
+format:
+  html:
+    theme: a11y
+    grid:
+      sidebar-width: 250px
+    number-sections: false
+    toc: true
+    link-external-newwindow: true
+
+freeze: auto

@@ -1,0 +1,19 @@
+{
+  "hash": "2bf7d04ed0fccb4f04893c5f6f572449",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"04/二変量回帰分析：基本編\"\ndate: 2026/10/20\n\nmodified-date: today\n\nformat: \n  revealjs:\n    footer: \"二変量回帰分析：基本編\"\n    mermaid:\n      theme: neutral\n\nmetadata-files: \n  - \"style/slide.yml\"\n---\n\n\n\n\n\n## 出席登録をお願いします\n![](figs/attendance_webclass.png)\n\n## 今日の目次\n\n1. はじめに\n1. 二変量回帰モデル\n1. 最小二乗法\n1. OLSのランダム性\n1. OLSの不偏性\n1. まとめ\n\n# はじめに\n## 本日の目的と到達目標\n#### 目的\n回帰分析の最も基本的な形である二変量モデルを紹介する。基本となる統計モデルについて復習した後に、回帰分析によって回帰係数を推定し、その推定値を因果効果として解釈するための基本的な方法として、最小二乗法（OLS）を学ぶ。確率分布の基本を学んだ後、OLSで得られた因果効果の推定量のランダム性を議論する。さらに内生性が推定結果をどのように歪めるのかについても検討する。\n\n::: {.fragment .fade-in}\n#### 到達目標\n1. 二変量回帰モデル（$Y_i=\\beta_0+\\beta_{1}X_{i}+\\varepsilon_i$）の各項を説明できる。\n1. 仮想的な散布図を使って最小二乗法による回帰係数の推定を説明できる。\n1. 回帰係数の推定値$\\hat{\\beta_{1}}$の計算式を書き出し、その意味を説明できる。\n1. 回帰係数の推定値$\\hat{\\beta_{1}}$のランダム性の原因を2つ列挙できる。\n1. 回帰係数の推定値$\\hat{\\beta_{1}}$が不偏推定量であることの意味、そしてそれが成立する条件を説明できる。\n\n:::\n\n## 小テストの講評\nTBD\n\n# 二変量回帰モデル\n# 最小二乗法\n# OLSのランダム性\n# OLSの不偏性\n# まとめ\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
