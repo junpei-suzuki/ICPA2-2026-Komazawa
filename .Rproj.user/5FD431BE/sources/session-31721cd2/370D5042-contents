@@ -1,0 +1,155 @@
+---
+title: "03/R実習課題"
+modified-date: today
+format: html
+---
+
+{{< include _common.qmd >}}
+
+```{r prepare}
+#| include: false
+load("data/Ch2_Exercise2_Olympics.RData")
+
+ID <- dta$ID |> as.vector()
+country <- dta$country |> as.vector()
+year <- dta$year |> as.vector()
+medals <- dta$medals |> as.vector()
+athletes <- dta$athletes |> as.vector()
+GDP <- dta$GDP |> as.vector()
+temp <- dta$temp |> as.vector()
+population <- dta$population |> as.vector()
+host <- dta$host |> as.vector()
+
+save(ID, country, year, medals, athletes,
+     GDP, temp, population, host,
+     file = "data/03_Olympic_data.RData")
+```
+
+**締切：2026年10月16日24:00**
+
+::: callout-important
+注意：この課題のデータはWebClassの「第3回R実習課題データ」から入手できる。添付資料03_Olympic_data.RDataをダウンロードした上で、授業の手順に沿ってPositCloud上にアップロードしておくこと。
+
+:::
+
+このデータは1980年から2014年までの冬季オリンピックに関するデータである。これをRで分析し、ある国の冬季オリンピックにおける成功を決める要因を考察してみよう。なお、コードブックは以下の通り（教科書p.59より抜粋）。
+
+| 変数名     | 説明                                                                         | 
+| ---------- | ---------------------------------------------------------------------------- | 
+| ID         | データセット内のそれぞれの国を表す固有の番号                                 | 
+| country    | 国名                                                                         | 
+| year       | 年                                                                           | 
+| medals     | 獲得したメダルの総数                                                         | 
+| athletes   | 五輪競技団の選手総数                                                         | 
+| GDP        | 国の国内総生産（1人あたりGDP、1万米ドル単位）                                | 
+| temp       | 北半球の国であれば1月の、南半球の国であれば7月の、国内最大都市の平均最高気温 | 
+| population | 国の人口（10万人単位）                                                       | 
+| host       | その国がホスト国であれば1、そうでなければ0                                   | 
+
+```{r}
+#| include: false
+rm(list = ls())
+load("data/03_Olympic_data.RData")
+```
+
+
+## 問題
+
+問１：メダル数の記述統計として正しいものを以下から選びなさい（小数点3位以下は四捨五入）。
+
+1. 観察数966、平均1.75、標準偏差5.17、最小値0、最大値37
+1. 観察数1122、平均1.75、標準偏差5.17、最小値0、最大値37
+1. 観察数1122、平均5.17、標準偏差1.75、最小値0、最大値37
+1. 観察数37、平均5.17、標準偏差1.75、最小値0、最大値1122
+
+```{r}
+#| include: false
+# メダル
+mean(medals, na.rm = TRUE)
+sd(medals, na.rm = TRUE)
+min(medals, na.rm = TRUE)
+max(medals, na.rm = TRUE)
+sum(is.finite(medals))
+```
+
+問２：選手数の記述統計として正しいものを以下から選びなさい（小数点3位以下は四捨五入）。
+
+1. 観察数1122、平均18.17、標準偏差36.88、最小値0、最大値230
+1. 観察数1122、平均36.88、標準偏差18.17、最小値0、最大値230
+1. 観察数230、平均36.88、標準偏差18.17、最小値0、最大値1122
+1. 観察数1122、平均18.17、標準偏差36.88、最小値53、最大値230
+
+```{r}
+#| include: false
+# 選手数
+mean(athletes, na.rm = TRUE)
+sd(athletes, na.rm = TRUE)
+min(athletes, na.rm = TRUE)
+max(athletes, na.rm = TRUE)
+sum(is.finite(athletes))
+```
+
+問３：GDPの記述統計として正しいものを以下から選びなさい（小数点3位以下は四捨五入）。
+
+1. 観察数1122、平均1.81、標準偏差1.17、最小値0.01、最大値14.52
+1. 観察数966、平均1.81、標準偏差1.17、最小値0.01、最大値14.52
+1. 観察数1122、平均1.17、標準偏差1.81、最小値0.01、最大値14.52
+1. 観察数966、平均1.17、標準偏差1.81、最小値0.01、最大値14.52
+
+```{r}
+#| include: false
+# GDP
+mean(GDP, na.rm = TRUE)
+sd(GDP, na.rm = TRUE)
+min(GDP, na.rm = TRUE)
+max(GDP, na.rm = TRUE)
+sum(is.finite(GDP))
+```
+
+問４：メダル数と選手数の散布図を作りなさい。この散布図からわかる関係として正しいのは以下のうちどれか。
+
+1. 選手数が多い国ほどメダル数が少ない傾向にある。
+1. 選手数が多い国ほどメダル数も多い傾向にある。
+1. 選手数とメダル数の間には明白な関係はなさそうである。
+
+```{r}
+#| include: false
+# 散布図：メダル数と選手数
+plot(athletes, medals)
+```
+
+問５：メダル数とGDPの散布図を作りなさい。この散布図からわかる関係として正しいのは以下のうちどれか。
+
+1. GDPが大きい国ほどメダル数が少ない傾向にある。
+1. GDPが大きい国ほどメダル数が多い傾向にある。
+1. GDPとメダル数の間には明白な関係はなさそうである。
+
+```{r}
+#| include: false
+# 散布図：GDPと選手数
+plot(GDP, medals)
+```
+
+問６：メダル数と気温の散布図を作りなさい。この散布図からわかる関係として正しいのは以下のうちどれか。
+
+1. 暑い国ほどメダル数が少ない傾向にある。
+1. 暑い国ほどメダル数が多い傾向にある。
+1. 気温とメダル数の間には明白な関係はなさそうである。
+
+```{r}
+#| include: false
+# 散布図：気温と選手数
+plot(temp, medals)
+```
+
+問７：メダル数と人口の散布図を作りなさい。この散布図からわかる関係として正しいのは以下のうちどれか。
+
+1. 人口が多い国ほどメダル数が少ない傾向にある。
+1. 人口が多い国ほどメダル数が多い傾向にある。
+1. 人口とメダル数の間には明白な関係はなさそうである。
+
+```{r}
+#| include: false
+# 散布図：人口と選手数
+plot(population, medals)
+```

@@ -623,7 +623,7 @@ SD = \sqrt{\frac{\sum{(x_i - \overline{X}})^2}{n}}
 <section id="posit-cloudへのデータのアップロード" class="slide level2">
 <h2>Posit Cloudへのデータのアップロード</h2>
 <p>外部からダウンロードをRでも使うには、まずPosit Cloudにアップロードする必要がある。</p>
-<p>WebClassからデスクトップにダウンロードしたデータをアップロードするには以下の通り。</p>
+<!-- WebClassからデスクトップにダウンロードしたデータをアップロードするには以下の通り。 -->
 <div class="r-stack">
 <p><img data-src="figs/RStudio_dataup1.png" class="fragment"></p>
 <p><img data-src="figs/RStudio_dataup2.png" class="fragment"></p>
@@ -642,15 +642,15 @@ SD = \sqrt{\frac{\sum{(x_i - \overline{X}})^2}{n}}
 <h2>平均・標準偏差</h2>
 <p>平均を計算するには<code>mean()</code>関数を使う。</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(weight)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 欠損値の対策としてna.rm = TRUEを忘れずに</span></span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 77.93476</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>標準偏差を計算するには、平方根を計算する<code>sqrt()</code>関数と分散を計算する<code>var()</code>を組み合わせるか、単純に<code>sd()</code>関数を使う。</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(weight))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 34.53758</span></span>
 <span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(weight)</span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 34.53758</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -658,10 +658,10 @@ SD = \sqrt{\frac{\sum{(x_i - \overline{X}})^2}{n}}
 <h2>最小値・最大値と観察数</h2>
 <p>最小値は<code>min()</code>、最大値は<code>max()</code>を使う。</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(weight)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 31.74603</span></span>
 <span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(weight)</span>
+<span id="cb12-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb12-5"><a aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 140.5896</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>観察数は少し複雑。<code>is.finite()</code>関数で欠損していない場合に1となる変数を作成した上で、<code>sum()</code>関数で合計する。</p>
