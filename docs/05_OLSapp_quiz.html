@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="鈴木淳平">
 
-<title>現代政治分析入門2 – 現代政治分析入門2@駒大2026</title>
+<title>04/小テスト問題 – 現代政治分析入門2@駒大2026</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -70,6 +69,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -258,9 +286,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">目次</h2>
    
   <ul>
-  <li><a href="#基礎情報" id="toc-基礎情報" class="nav-link active" data-scroll-target="#基礎情報">基礎情報</a></li>
-  <li><a href="#授業概要" id="toc-授業概要" class="nav-link" data-scroll-target="#授業概要">授業概要</a></li>
-  <li><a href="#授業計画" id="toc-授業計画" class="nav-link" data-scroll-target="#授業計画">授業計画</a></li>
+  <li><a href="#文章" id="toc-文章" class="nav-link active" data-scroll-target="#文章">文章</a></li>
+  <li><a href="#問題" id="toc-問題" class="nav-link" data-scroll-target="#問題">問題</a></li>
   </ul>
 </nav>
     </div>
@@ -269,41 +296,15 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">現代政治分析入門2</h1>
-<p class="subtitle lead">駒澤大学｜法学部政治学科｜2026年度前期｜火曜日3限</p>
+<h1 class="title">04/小テスト問題</h1>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">作者</div>
-  <div class="quarto-title-meta-heading">所属</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author"><a href="https://junpei-suzuki.github.io">鈴木淳平</a> <a href="mailto:jsuzuki@komazawa-u.ac.jp" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            駒澤大学法学部政治学科
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
-    <div>
-    <div class="quarto-title-meta-heading">公開</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">2026年9月7日</p>
-    </div>
-  </div>
+    
   
-    <div>
-    <div class="quarto-title-meta-heading">更新日</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date-modified">2026年9月16日</p>
-    </div>
-  </div>
     
   </div>
   
@@ -312,145 +313,82 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">重要</span>注意
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>このページは2026年度の駒澤大学法学部政治学科で開講される現代政治分析入門2の最新版のシラバスおよび授業資料を兼ねたものです。今後更新していきますが、現時点では未完成です。</p>
-</div>
-</div>
-<section id="基礎情報" class="level2">
-<h2 class="anchored" data-anchor-id="基礎情報">基礎情報</h2>
+<p><strong>締切：2026年10月30日24:00</strong></p>
+<p>以下の文章を読み、続く問題に答えなさい。なお回答はWebClass上とする。</p>
+<section id="文章" class="level2">
+<h2 class="anchored" data-anchor-id="文章">文章</h2>
+<p>いま、日本人を対象に、<strong>年齢が自民党に対する感情に与える影響</strong>を知るため、ランダムサンプリングした回答者に対してアンケートを行うことを考えよう。アンケートでは満年齢とともに、自民党に対する感情温度を回答してもらう。感情温度を尋ねる質問は以下の通りである。</p>
 <ul>
-<li>学期：後期</li>
-<li>日時：火曜日3限 (13:00-14:30)</li>
-<li>場所：図-B01</li>
-<li>担当教員：鈴木淳平
-<ul>
-<li>所属：法学部政治学科
-<ul>
-<li>総合教育研究部の鈴木淳平先生とは別人です</li>
-</ul></li>
-<li>居室：2研2825室（第二研究館8階）</li>
-<li>オフィスアワー：木曜4限（14:40-16:10）</li>
-</ul></li>
+<li>【質問】あなたは自由民主党（自民党）に対してどのような感情を持っていますか。0度（冷たい：非常に強い反感）から100度（暖かい：非常に強い好感）の間の数字で答えてください。</li>
 </ul>
+<p>年齢（<span class="math inline">\(X\)</span>）と対自民党感情温度の関係(<span class="math inline">\(Y\)</span>)を<span class="math inline">\(対自民党感情温度_{i}=\beta_{0}+\beta_{1}年齢_{i}+\varepsilon_{i}\)</span>とモデル化した上で、<strong>100人の回答者からなる標本（A）</strong>と<strong>2000人からなる回答の標本（B）</strong>それぞれのデータを分析してみよう。まず、それぞれの標本データにおける散布図は以下の通りとなった。</p>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_OLSapp_quiz_files/figure-html/scatter-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>標本(A)（n=100）</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_OLSapp_quiz_files/figure-html/scatter-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>標本(B)（n=1000）</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="授業概要" class="level2">
-<h2 class="anchored" data-anchor-id="授業概要">授業概要</h2>
-<p>現代における政治分析とは、選挙結果や民主化、国際紛争といったさまざまな<strong>政治現象の原因をデータや証拠に基づいて探求</strong>する営為に他なりません。この科目では、そのような<strong>因果関係</strong>の分析（＝<strong>因果推論</strong>）を行う能力を身につけることを目的としています。この「現代政治分析入門２」では、<strong>数量的なデータの分析を通じて政治・社会現象にまつわる因果推論を行うにあたっての基礎</strong>を築きます。本科目は、統計学の中でも特に重要な<strong>回帰分析</strong>に焦点を当て、関連する理論・概念・モデルを学びます。並行して統計分析用のプログラミング言語であるR言語の実習を行い、データを分析・解釈する経験を積みます。この過程の中で政治現象や社会現象を深く洞察する能力を養います。これらの過程で丁寧な予習復習と積極的な参加が求められますが、今後の職業生活にも活かせる知識と能力を得られることでしょう。</p>
-<p><strong>キーワード：</strong>因果推論、社会科学方法論、統計学、回帰分析、プログラミング、R言語</p>
-</section>
-<section id="授業計画" class="level2">
-<h2 class="anchored" data-anchor-id="授業計画">授業計画</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>回</th>
-<th>日付</th>
-<th>部・到達目標</th>
-<th>テーマ</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>9/29</td>
-<td>イントロダクション</td>
-<td><a href="./01_intro.html"><strong>はじめに</strong></a></td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>10/6</td>
-<td>イントロダクション</td>
-<td><a href="./02_causality.html"><strong>数量データと因果推論</strong></a></td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>10/13</td>
-<td>イントロダクション</td>
-<td><a href="./03_statR.html"><strong>統計学とR言語</strong></a></td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td>10/20</td>
-<td>二変量回帰分析</td>
-<td><a href="./04_OLSbasics.html"><strong>基本編</strong></a></td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>10/27</td>
-<td>二変量回帰分析</td>
-<td><a href="./05_OLSapp.html"><strong>応用編</strong></a></td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td>11/3</td>
-<td>二変量回帰分析</td>
-<td><strong>発展編</strong></td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td>11/10</td>
-<td>二変量回帰分析</td>
-<td><strong>復習編</strong></td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td>11/17</td>
-<td>統計的仮説検定</td>
-<td><strong>基本編</strong></td>
-</tr>
-<tr class="odd">
-<td>9</td>
-<td>11/24</td>
-<td>統計的仮説検定</td>
-<td><strong>発展編</strong></td>
-</tr>
-<tr class="even">
-<td>10</td>
-<td>12/1</td>
-<td>統計的仮説検定</td>
-<td><strong>復習編</strong></td>
-</tr>
-<tr class="odd">
-<td>11</td>
-<td>12/8</td>
-<td>多変量回帰分析</td>
-<td><strong>基本編</strong></td>
-</tr>
-<tr class="even">
-<td>12</td>
-<td>12/15</td>
-<td>多変量回帰分析</td>
-<td><strong>発展編</strong></td>
-</tr>
-<tr class="odd">
-<td>13</td>
-<td>12/22</td>
-<td>多変量回帰分析</td>
-<td><strong>復習編</strong></td>
-</tr>
-<tr class="even">
-<td>14</td>
-<td>1/5</td>
-<td>ふりかえり</td>
-<td><strong>授業全体のふりかえり</strong></td>
-</tr>
-<tr class="odd">
-<td>15</td>
-<td>TBA</td>
-<td>ふりかえり</td>
-<td><strong>理解度の確認</strong></td>
-</tr>
-</tbody>
-</table>
+<section id="問題" class="level2">
+<h2 class="anchored" data-anchor-id="問題">問題</h2>
+<p>問１：2つの散布図からわかる大まかな傾向は何か。正しいものを以下から1つ選びなさい。</p>
+<ol type="1">
+<li>年齢が高いほど自民党に対する好感度は高くなりそうである。</li>
+<li>年齢と自民党に対する感情温度は関係なさそうである。</li>
+<li>年齢が高いほど自民党に対する反感が高くなりそうである。</li>
+</ol>
+<p>問２：標本（A）と標本（B）それぞれにおける傾きのOLS推定値<span class="math inline">\(\hat{\beta}_{1}\)</span>の符号はどのようになるか。正しい組み合わせを以下から1つ選びなさい。</p>
+<ol type="1">
+<li>標本（A）：正、標本（B）：正</li>
+<li>標本（A）：正、標本（B）：負</li>
+<li>標本（A）：負、標本（B）：正</li>
+<li>標本（A）：負、標本（B）：負</li>
+</ol>
+<p>問３：年齢と誤差項に相関がない場合、傾き（回帰係数）のOLS推定値<span class="math inline">\(\hat{\beta}_{1}\)</span>の分散（<span class="math inline">\(\operatorname{var}(\hat{\beta_{1}})\)</span>）を計算する式として正しいものはどれか。</p>
+<ol type="1">
+<li><span class="math inline">\(\operatorname{var}(\hat{\beta_{1}})=\frac{\sum(X_i-\bar{X})(Y_i-\bar{Y})}{\sum(X_i-\bar{X})^2}\)</span></li>
+<li><span class="math inline">\(\operatorname{var}(\hat{\beta_{1}})=\frac{\hat{\sigma}^2}{N\times\operatorname{var}(X)}\)</span></li>
+<li><span class="math inline">\(\operatorname{var}(\hat{\beta_{1}})=\frac{\sum(Y_i-\hat{Y}_i)^2}{N-k}\)</span></li>
+</ol>
+<p>問４：問３の正答で示される分散の標準式を考えなさい。この式から<span class="math inline">\(\hat{\beta}_{1}\)</span>の分散について一般にどのようなことが言えるか。正しい説明を以下から全て選びなさい。</p>
+<ol type="1">
+<li>サンプルサイズが大きくなるほど<span class="math inline">\(\beta_{1}\)</span>の分散は小さくなる。</li>
+<li>独立変数の分散が大きいほど<span class="math inline">\(\beta_{1}\)</span>の分散は小さくなる。</li>
+<li>回帰直線から各データが離れているほど<span class="math inline">\(\beta_{1}\)</span>の分散は小さくなる。</li>
+<li>回帰直線が右肩上がりであるほど<span class="math inline">\(\beta_{1}\)</span>の分散は小さくなる。</li>
+</ol>
+<p>問５：2つのサンプルにおける傾きの推定値<span class="math inline">\(\hat{\beta}_{1}\)</span>の精度について考える。母集団における真の傾き<span class="math inline">\(\beta_{1}\)</span>に確率的に近い推定値が得られると思われるのは、標本（A）と標本（B）どちらで分析した場合だろうか。正しいものをどちらか選びなさい。</p>
+<ol type="1">
+<li>標本（A）</li>
+<li>標本（B）</li>
+</ol>
+<p>問６：問５のように言えるのはなぜだろうか。正しい説明を以下から1つ選びなさい。</p>
+<ol type="1">
+<li>標本（A）よりも標本（B）の方が回帰分散が小さいから。</li>
+<li>標本（A）よりも標本（B）の方がサンプルサイズが大きいから。</li>
+<li>標本（A）よりも標本（B）の方が独立変数の分散が大きいから。</li>
+</ol>
+<p>問７：また問３の正答で示される分散の標準式を考えなさい。この分析において標準式が使えない可能性はどのような原因によるものだろうか。正しい説明を以下から全て選びなさい。</p>
+<ol type="1">
+<li>都道府県ごとに自民党を支持する雰囲気が異なる。</li>
+<li>年齢が低くなるほど、自民党に対する感情がばらつく。</li>
+<li>年齢が高くなるにつれて自民党に対する感情が高まるというトレンドが生じている。</li>
+<li>年齢と誤差項の間に相関が生じている。</li>
+</ol>
 
 
 </section>

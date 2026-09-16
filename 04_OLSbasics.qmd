@@ -10,7 +10,7 @@ abstract:
  - [ ] 【事前】教科書（第3章冒頭および3.1-3.3: pp.65-86）を読む。
  - [ ] 【事後】配布資料やノートを見直し、到達目標が達成できているかチェックする。
  - [ ] 【事後】WebClass上での小テスト回答（金曜日まで）
-    - 問題は[こちら](04_OLSbasics_quiz.qmd)
+    <!-- - 問題は[こちら](04_OLSbasics_quiz.qmd) -->
  - [ ] 【事後・任意】[OLS推定値の導出の学習ビデオ（YouTube）](https://www.youtube.com/watch?v=Zz1sgYxrA-k)を視聴する。
 
 ### スライド
