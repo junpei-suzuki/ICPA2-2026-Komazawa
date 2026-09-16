@@ -7,7 +7,7 @@ project:
 lang: ja
 
 website:
-  title: "現代政治分析入門1@駒大2026"
+  title: "現代政治分析入門2@駒大2026"
   page-footer: 
     right: "@2026 Junpei Suzuki"
   sidebar:
@@ -31,6 +31,7 @@ website:
         - text: "04/基本編"
           href: 04_OLSbasics.qmd
         - text: "05/応用編"
+          href: 05_OLSapp.qmd
         - text: "06/発展編"
         - text: "07/復習編"
       - section: 統計的仮説検定
