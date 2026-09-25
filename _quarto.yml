@@ -33,17 +33,17 @@ website:
         - text: "05/応用編"
           href: 05_OLSapp.qmd
         - text: "06/発展編"
-        - text: "07/復習編"
+        - text: "07/実習編"
       - section: 統計的仮説検定
         contents: 
         - text: "08/基本編"
         - text: "09/応用編"
-        - text: "10/復習編"
+        - text: "10/実習編"
       - section: 多変量回帰分析
         contents: 
         - text: "11/基本編"
         - text: "12/応用編"
-        - text: "13/復習編"
+        - text: "13/実習編"
       - section: ふりかえり
         contents: 
         - text: "14/授業全体のふりかえり"

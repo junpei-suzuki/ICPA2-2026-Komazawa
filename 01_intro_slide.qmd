@@ -30,7 +30,7 @@ metadata-files:
 
 # はじめに
 ## 授業資料と最新版シラバス
-<!-- ![](figs/ICPA1-2026-Komazawa-QR.png){.r-stretch} -->
+![](figs/ICPA2-2026-Komazawa-QR.png){.r-stretch}
 
 ## 本日の目的と到達目標
 #### 目的
@@ -166,8 +166,8 @@ metadata-files:
 #### 事前学習
 ::: {.incremental}
  - 指定された教科書等の該当部分を読む→授業開始までにWebClass上のチェックフォームに記入
- - **【教科書】**ベイリー，マイケル（2025）『社会科学のための統計分析入門—リサーチにすぐ使える統計テクニック〈上〉』（加藤言人・西川賢監訳）勁草書房．．
-     - 当初のシラバスとは異なる→WebClassで共有
+ - **【教科書】**ベイリー，マイケル（2025）『[社会科学のための統計分析入門—リサーチにすぐ使える統計テクニック〈上〉](https://amzn.asia/d/07M5xkm1)』（加藤言人・西川賢監訳）勁草書房．
+     - 当初のシラバスとは異なる→[WebClassで共有](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=e812cae609a4874c77b89138aa811bf0&page=1)
 
 :::
 :::
@@ -209,6 +209,8 @@ metadata-files:
  - 授業計画は当初のシラバスから大幅に変更されている
     - さらに若干の変更の可能性あり
  - やむを得ない事情（病気、就活、忌引き等）で欠席する際にはWebClass上からアクセスできるフォームから登録
+ - [WebClassで質問用掲示板](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=8534fce0d365a4c344f61c6ff7a7a0cc)を用意してあるので、積極的に活用すること
+    - 受講生同士で教え合っても良い
 
 :::
 
@@ -236,6 +238,7 @@ metadata-files:
 
  - 授業で扱った因果推論や統計学上の概念の知識
  - R上での分析結果の解釈
+ - 授業資料・教科書の持込可の予定
 
 :::
 
@@ -249,10 +252,14 @@ metadata-files:
 目的：自分の受講動機を整理し、本科目で学ぶことを意識する
 
 ::: {.fragment .fade-in}
-1. なぜこの授業を受講しようと思ったのか、理由を自由に書き込んでください。
-1. 改訂版のシラバスを読み、興味を持ったトピックやワードを自由に書き込んでください。
+1. なぜこの授業を受講しようと思ったのか、理由を[チャット](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=61c6d1b524cede4ce7fa0180ce353079)に自由に書き込んでください。
+1. 改訂版のシラバスを読み、興味を持ったトピックやワードを[チャット](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=61c6d1b524cede4ce7fa0180ce353079)に自由に書き込んでください。
+
+![](figs/01_intro_chatQR.png){width=30%}
 
 :::
+
+
 
 # 本授業で学ぶこと
 ## 質問
