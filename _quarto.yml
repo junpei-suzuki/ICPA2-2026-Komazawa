@@ -33,6 +33,7 @@ website:
         - text: "05/応用編"
           href: 05_OLSapp.qmd
         - text: "06/発展編"
+          href: 06_OLSadv.qmd
         - text: "07/実習編"
       - section: 統計的仮説検定
         contents: 

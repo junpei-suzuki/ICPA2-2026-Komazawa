@@ -1,0 +1,21 @@
+{
+  "hash": "92b012e63b2704014326912bbade3539",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"06/二変量回帰分析：発展編\"\ndate: 2026/11/3\n\nmodified-date: today\n\nformat: \n  revealjs:\n    footer: \"二変量回帰分析：発展編\"\n    mermaid:\n      theme: neutral\n\nmetadata-files: \n  - \"style/slide.yml\"\n---\n\n\n\n\n\n## 出席登録をお願いします\n![](figs/attendance_webclass.png)\n\n## 今日の目次\n\n1. はじめに\n1. 復習：OLSの分散と一致性\n1. 適合度\n1. 外れ値\n1. Q&A\n1. まとめ\n\n# はじめに\n## 本日の目的と到達目標 {.smaller}\n#### 目的\n二変量回帰モデルについてさらに深掘りする。回帰モデルがどれくらいデータを説明しているのかを示す概念である適合度について扱い、その尺度を紹介する。また外れ値とは何かについて学び、それが推定結果にどのような影響を与えるのかを議論する。\n\n::: {.fragment .fade-in}\n#### 到達目標\n1. 適合度とは何かを説明できる。\n1. 決定係数$R^2$の定義と性質、その限界を説明できる。\n1. 外れ値がOLS推定にどのような影響を与えるのか議論できる。\n1. 外れ値が分析結果に与える影響を踏まえ、外れ値を含む場合の対処方法を説明できる。\n\n:::\n\n## 小テストの講評\nTBD\n\n# 復習：OLSの分散と一致性\n## 最小二乗法（OLS）\n独立変数$X$と従属変数$Y$の間の回帰直線を考える。回帰直線の切片と傾きのOLS推定値は以下で計算。\n\n::: {.columns}\n::: {.column width=50%}\n\n::: {.cell layout-align=\"center\"}\n::: {.cell-output-display}\n![](05_OLSadv_slide_files/figure-revealjs/unnamed-chunk-2-1.png){fig-align='center' width=900}\n:::\n:::\n\n:::\n\n::: {.column width=50%}\n- 傾き：$\\hat{\\beta_{1}}=\\frac{\\sum(X_i-\\bar{X})(Y_i-\\bar{Y})}{\\sum(X_i-\\bar{X})^2}$\n- 切片：$\\hat{\\beta_{0}}=\\bar{Y}-\\hat{\\beta_{1}}\\bar{X}$\n\n:::\n:::\n\n# 適合度\n# 外れ値\n# Q&A\n# まとめ\n",
+    "supporting": [
+      "05_OLSadv_slide_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
