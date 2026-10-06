@@ -1,5 +1,5 @@
 ---
-title: "04/小テスト問題"
+title: "05/小テスト問題"
 modified-date: today
 format: html
 ---
