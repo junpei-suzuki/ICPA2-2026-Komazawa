@@ -198,7 +198,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">03/統計学とR言語</h1>
-  <p class="subtitle">現代政治分析入門1</p>
+  <p class="subtitle">現代政治分析入門2</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -234,7 +234,19 @@
 <section>
 <section id="はじめに" class="title-slide slide level1 center">
 <h1>はじめに</h1>
-
+<aside class="notes">
+<p>目標15分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="本日の目的と到達目標" class="slide level2">
 <h2>本日の目的と到達目標</h2>
@@ -250,40 +262,78 @@
 </ol>
 </div>
 </section>
-<section id="小テストの講評" class="slide level2">
-<h2>小テストの講評</h2>
-<p>TBD</p>
+<section id="小テストの講評-14" class="slide level2">
+<h2>小テストの講評 (1/4)</h2>
+<ul>
+<li>受験者数176人</li>
+<li>平均7.57/10点</li>
+<li>標準偏差2.38点</li>
+<li>最小値0点</li>
+<li>最大値10点</li>
+</ul>
+</section>
+<section id="小テストの講評-24" class="slide level2">
+<h2>小テストの講評 (2/4)</h2>
+<p>まず、「1週間あたりの勉強時間（時間／週）が長い人ほどGPAが高い」という関係を考える。この関係を授業で扱った形でモデル化すると【１：<span class="math inline">\(GPA_{i}=\beta_{0}+\beta_{1}勉強時間_{i}+\varepsilon_i\)</span>】になる。このモデルにおいて<span class="math inline">\(\beta_{0}\)</span>は【２：1週間あたりの勉強時間が0時間の時のGPAの値】という意味になり、<span class="math inline">\(\beta_{1}\)</span>は【３：1週間あたりの勉強時間が1時間増えるごとにGPAがいくつ増えるか】という意味になる。この時【４：独立変数である勉強時間は誤差項の中に含まれるアルバイト時間と相関している】と考えられるから、独立変数は内生的であると考えられる。この時、勉強時間とGPAの関係を純粋な因果関係と【５：言えない】。</p>
+</section>
+<section id="小テストの講評-34" class="slide level2">
+<h2>小テストの講評 (3/4)</h2>
+<p>次にコロナワクチン接種が感染予防に与える効果を測るため、「【６】ランダム化対象試験（RCT）」を実施したとしよう。この時独立変数は【７－１：コロナワクチンの接種】、従属変数は【７－２：コロナへの感染】である。この時、独立変数は誤差項と【８：相関していない】ので【９：外生的】であり、したがって独立変数の係数である<span class="math inline">\(\beta_{1}\)</span>は純粋な因果効果を拾っていると【１０：言える】。</p>
+</section>
+<section id="小テストの講評-44" class="slide level2">
+<h2>小テストの講評 (4/4)</h2>
+<p>「【６】ランダム化対象試験（RCT）」について、意義および限界として当てはまるものを次から全て選べ。</p>
+<ol type="1">
+<li>RCTを行ったとしても、独立変数の外生性を完全に確保することができない。</li>
+<li>多くの場合RCTは人的金銭的なコストが莫大にかかる。（◯）</li>
+<li>アルコールの害を調べるために飲酒の有無を実験処置としたRCTを行うことは理論上は可能である。（◯）</li>
+<li>RCTは内的妥当性に問題があるものの外的妥当性は高いという利点がある。</li>
+<li>大衆蜂起が独裁体制の崩壊にもたらす効果などもRCTを使うことで測ることができる。</li>
+</ol>
 </section></section>
 <section>
 <section id="記述統計" class="title-slide slide level1 center">
 <h1>記述統計</h1>
-
+<aside class="notes">
+<p>ここまで15分</p>
+<p>目標15分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="記述統計と散布図" class="slide level2">
-<h2>記述統計と散布図</h2>
+<section id="記述統計-1" class="slide level2">
+<h2>記述統計</h2>
 <p>手元にあるデータの特徴をわかりやすく整理し、要約して表現すること</p>
 <div class="fragment fade-in">
 <p>データを手に入れたら、まず以下を計算</p>
 <ul>
 <li class="fragment"><strong>観察数</strong>（<span class="math inline">\(n\)</span>）…データがいくつあるか</li>
-<li class="fragment"><strong>平均</strong>…合計を観察で割った値</li>
+<li class="fragment"><strong>平均</strong>…合計を観察数で割った値</li>
 <li class="fragment"><strong>標準偏差</strong>…データの散らばり具合を表す尺度</li>
 <li class="fragment"><strong>最小値</strong>、<strong>最大値</strong></li>
 </ul>
 </div>
 <div class="fragment fade-in">
-<p>加えて、散布図を作る（＝<strong>プロット</strong>する）</p>
+<p>加えて、<strong>散布図</strong>を作る（＝<strong>プロット</strong>する）</p>
 <ul>
 <li class="fragment">関係性の把握と外れ値の発見</li>
 </ul>
 </div>
 </section>
-<section id="平均と最小値" class="slide level2">
-<h2>平均と最小値</h2>
+<section id="平均と標準偏差" class="slide level2">
+<h2>平均と標準偏差</h2>
 <p><span class="math inline">\(n\)</span>個のデータ<span class="math inline">\(X= \{ x_1, x_2, \cdots, x_n \}\)</span>があるとする。</p>
 <div class="fragment fade-in">
 <h4 id="平均-mean">平均 (mean)</h4>
-<p>合計を観察で割った値 <span class="math display">\[
+<p>合計を観察数で割った値 <span class="math display">\[
 \overline{X} = \frac{\sum_{i=1}^{n} x_i}{n}
 \]</span></p>
 </div>
@@ -293,30 +343,30 @@
 <p><span class="math display">\[
 SD = \sqrt{\frac{\sum{(x_i - \overline{X}})^2}{n}}
 \]</span></p>
+<ul>
+<li class="fragment">SDは<strong>分散</strong>（variance）の二乗根（ルート）</li>
+</ul>
 </div>
 </section>
-<section id="平均と最小値の計算" class="slide level2">
-<h2>平均と最小値の計算</h2>
-<p>6人の駒大生が10点満点のテストを受け、その結果のデータは<span class="math inline">\(X = \{ 5, 6, 6, 8, 4, 9 \}\)</span>になりました。</p>
+<section id="平均と標準偏差の計算" class="slide level2">
+<h2>平均と標準偏差の計算</h2>
+<p>6人の駒大生が10点満点の小テストを受け、その結果のデータは<span class="math inline">\(X = \{ 5, 6, 6, 8, 4, 9 \}\)</span>になりました。</p>
 <div class="fragment fade-in">
 <p>平均<span class="math inline">\(\overline{X}\)</span>を求めると… <span class="math display">\[
-\overline{X} = \frac{5 + 6 + 6 + 8 + 4 + 9}{6} = \frac{38}{6} = 6.33...
+\overline{X} = \frac{5 + 6 + 6 + 8 + 4 + 9}{6} = \frac{38}{6} = 6.33\cdots
 \]</span></p>
 </div>
 <div class="fragment fade-in">
 <p>標準偏差を求めると…</p>
-<div style="font-size: 60%;">
+<div style="font-size: 50%;">
 <p><span class="math display">\[
-\sqrt{\frac{(5 - \overline{X})^2 + (6 - \overline{X})^2 + (6 - \overline{X})^2 + (8 - \overline{X})^2 + (4 - \overline{X})^2 + (9 - \overline{X})^2}{6}} = 1.70...
+\sqrt{\frac{(5 - 6.33\cdots)^2 + (6 - 6.33\cdots)^2 + (6 - 6.33\cdots)^2 + (8 - 6.33\cdots)^2 + (4 - 6.33\cdots)^2 + (9 - 6.33\cdots)^2}{6}} = 1.70\cdots
 \]</span></p>
 </div>
 </div>
 </section>
 <section id="例ドーナツと体重" class="slide level2">
 <h2>例：ドーナツと体重</h2>
-<div class="fragment fade-in">
-
-</div>
 <div class="fragment fade-in">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -368,7 +418,20 @@ SD = \sqrt{\frac{\sum{(x_i - \overline{X}})^2}{n}}
 <section>
 <section id="再現可能性" class="title-slide slide level1 center">
 <h1>再現可能性</h1>
-
+<aside class="notes">
+<p>ここまで30分</p>
+<p>目標15分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="再現可能性replicability" class="slide level2">
 <h2>再現可能性（replicability）</h2>
@@ -404,11 +467,11 @@ SD = \sqrt{\frac{\sum{(x_i - \overline{X}})^2}{n}}
 <h2>研究再現用ファイル (replication file)</h2>
 <p>他人が研究結果を再現するために必要なファイル</p>
 <ul>
-<li><strong>コードブック</strong>…データを文書化したもの
+<li class="fragment"><strong>コードブック</strong>…データを文書化したもの
 <ul>
-<li>データソース、変数の定義など</li>
+<li class="fragment">データソース、変数の定義など</li>
 </ul></li>
-<li><strong>分析用コード</strong>…分析結果を出力するためのプログラミングコマンド</li>
+<li class="fragment"><strong>分析用コード</strong>…分析結果を出力するためのプログラミングコマンド</li>
 </ul>
 </section>
 <section id="コードブックの例" class="slide level2">
@@ -459,7 +522,21 @@ SD = \sqrt{\frac{\sum{(x_i - \overline{X}})^2}{n}}
 <section>
 <section id="rとrstudio" class="title-slide slide level1 center">
 <h1>RとRStudio</h1>
-
+<aside class="notes">
+<p>ここまで45分</p>
+<p>休憩5分</p>
+<p>目標5分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="r" class="slide level2">
 <h2>R</h2>
@@ -490,7 +567,20 @@ SD = \sqrt{\frac{\sum{(x_i - \overline{X}})^2}{n}}
 <section>
 <section id="実習rの基本操作" class="title-slide slide level1 center">
 <h1>実習：Rの基本操作</h1>
-
+<aside class="notes">
+<p>ここまで55分</p>
+<p>目標30分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="rstudioの最初の画面" class="slide level2">
 <h2>RStudioの最初の画面</h2>
@@ -545,7 +635,7 @@ SD = \sqrt{\frac{\sum{(x_i - \overline{X}})^2}{n}}
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>TwoNumbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fl">4.5</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>作ったオブジェクトは右上の環境ペーンで確認可能であり、後から呼び出せる。</p>
+<p>作ったオブジェクトは右上の環境（Environment）ペーンで確認可能であり、後から呼び出せる。</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>OneNumber</span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3</span></span>
@@ -687,7 +777,20 @@ SD = \sqrt{\frac{\sum{(x_i - \overline{X}})^2}{n}}
 <section>
 <section id="まとめ" class="title-slide slide level1 center">
 <h1>まとめ</h1>
-
+<aside class="notes">
+<p>ここまで85分（01:25:00）</p>
+<p>目標5分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="本日の目的と到達目標-1" class="slide level2">
 <h2>本日の目的と到達目標</h2>
