@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>07/二変量回帰分析：実習編 – 現代政治分析入門2@駒大2026</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="サイドバーを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_OLSbasics.html">二変量回帰分析</a></li><li class="breadcrumb-item"><a href="./07_OLSexc.html">07/実習編</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="サイドバーを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="サーチ" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">現代政治分析入門2@駒大2026</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="サーチ"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">シラバス</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">イントロダクション</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="セクションを切り替え">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01/はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_causality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02/数量データと因果推論</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_statR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">03/統計学とR言語</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">二変量回帰分析</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="セクションを切り替え">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_OLSbasics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">04/基本編</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_OLSapp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">05/応用編</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_OLSadv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">06/発展編</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_OLSexc.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">07/実習編</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">統計的仮説検定</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="セクションを切り替え">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+ <span class="menu-text">08/基本編</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">09/応用編</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">10/実習編</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">多変量回帰分析</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="セクションを切り替え">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+ <span class="menu-text">11/基本編</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">12/応用編</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">13/実習編</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">ふりかえり</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="セクションを切り替え">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+ <span class="menu-text">14/授業全体のふりかえり</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">15/理解度の確認</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">付録</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="セクションを切り替え">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app01_pdfexport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">付録01/スライドの保存方法</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#準備学習" id="toc-準備学習" class="nav-link active" data-scroll-target="#準備学習">準備学習</a></li>
+  <li><a href="#実習の進行と到達目標" id="toc-実習の進行と到達目標" class="nav-link" data-scroll-target="#実習の進行と到達目標">実習の進行と到達目標</a></li>
+  <li><a href="#実習の準備" id="toc-実習の準備" class="nav-link" data-scroll-target="#実習の準備">実習の準備</a>
+  <ul class="collapse">
+  <li><a href="#posit-cloudの準備" id="toc-posit-cloudの準備" class="nav-link" data-scroll-target="#posit-cloudの準備">Posit Cloudの準備</a></li>
+  <li><a href="#データのインポート" id="toc-データのインポート" class="nav-link" data-scroll-target="#データのインポート">データのインポート</a></li>
+  <li><a href="#データフレームオブジェクト" id="toc-データフレームオブジェクト" class="nav-link" data-scroll-target="#データフレームオブジェクト">データフレームオブジェクト</a></li>
+  </ul></li>
+  <li><a href="#記述統計" id="toc-記述統計" class="nav-link" data-scroll-target="#記述統計">記述統計</a>
+  <ul class="collapse">
+  <li><a href="#記述統計-1" id="toc-記述統計-1" class="nav-link" data-scroll-target="#記述統計-1">記述統計</a></li>
+  <li><a href="#rの関数と引数" id="toc-rの関数と引数" class="nav-link" data-scroll-target="#rの関数と引数">Rの関数と引数</a></li>
+  <li><a href="#散布図の作成" id="toc-散布図の作成" class="nav-link" data-scroll-target="#散布図の作成">散布図の作成</a></li>
+  </ul></li>
+  <li><a href="#二変量回帰分析" id="toc-二変量回帰分析" class="nav-link" data-scroll-target="#二変量回帰分析">二変量回帰分析</a>
+  <ul class="collapse">
+  <li><a href="#二変量モデルのols推定" id="toc-二変量モデルのols推定" class="nav-link" data-scroll-target="#二変量モデルのols推定">二変量モデルのOLS推定</a></li>
+  <li><a href="#olsの実装と解釈" id="toc-olsの実装と解釈" class="nav-link" data-scroll-target="#olsの実装と解釈">OLSの実装と解釈</a></li>
+  <li><a href="#分析結果を散布図上に書き込む" id="toc-分析結果を散布図上に書き込む" class="nav-link" data-scroll-target="#分析結果を散布図上に書き込む">分析結果を散布図上に書き込む</a></li>
+  <li><a href="#一部のデータを使った分析" id="toc-一部のデータを使った分析" class="nav-link" data-scroll-target="#一部のデータを使った分析">一部のデータを使った分析</a></li>
+  <li><a href="#頑健標準誤差時間があれば" id="toc-頑健標準誤差時間があれば" class="nav-link" data-scroll-target="#頑健標準誤差時間があれば">頑健標準誤差（時間があれば）</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_OLSbasics.html">二変量回帰分析</a></li><li class="breadcrumb-item"><a href="./07_OLSexc.html">07/実習編</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">07/二変量回帰分析：実習編</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">概要</div>
+    （R実習回）二変量回帰分析について、これまで学んだことをふりかえるとともに、自分でR上で実装し、その結果を解釈してみる。
+  </div>
+</div>
+
+
+</header>
+
+
+<section id="準備学習" class="level2">
+<h2 class="anchored" data-anchor-id="準備学習">準備学習</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">【事前】教科書（第3章全て）を再読する。</label></li>
+<li><label><input type="checkbox">【事後】配布資料やノートを見直し、到達目標が達成できているかチェックする。</label></li>
+<li><label><input type="checkbox">【事後】R実習課題に回答し、提出（金曜日まで） <!-- - 問題は[こちら](05_OLSapp_quiz.qmd) --></label></li>
+</ul>
+</section>
+<section id="実習の進行と到達目標" class="level2">
+<h2 class="anchored" data-anchor-id="実習の進行と到達目標">実習の進行と到達目標</h2>
+<p>今回の実習ではスライドではなくこちらのファイルに沿って行う。到達目標は以下の通り。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">ノート</span>到達目標
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul class="task-list">
+<li><label><input type="checkbox">ダウンロードしたデータをR上のオブジェクトとしてインポートできる。</label></li>
+<li><label><input type="checkbox">Rを使って実際のデータの記述統計とグラフによる要約を作り、解釈できる。</label></li>
+<li><label><input type="checkbox">R上で二変量回帰分析を実装し、解釈できる。</label></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="実習の準備" class="level2">
+<h2 class="anchored" data-anchor-id="実習の準備">実習の準備</h2>
+<section id="posit-cloudの準備" class="level3">
+<h3 class="anchored" data-anchor-id="posit-cloudの準備">Posit Cloudの準備</h3>
+<p>Posit Cloudにログインし、前回のWorkspace（例えば「ICPA2」）に入ったら、以下の準備を行おう。</p>
+<ul>
+<li>セッションのリスタート：最上部ツールバーのSession&gt;Restart R</li>
+<li>オブジェクトのクリア：右上Environmentの🧹をクリック</li>
+<li>新しいスクリプトの作成と保存：ツールバーFile直下のアイコンからR Script
+<ul>
+<li>「07_OLSexc.R」などの名前をつけて保存</li>
+</ul></li>
+</ul>
+</section>
+<section id="データのインポート" class="level3">
+<h3 class="anchored" data-anchor-id="データのインポート">データのインポート</h3>
+<p>次に今回の実習で使うドーナツデータ（donuts.RData）をダウンロードしインポートする</p>
+<ul>
+<li>WebClassにアクセスし「第7回R実習データ（ドーナツ）」からデータをダウンロード</li>
+<li>PositCloud上にアップロードした上で<code>dta &lt;- readRDS("donuts.RDS")</code>を実行しインポート<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+</ul>
+</section>
+<section id="データフレームオブジェクト" class="level3">
+<h3 class="anchored" data-anchor-id="データフレームオブジェクト">データフレームオブジェクト</h3>
+<p>ここまで済んだら、ドーナツデータは<code>dta</code>という<strong>オブジェクト</strong>に保存されていることがEnvironmentペーンを見るとわかる。復習になるがオブジェクトとは数値やデータを格納しておく箱のようなもので、後で自由自在に呼び出すことができる。今回の<code>dta</code>はオブジェクトの中でも<strong>データフレーム</strong>という形で保存されている。データフレームであれば以下のようにデータ構造を把握できる。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dta) <span class="co"># 上から6行目までのデータが表示される</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            name male child donuts    weight
+1          Homer    1     0  14.00 124.71655
+2          Marge    0     0   0.00  63.94558
+3           Lisa    0     1   0.00  31.74603
+4           Bart    1     1   5.00  34.01361
+5 Comic Book Guy    1     0  20.50 140.58957
+6      Mr. Burns    1     0   0.75  36.28118</code></pre>
+</div>
+</div>
+<p>データを見ると5つの変数が含まれていることがわかる。コードブックは以下の通り。</p>
+<ul>
+<li>name: 名前</li>
+<li>male: その人が男性なら1、女性なら0を表す<strong>ダミー変数</strong></li>
+<li>child: その人が子供なら1、大人なら0を表す<strong>ダミー変数</strong></li>
+<li>donuts: その人が1週間あたりに食べるドーナツの数（個）</li>
+<li>weight: その人の体重（kg）<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+</ul>
+</section>
+</section>
+<section id="記述統計" class="level2">
+<h2 class="anchored" data-anchor-id="記述統計">記述統計</h2>
+<section id="記述統計-1" class="level3">
+<h3 class="anchored" data-anchor-id="記述統計-1">記述統計</h3>
+<p>データを入手したらまず行うことは記述統計の作成である。以下のコマンドで体重の記述統計の作成を行える。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.finite</span>(dta<span class="sc">$</span>weight)) <span class="co"># 観察数：体重</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dta<span class="sc">$</span>weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 平均：体重</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 77.93476</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(dta<span class="sc">$</span>weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 標準偏差：体重</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 34.53758</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(dta<span class="sc">$</span>weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 最小値：体重</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 31.74603</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(dta<span class="sc">$</span>weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 最大値：体重</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 140.5896</code></pre>
+</div>
+</div>
+</section>
+<section id="rの関数と引数" class="level3">
+<h3 class="anchored" data-anchor-id="rの関数と引数">Rの関数と引数</h3>
+<p>ここで平均を計算する<code>mean()</code>関数を見てみよう。一般に関数の中に書き込むもの<strong>引数</strong>（ひきすう：argument）と呼ぶ。<code>mean()</code>の最初の引数には平均を計算したいベクトル形式のオブジェクトを書き込む。次の<code>na.rm = TRUE</code>は欠損値を無視するというオプションを指定する引数である。</p>
+<p>なおここで今回の第一引数は<code>dta$weight</code>となっている。<code>$</code>演算子を使うことで、データフレームの中の変数ベクトルを取り出すことができる。したがって変数をドーナツに変える場合は以下のようにする。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.finite</span>(dta<span class="sc">$</span>donuts)) <span class="co"># 観察数：ドーナツ</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dta<span class="sc">$</span>donuts, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 平均：ドーナツ</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.407692</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(dta<span class="sc">$</span>donuts, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 標準偏差：ドーナツ</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.854769</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(dta<span class="sc">$</span>donuts, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 最小値：ドーナツ</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(dta<span class="sc">$</span>donuts, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 最大値：ドーナツ</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.5</code></pre>
+</div>
+</div>
+</section>
+<section id="散布図の作成" class="level3">
+<h3 class="anchored" data-anchor-id="散布図の作成">散布図の作成</h3>
+<p>記述統計の次に行うべきは散布図の確認である。ドーナツを食べるほど体重は増えるのか、散布図をプロットして変数間の関係を確認できる。また、どれが外れ値なのかも確認できる。以下のコマンドと実施結果を見る限り、ドーナツを食べると体重は増えそうである。外れ値はなさそうである。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dta<span class="sc">$</span>donuts, dta<span class="sc">$</span>weight)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_OLSexc_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="二変量回帰分析" class="level2">
+<h2 class="anchored" data-anchor-id="二変量回帰分析">二変量回帰分析</h2>
+<section id="二変量モデルのols推定" class="level3">
+<h3 class="anchored" data-anchor-id="二変量モデルのols推定">二変量モデルのOLS推定</h3>
+<p>独立変数<span class="math inline">\(X\)</span>と従属変数<span class="math inline">\(Y\)</span>を以下のようにモデル化する。</p>
+<p><span class="math display">\[
+Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
+\]</span></p>
+<p>この時、<span class="math inline">\(\beta_{0}\)</span>は切片で、<span class="math inline">\(X\)</span>の値が0の時の<span class="math inline">\(Y\)</span>、<span class="math inline">\(\beta_{1}\)</span>は傾きで<span class="math inline">\(X\)</span>の値が1単位増大した時に<span class="math inline">\(Y\)</span>がどれくらい増えるか、<span class="math inline">\(\varepsilon\)</span>は誤差項で、<span class="math inline">\(X\)</span>以外に<span class="math inline">\(Y\)</span>に影響を与える要因全てである。</p>
+<p>傾き<span class="math inline">\(\beta_{1}\)</span>と切片<span class="math inline">\(\beta_{0}\)</span>をそれぞれ<strong>最小二乗法</strong>（OLS）を使って推定した値をそれぞれ<span class="math inline">\(\hat{\beta}_{0}\)</span>と<span class="math inline">\(\hat{\beta}_{1}\)</span>とすると、以下の通り計算される（<span class="math inline">\(\bar{X}\)</span>と<span class="math inline">\(\bar{Y}\)</span>はそれぞれ<span class="math inline">\(X\)</span>と<span class="math inline">\(Y\)</span>の平均）。</p>
+<ul>
+<li>傾き：<span class="math inline">\(\hat{\beta_{1}}=\frac{\sum(X_i-\bar{X})(Y_i-\bar{Y})}{\sum(X_i-\bar{X})^2}\)</span></li>
+<li>切片：<span class="math inline">\(\hat{\beta_{0}}=\bar{Y}-\hat{\beta_{1}}\bar{X}\)</span></li>
+</ul>
+<p>上記のOLS推定値のばらつきを<strong>標準誤差</strong>（standard error）と呼ぶ。一定の条件を満たす場合、傾き<span class="math inline">\(\hat{\beta_{1}}\)</span>の標準誤差は<span class="math inline">\(\text{var}(\hat{\beta_{1}})=\frac{\hat{\sigma}^2}{N\times\text{var}(X)}\)</span>で計算できる。母集団における真の傾きを<span class="math inline">\(\beta_{1}\)</span>とした場合、推定される<span class="math inline">\(\hat{\beta_{1}}\)</span>は<span class="math inline">\(\beta_{1}\)</span>を期待値、<span class="math inline">\(\sqrt{\text{var}(\hat{\beta_{1}})}\)</span>を標準偏差とする正規分布にしたがう。</p>
+</section>
+<section id="olsの実装と解釈" class="level3">
+<h3 class="anchored" data-anchor-id="olsの実装と解釈">OLSの実装と解釈</h3>
+<p>OLS推定をR上で実施するには<code>lm()</code>関数を使う。<code>lm()</code>関数に限らず、Rではコマンドのヘルプを<code>?関数</code>で閲覧できる。<code>?lm</code>と入力すると、<code>lm()</code>関数の使い方が載っている<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。<code>lm()</code>関数の第一引数はformulaであり、<code>y ~ x</code>のように従属変数と独立変数をモデル化する。<code>data</code>引数では使うデータを指定する。</p>
+<p>ここでドーナツデータを使い、ドーナツと体重の二変量モデルをOLS推定してみよう。以下のコマンドで推定を実施し、<code>OLS_result</code>というオブジェクトに保存できる。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>OLSresult <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> donuts, <span class="at">data =</span> dta)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>この<code>OLS_result</code>オブジェクトをもう一度コンソールに打ち込んでも良いが、これだと結果が見づらい。以下のように<code>summary()</code>を使って結果をわかりやすく表示できる。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSresult)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = weight ~ donuts, data = dta)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-42.238  -4.299   0.343  15.922  24.976 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  55.6080     7.4200   7.494 1.21e-05 ***
+donuts        4.1287     0.8707   4.742 0.000608 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 20.68 on 11 degrees of freedom
+Multiple R-squared:  0.6715,    Adjusted R-squared:  0.6416 
+F-statistic: 22.48 on 1 and 11 DF,  p-value: 0.0006078</code></pre>
+</div>
+</div>
+<p>上記で注目すべきはまず<code>Coefficiets</code>の欄である。</p>
+<ul>
+<li><code>Estimate</code>はそれぞれ切片<code>(intercept)</code>と<code>donuts</code>の傾きを表している。<code>(intercept)</code>が55.6ということは、ドーナツを全く食べていない場合の平均体重は55.6キロ程度ということである。<code>donuts</code>の傾きは4.13だが、これはドーナツを週一個多く食べるごとに体重が4.13キロ増えることを意味する。</li>
+<li><code>Std. Error</code>では切片および傾きの標準誤差が表示されている。<code>donuts</code>の標準誤差を見ると0.87程度だが、これが傾き推定値のばらつきを表している。</li>
+<li><code>t value</code>と<code>Pr(&gt;|t|)</code>は統計的仮説検定に関わる。詳細は次週以降。</li>
+</ul>
+<p>次に決定係数<span class="math inline">\(R^2\)</span>もわかる。下から2行目の<code>Multiple R-squared</code>がそれで、この結果では0.67くらいである。体重のばらつきの67%がこのモデルで説明されていることを意味する。<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+</section>
+<section id="分析結果を散布図上に書き込む" class="level3">
+<h3 class="anchored" data-anchor-id="分析結果を散布図上に書き込む">分析結果を散布図上に書き込む</h3>
+<p>以上の分析から、ドーナツと体重の関係は<span class="math inline">\(体重_{i}=55.6+4.13\timesドーナツ_{i}\)</span>であると推定された。この式が表す直線は以下のコマンドで散布図上に描ける。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dta<span class="sc">$</span>donuts, dta<span class="sc">$</span>weight)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(OLSresult)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_OLSexc_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="一部のデータを使った分析" class="level3">
+<h3 class="anchored" data-anchor-id="一部のデータを使った分析">一部のデータを使った分析</h3>
+<p>上記の分析では13人全員分のデータを使ってOLS推定を行ったが、<code>lm()</code>関数の<code>subset</code>オプションを使えば条件にあった一部のデータだけを使って推定できる。</p>
+<p>例えば、男性だけで分析したい場合は以下のコマンドでできる。今回は切片が60.14、傾きが3.86になっているのに注意。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>OLSresult_Male <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> donuts, <span class="at">data =</span> dta,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">subset =</span> (male <span class="sc">==</span> <span class="dv">1</span>)) <span class="co"># ==と2回続けるのに注意</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSresult_Male)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = weight ~ donuts, data = dta, subset = (male == 1))
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-45.40  -2.54  10.61  13.87  21.27 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   60.140     10.883   5.526 0.000882 ***
+donuts         3.855      1.081   3.565 0.009164 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 23.7 on 7 degrees of freedom
+Multiple R-squared:  0.6448,    Adjusted R-squared:  0.594 
+F-statistic: 12.71 on 1 and 7 DF,  p-value: 0.009164</code></pre>
+</div>
+</div>
+<p>例えば、大人だけで分析したい場合は以下のコマンドで。切片は63.64、傾きは3.79になった。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>OLSresult_Adult <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> donuts, <span class="at">data =</span> dta,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">subset =</span> (child <span class="sc">==</span> <span class="dv">0</span>)) <span class="co"># ==と2回続けるのに注意</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSresult_Adult)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = weight ~ donuts, data = dta, subset = (child == 
+    0))
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-30.2010  -7.6807   0.3041   9.2366  17.9660 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  63.6414     5.7463  11.075 1.52e-06 ***
+donuts        3.7877     0.6287   6.025 0.000196 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 14.49 on 9 degrees of freedom
+Multiple R-squared:  0.8013,    Adjusted R-squared:  0.7792 
+F-statistic:  36.3 on 1 and 9 DF,  p-value: 0.0001964</code></pre>
+</div>
+</div>
+<p>Homerを除外する場合は以下。切片は55.69、傾きは3.91。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>OLSresult_NoHomer <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> donuts, <span class="at">data =</span> dta,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">subset =</span> (name <span class="sc">!=</span> <span class="st">"Homer"</span>)) </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 名前は文字列なので""は忘れない。</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># また!=はノットイコールを意味する。</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSresult_NoHomer)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = weight ~ donuts, data = dta, subset = (name != "Homer"))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-41.229  -8.296   2.866  16.494  25.551 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  55.6862     7.6486   7.281 2.66e-05 ***
+donuts        3.9112     0.9688   4.037  0.00237 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 21.31 on 10 degrees of freedom
+Multiple R-squared:  0.6198,    Adjusted R-squared:  0.5817 
+F-statistic:  16.3 on 1 and 10 DF,  p-value: 0.002371</code></pre>
+</div>
+</div>
+</section>
+<section id="頑健標準誤差時間があれば" class="level3">
+<h3 class="anchored" data-anchor-id="頑健標準誤差時間があれば">頑健標準誤差（時間があれば）</h3>
+<p>傾き<span class="math inline">\(\hat{\beta_{1}}\)</span>の標準誤差は基本的に<span class="math inline">\(\text{var}(\hat{\beta_{1}})=\frac{\hat{\sigma}^2}{N\times\text{var}(X)}\)</span>で計算できるが、誤差項の均一分散や誤差項同士の相関がない場合に限られる。不均一分散や誤差項同士の相関が生じている場合には、<strong>頑健標準誤差</strong>という別の計算式を使った標準誤差を使う。</p>
+<p>実は頑健標準誤差はRのデフォルト機能では計算できない。ここで使うのは<strong>パッケージ</strong>である。ライブラリとはRに機能を追加するもので、ゲームで言ったらMODとかに近い（多分）。今回は<code>AER</code>パッケージをインストールし、Rに組み込む。インストールは<code>install.packages()</code><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>でできるが、これは基本一回やればよい。その上で<code>library()</code>コマンドを実行して、Rに組み込む。<code>library()</code>コマンドで組み込んだパッケージはセッションを立ち上げるたびにリセットされるので、その度に実行し直すこと。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"AER"</span>) <span class="co"># これは一度だけで大丈夫</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/hy/0rwqjktd7mb2ycrqdj1w7pgc0000gn/T//Rtmpba4v3Z/downloaded_packages</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER) <span class="co"># これはセッションのたびに実行</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: car</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: lmtest</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: zoo</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'zoo'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: sandwich</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: survival</code></pre>
+</div>
+</div>
+<p>以上ができたら、<code>coeftest()</code>関数で頑健標準誤差を計算できる。<code>vcov = vcovHC</code>オプションで不均一分散を考慮した標準誤差を指定している</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSresult) <span class="co"># デフォルトの分析結果</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = weight ~ donuts, data = dta)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-42.238  -4.299   0.343  15.922  24.976 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  55.6080     7.4200   7.494 1.21e-05 ***
+donuts        4.1287     0.8707   4.742 0.000608 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 20.68 on 11 degrees of freedom
+Multiple R-squared:  0.6715,    Adjusted R-squared:  0.6416 
+F-statistic: 22.48 on 1 and 11 DF,  p-value: 0.0006078</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 頑健標準誤差を使った分析結果</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(OLSresult, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(OLSresult, <span class="at">type =</span> <span class="st">"HC1"</span>))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t test of coefficients:
+
+            Estimate Std. Error t value  Pr(&gt;|t|)    
+(Intercept) 55.60799    7.68225  7.2385 1.668e-05 ***
+donuts       4.12871    0.48053  8.5920 3.293e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>最初のモデルと結果を見比べると、切片と係数の値（<code>Estimate</code>）自体は同じである一方、標準誤差<code>Std. Error</code>の値が変わっている。</p>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">脚注</h2>
+
+<ol>
+<li id="fn1"><p>前回のRData形式とは違い、RDS拡張子になっている点に注意。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>すでにポンドからは変換されている。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>全て英語なので、わからなかったら生成AIで翻訳をかけよう。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>隣の<code>Adjusted R-squared</code>は調整済み決定係数である。データに投入したモデルの数を調整したものであり、実際のデータ分析ではこちらを見ることが多い。<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>よく忘れてしまうが、““をつけないと動作しない。<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p><span class="citation" data-cites="2026">@2026</span> Junpei Suzuki</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

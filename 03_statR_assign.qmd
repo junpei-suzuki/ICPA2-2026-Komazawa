@@ -65,11 +65,11 @@ load("data/03_Olympic_data.RData")
 ```{r}
 #| include: false
 # メダル
+sum(is.finite(medals))
 mean(medals, na.rm = TRUE)
 sd(medals, na.rm = TRUE)
 min(medals, na.rm = TRUE)
 max(medals, na.rm = TRUE)
-sum(is.finite(medals))
 ```
 
 問２：選手数の記述統計として正しいものを以下から選びなさい（小数点3位以下は四捨五入）。
@@ -82,11 +82,11 @@ sum(is.finite(medals))
 ```{r}
 #| include: false
 # 選手数
+sum(is.finite(athletes))
 mean(athletes, na.rm = TRUE)
 sd(athletes, na.rm = TRUE)
 min(athletes, na.rm = TRUE)
 max(athletes, na.rm = TRUE)
-sum(is.finite(athletes))
 ```
 
 問３：GDPの記述統計として正しいものを以下から選びなさい（小数点3位以下は四捨五入）。
@@ -99,11 +99,11 @@ sum(is.finite(athletes))
 ```{r}
 #| include: false
 # GDP
+sum(is.finite(GDP))
 mean(GDP, na.rm = TRUE)
 sd(GDP, na.rm = TRUE)
 min(GDP, na.rm = TRUE)
 max(GDP, na.rm = TRUE)
-sum(is.finite(GDP))
 ```
 
 問４：メダル数と選手数の散布図を作りなさい。この散布図からわかる関係として正しいのは以下のうちどれか。

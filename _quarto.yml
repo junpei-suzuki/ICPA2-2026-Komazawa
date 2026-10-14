@@ -35,6 +35,7 @@ website:
         - text: "06/発展編"
           href: 06_OLSadv.qmd
         - text: "07/実習編"
+          href: 07_OLSexc.qmd
       - section: 統計的仮説検定
         contents: 
         - text: "08/基本編"
