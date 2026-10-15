@@ -1,0 +1,170 @@
+---
+title: "07/R実習課題"
+modified-date: today
+format: html
+---
+
+{{< include _common.qmd >}}
+
+```{r prepare}
+#| include: false
+load("~/Documents/ICPA2-2026-Komazawa/data/Ch3_Exercise1_Incumbent_vote.RData")
+
+dta |> 
+  saveRDS("07_USPresident.RDS")
+```
+
+**締切：2026年11月13日24:00**
+
+::: callout-important
+注意：この課題のデータはWebClassの「第7回R実習課題データ（大統領選挙）」から入手できる。添付資料07_USPresident.RDSをダウンロードした上で、授業の手順に沿ってPositCloud上にアップロードし、R上にインポートすること。成功すればデータは`dta`というオブジェクトに格納されているはずである。
+
+:::
+
+このデータは1948年から2016年までのアメリカ大統領選挙に関するデータである。これをRで分析し、経済成長（＝実質所得が増えること）が与党候補の得票率に与える影響を考察してみよう。なお、コードブックは以下の通り。
+
+- Year：選挙年
+- Vote100：与党候補の得票率（%）
+- RDI：前回選挙からの実質可処分所得の変化（%）
+- Reelection：現職が立候補していれば1、そうでなければ0
+- term：与党が何期政権についているか
+- IncumbentPartyNominee：与党の指名候補
+- DemCand：民主党（Democrats）の指名候補
+- RepCand：共和党（Republicans）の指名候補
+
+## 問題
+問１：与党候補の得票率の記述統計として正しいものを以下から選びなさい（小数点3位以下は四捨五入）。
+
+1. 観察数18、平均51.98、標準偏差3.48、最小値33.25、最大値61.79
+1. 観察数18、平均51.98、標準偏差5.17、最小値44.55、最大値61.79
+1. 観察数18、平均44.55、標準偏差3.48、最小値44.55、最大値51.98
+1. 観察数18、平均44.55、標準偏差3.48、最小値51.98、最大値61.79
+
+```{r}
+#| include: false
+
+# 得票率の記述統計：2が正解
+sum(is.finite(dta$Vote100))
+mean(dta$Vote100, na.rm = TRUE)
+sd(dta$Vote100, na.rm = TRUE)
+min(dta$Vote100, na.rm = TRUE)
+max(dta$Vote100, na.rm = TRUE)
+```
+
+問２：前回選挙からの実質可処分所得の変化の記述統計として正しいものを以下から選びなさい（小数点3位以下は四捨五入）。
+
+1. 観察数16、平均3.48、標準偏差2.66、最小値-0.44、最大値5.98
+1. 観察数16、平均2.66、標準偏差1.69、最小値-0.44、最大値5.98
+1. 観察数18、平均3.48、標準偏差2.66、最小値-0.44、最大値5.98
+1. 観察数18、平均2.66、標準偏差1.69、最小値-0.44、最大値5.98
+
+```{r}
+#| include: false
+
+# 前回選挙からの実質可処分所得の変化の記述統計：4が正解
+sum(is.finite(dta$RDI))
+mean(dta$RDI, na.rm = TRUE)
+sd(dta$RDI, na.rm = TRUE)
+min(dta$RDI, na.rm = TRUE)
+max(dta$RDI, na.rm = TRUE)
+```
+
+問３：実質可処分所得の変化を横軸、現職得票率を縦軸とした散布図を作成するコマンドは次のうちどちらか。
+
+1. `plot(dta$RDI, dta$Vote100)`
+1. `plot(dta$Vote100, dta$RDI)`
+1. `plot(dta$RDI, dta$term)`
+1. `plot(dta$RDI, dta$Reelection)`
+
+問４：問３の正しいコマンドを実行した結果出力されるグラフは次のうちどれか。
+
+```{r}
+#| echo: false
+#| layout-ncol: 2
+#| layout-nrow: 2
+
+# 正解は1
+par(family = "HiraKakuProN-W3") 
+plot(dta$RDI, dta$Vote100,
+     main = "散布図1",
+     xlab = "X",
+     ylab = "Y")
+
+plot(dta$Vote100, dta$RDI,
+     main = "散布図2",
+     xlab = "X",
+     ylab = "Y")
+
+plot(dta$Vote100 * 0.2, dta$RDI * - 1.5,
+     main = "散布図3",
+     xlab = "X",
+     ylab = "Y")
+
+plot(dta$Vote100 * - 0.1, dta$RDI * 5.8,
+     main = "散布図4",
+     xlab = "X",
+     ylab = "Y")
+
+
+```
+
+
+
+```{r}
+#| include: false
+plot(dta$RDI, dta$Vote100)
+
+```
+
+問５：実質可処分所得の変化を独立変数、現職得票率を従属変数として二変量回帰分析を実行するコマンドは次のうちどれか。なお結果は`OLSResult`というオブジェクトに保存するものとする。
+
+1. `OLSResult <- lm(RDI ~ Reelection, data = dta)`
+1. `OLSResult <- lm(RDI ~ Vote100, data = dta)`
+1. `OLSResult <- lm(Vote100 ~ RDI, data = dta)`
+1. `OLSResult <- lm(Vote100 ~ term, data = dta)`
+
+問６：問５の正しいコマンドを実行した結果の解釈として正しいものを次から全て選べ。
+
+1. 前回選挙から実質所得が1%増えるごとに与党候補者の得票率も2.2%上昇する
+1. 実質所得の変化がないと仮定すると、与党候補者の得票率の期待値は46%程度になる。
+1. 実質所得の変化がないと仮定すると、与党候補者の得票率の期待値は50%程度になる。
+1. 前回選挙から実質所得が1%増えるごとに与党候補者の得票率も0.23%上昇する。
+1. 推定されたモデルは与党候補者の得票率のばらつきの約50%を説明している。
+
+```{r}
+#| include: false
+# 正解は１、２、５
+
+OLSResult <- lm(Vote100 ~ RDI, data = dta)
+summary(OLSResult)
+```
+
+問７：同じデータを使って、現職が立候補している場合としていない場合でそれぞれ回帰分析を行い、結果を比較したい。この時実行すべき正しいコマンドは次のうちどれか、全て選べ。なお現職立候補の結果は`OLSResult_Incum`、現職不出馬の結果は`OLS_Result_NoIncum`というオブジェクトにそれぞれ格納するものとする。
+
+1. `OLSResult_Incum <- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 1))`
+1. `OLSResult_Incum <- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 0))`
+1. `OLSResult_NoIncum <- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 0))`
+1. `OLSResult_NoIncum <- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 1))`
+
+問８：問７の正しいコマンドを実行した結果の解釈として正しいものを次から全て選べ。
+
+1. 現職が立候補している場合も不出馬の場合も、所得の変化は与党候補の得票を増やす効果がありそうである。
+1. 現職が立候補している場合、所得の変化は与党候補の得票を増やす効果があるが、現職不出馬の場合は減らす効果がありそうである。
+1. 所得の変化が与党候補の得票を増やす効果は、現職が立候補している場合の方が不出馬の場合よりも大きそうである。
+1. 所得の変化が与党候補の得票を増やす効果は現職が立候補する場合としない場合であまり変化はなさそうである。
+
+```{r}
+#| include: false
+
+# 正解は1, 3
+
+# 現職立候補
+OLSResult_Incum <- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 1))
+summary(OLSResult_Incum)
+
+# 現職不出馬
+OLSResult_NoIncum <- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 0))
+summary(OLSResult_NoIncum)
+
+```
+

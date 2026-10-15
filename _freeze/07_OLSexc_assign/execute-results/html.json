@@ -1,0 +1,17 @@
+{
+  "hash": "9d2bed03e161c95eddec68dac92ea22f",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"07/R実習課題\"\nmodified-date: today\nformat: html\n---\n\n\n\n\n\n\n\n**締切：2026年11月13日24:00**\n\n::: callout-important\n注意：この課題のデータはWebClassの「第7回R実習課題データ（大統領選挙）」から入手できる。添付資料07_USPresident.RDSをダウンロードした上で、授業の手順に沿ってPositCloud上にアップロードし、R上にインポートすること。成功すればデータは`dta`というオブジェクトに格納されているはずである。\n\n:::\n\nこのデータは1948年から2016年までのアメリカ大統領選挙に関するデータである。これをRで分析し、経済成長（＝実質所得が増えること）が与党候補の得票率に与える影響を考察してみよう。なお、コードブックは以下の通り。\n\n- Year：選挙年\n- Vote100：与党候補の得票率（%）\n- RDI：前回選挙からの実質可処分所得の変化（%）\n- Reelection：現職が立候補していれば1、そうでなければ0\n- term：与党が何期政権についているか\n- IncumbentPartyNominee：与党の指名候補\n- DemCand：民主党（Democrats）の指名候補\n- RepCand：共和党（Republicans）の指名候補\n\n## 問題\n問１：与党候補の得票率の記述統計として正しいものを以下から選びなさい（小数点3位以下は四捨五入）。\n\n1. 観察数18、平均51.98、標準偏差3.48、最小値33.25、最大値61.79\n1. 観察数18、平均51.98、標準偏差5.17、最小値44.55、最大値61.79\n1. 観察数18、平均44.55、標準偏差3.48、最小値44.55、最大値51.98\n1. 観察数18、平均44.55、標準偏差3.48、最小値51.98、最大値61.79\n\n\n\n問２：前回選挙からの実質可処分所得の変化の記述統計として正しいものを以下から選びなさい（小数点3位以下は四捨五入）。\n\n1. 観察数16、平均3.48、標準偏差2.66、最小値-0.44、最大値5.98\n1. 観察数16、平均2.66、標準偏差1.69、最小値-0.44、最大値5.98\n1. 観察数18、平均3.48、標準偏差2.66、最小値-0.44、最大値5.98\n1. 観察数18、平均2.66、標準偏差1.69、最小値-0.44、最大値5.98\n\n\n\n問３：実質可処分所得の変化を横軸、現職得票率を縦軸とした散布図を作成するコマンドは次のうちどちらか。\n\n1. `plot(dta$RDI, dta$Vote100)`\n1. `plot(dta$Vote100, dta$RDI)`\n1. `plot(dta$RDI, dta$term)`\n1. `plot(dta$RDI, dta$Reelection)`\n\n問４：問３の正しいコマンドを実行した結果出力されるグラフは次のうちどれか。\n\n\n::: {.cell layout-nrow=\"2\" layout-ncol=\"2\"}\n::: {.cell-output-display}\n![](07_OLSexc_assign_files/figure-html/unnamed-chunk-4-1.png){width=672}\n:::\n\n::: {.cell-output-display}\n![](07_OLSexc_assign_files/figure-html/unnamed-chunk-4-2.png){width=672}\n:::\n\n::: {.cell-output-display}\n![](07_OLSexc_assign_files/figure-html/unnamed-chunk-4-3.png){width=672}\n:::\n\n::: {.cell-output-display}\n![](07_OLSexc_assign_files/figure-html/unnamed-chunk-4-4.png){width=672}\n:::\n:::\n\n\n\n\n\n\n問５：実質可処分所得の変化を独立変数、現職得票率を従属変数として二変量回帰分析を実行するコマンドは次のうちどれか。なお結果は`OLSResult`というオブジェクトに保存するものとする。\n\n1. `OLSResult <- lm(RDI ~ Reelection, data = dta)`\n1. `OLSResult <- lm(RDI ~ Vote100, data = dta)`\n1. `OLSResult <- lm(Vote100 ~ RDI, data = dta)`\n1. `OLSResult <- lm(Vote100 ~ term, data = dta)`\n\n問６：問５の正しいコマンドを実行した結果の解釈として正しいものを次から全て選べ。\n\n1. 前回選挙から実質所得が1%増えるごとに与党候補者の得票率も2.2%上昇する\n1. 実質所得の変化がないと仮定すると、与党候補者の得票率の期待値は46%程度になる。\n1. 実質所得の変化がないと仮定すると、与党候補者の得票率の期待値は50%程度になる。\n1. 前回選挙から実質所得が1%増えるごとに与党候補者の得票率も0.23%上昇する。\n1. 推定されたモデルは与党候補者の得票率のばらつきの約50%を説明している。\n\n\n\n問７：同じデータを使って、現職が立候補している場合としていない場合でそれぞれ回帰分析を行い、結果を比較したい。この時実行すべき正しいコマンドは次のうちどれか、全て選べ。なお現職立候補の結果は`OLSResult_Incum`、現職不出馬の結果は`OLS_Result_NoIncum`というオブジェクトにそれぞれ格納するものとする。\n\n1. `OLSResult_Incum <- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 1))`\n1. `OLSResult_Incum <- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 0))`\n1. `OLSResult_NoIncum <- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 0))`\n1. `OLSResult_NoIncum <- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 1))`\n\n問８：問７の正しいコマンドを実行した結果の解釈として正しいものを次から全て選べ。\n\n1. 現職が立候補している場合も不出馬の場合も、所得の変化は与党候補の得票を増やす効果がありそうである。\n1. 現職が立候補している場合、所得の変化は与党候補の得票を増やす効果があるが、現職不出馬の場合は減らす効果がありそうである。\n1. 所得の変化が与党候補の得票を増やす効果は、現職が立候補している場合の方が不出馬の場合よりも大きそうである。\n1. 所得の変化が与党候補の得票を増やす効果は現職が立候補する場合としない場合であまり変化はなさそうである。\n\n\n\n",
+    "supporting": [
+      "07_OLSexc_assign_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
