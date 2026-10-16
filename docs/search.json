@@ -764,7 +764,7 @@
     "href": "03_statR_slide.html#次回までに",
     "title": "03/統計学とR言語",
     "section": "次回までに",
-    "text": "次回までに\n\n事後学習\n\n授業資料を見直し、目標到達をセルフチェック\nWebClass上でのR実習課題（金曜日まで）\n\n\n\n事前学習\n\n教科書（第3章冒頭および3.1-3.3: pp.65-86）を読む"
+    "text": "次回までに\n\n事後学習\n\n授業資料を見直し、目標到達をセルフチェック\nWebClass上でのR実習課題（金曜日日曜日まで）\n\n\n\n事前学習\n\n教科書（第3章冒頭および3.1-3.3: pp.65-86）を読む"
   },
   {
     "objectID": "03_statR_slide.html#記述統計-1",
@@ -1276,7 +1276,7 @@
     "href": "05_OLSapp_slide.html#次回までに",
     "title": "05/二変量回帰分析：応用編",
     "section": "次回までに",
-    "text": "次回までに\n\n事後学習\n\n授業資料を見直し、目標到達をセルフチェック\nWebClass上での確認小テスト（金曜日まで）\n\n\n\n事前学習\n\n教科書（第3章3.7-3.8および結論: pp.86-98）を読む"
+    "text": "次回までに\n\n事後学習\n\n授業資料を見直し、目標到達をセルフチェック\nWebClass上での確認小テスト（木曜日まで）\n\n\n\n事前学習\n\n教科書（第3章3.7-3.8および結論: pp.86-98）を読む"
   },
   {
     "objectID": "05_OLSapp_slide.html#最小二乗法",
@@ -1311,14 +1311,14 @@
     "href": "05_OLSapp_slide.html#ols推定値の分布",
     "title": "05/二変量回帰分析：応用編",
     "section": "OLS推定値の分布",
-    "text": "OLS推定値の分布\n\\(X\\)と\\(\\varepsilon\\)が無相関のとき（＝内生性がないとき）、\\(\\hat{\\beta}_{1}\\)は真の値\\(\\beta_{1}\\)を期待値（平均）とする正規分布にしたがう。"
+    "text": "OLS推定値の分布\n\\(X\\)と\\(\\varepsilon\\)が無相関のとき（＝内生性がないとき）、\\(\\hat{\\beta}_{1}\\)は真の値\\(\\beta_{1}\\)を期待値（平均）とする正規分布にしたがう。\n\n\nError in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation"
   },
   {
     "objectID": "05_OLSapp_slide.html#質問",
     "href": "05_OLSapp_slide.html#質問",
     "title": "05/二変量回帰分析：応用編",
     "section": "質問",
-    "text": "質問\nどちらが真値を正確に推定しているでしょうか？"
+    "text": "質問\nどちらが真値を正確に推定しているでしょうか？\n\n\nError in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation"
   },
   {
     "objectID": "05_OLSapp_slide.html#ols推定値の精度",
@@ -1388,7 +1388,7 @@
     "href": "05_OLSapp_slide.html#ols推定値の一致性",
     "title": "05/二変量回帰分析：応用編",
     "section": "OLS推定値の一致性",
-    "text": "OLS推定値の一致性\nサンプルサイズ（\\(N\\)）が大きくなるにつれて、OLS推定値\\(\\hat{\\beta_{1}}\\)は真値\\(\\beta_{1}\\)に確率的に収束（\\(\\text{plim}\\hat{\\beta}_1=\\beta_1\\)）"
+    "text": "OLS推定値の一致性\nサンプルサイズ（\\(N\\)）が大きくなるにつれて、OLS推定値\\(\\hat{\\beta_{1}}\\)は真値\\(\\beta_{1}\\)に確率的に収束（\\(\\text{plim}\\hat{\\beta}_1=\\beta_1\\)）\n\n\n\n\nError in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation\n\n\n\n\n\n\nError in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation\n\n\n\n\n\n\nError in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation"
   },
   {
     "objectID": "05_OLSapp_slide.html#一致性の意味",
