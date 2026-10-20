@@ -168,7 +168,19 @@
 <section>
 <section id="はじめに" class="title-slide slide level1 center">
 <h1>はじめに</h1>
-
+<aside class="notes">
+<p>目標10分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="本日の目的と到達目標" class="slide level2 smaller">
 <h2>本日の目的と到達目標</h2>
@@ -187,12 +199,32 @@
 </section>
 <section id="小テストの講評" class="slide level2">
 <h2>小テストの講評</h2>
-<p>TBD</p>
+<ul>
+<li>受験者数197人</li>
+<li>平均3.42/7点</li>
+<li>標準偏差1.15点</li>
+<li>最小値0点</li>
+<li>最大値7点</li>
+</ul>
+<p>コメント：問3と問5-7が正答率低い（正答と解説は<a href="./03_statR_assign.html">こちら</a>）。</p>
 </section></section>
 <section>
 <section id="二変量回帰モデル" class="title-slide slide level1 center">
 <h1>二変量回帰モデル</h1>
-
+<aside class="notes">
+<p>ここまで10分</p>
+<p>目標10分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="例アメリカ大統領選挙" class="slide level2">
 <h2>例：アメリカ大統領選挙</h2>
@@ -205,6 +237,22 @@
 </div>
 </div>
 </div>
+<aside class="notes">
+<ul>
+<li>だいたい右肩上がりの関係が見える</li>
+<li>関係は直線で示せる→モデル化</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="モデルの特定化" class="slide level2">
 <h2>モデルの特定化</h2>
@@ -227,12 +275,25 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 <section>
 <section id="最小二乗法" class="title-slide slide level1 center">
 <h1>最小二乗法</h1>
-
+<aside class="notes">
+<p>ここまで20分</p>
+<p>目標25分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="クイズ" class="slide level2">
 <h2>クイズ</h2>
-<p>以下の3つの線のうち、どれが一番いいと思いますか？それはなぜですか？</p>
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="3">
+<p>以下の3つの線のうち、どれが一番いいと思いますか？それはなぜですか？（<a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=b1cf683915c3ce67acf8ae8aacba198a">WebClassチャット</a>）</p>
+<div class="cell quarto-layout-panel" data-layout-ncol="3" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -257,6 +318,23 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 </div>
 </div>
 </div>
+<aside class="notes">
+<p>正解は(b)</p>
+<ul>
+<li>一番データとの当てはまりが良さそう</li>
+<li>「当てはまりが良い」を客観的に決められないか？→最小二乗法</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="最小二乗法-1" class="slide level2">
 <h2>最小二乗法</h2>
@@ -265,12 +343,25 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 <p><img data-src="figs/OLS_1.png" class="fragment center"></p>
 <p><img data-src="figs/OLS_2.png" class="fragment center"></p>
 </div>
+<aside class="notes">
+<p>引いた線とデータとのずれ→小さければ「当てはまりが良い」とみなす</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="olsの手順" class="slide level2">
 <h2>OLSの手順</h2>
 <ul>
-<li class="fragment">予測値：<span class="math inline">\(\hat{Y_i}=\hat{\beta_{0}}+\hat{\beta_{1}}X_i\)</span></li>
-<li class="fragment">残差：<span class="math inline">\(\hat{\varepsilon_{i}}=Y_{i}-\hat{Y_{i}}=Y_{i}-(\hat{\beta_{0}}+\hat{\beta_{1}}X_i)\)</span></li>
+<li class="fragment">予測値（＝直線）：<span class="math inline">\(\hat{Y_i}=\hat{\beta_{0}}+\hat{\beta_{1}}X_i\)</span></li>
+<li class="fragment">残差（＝各データと直線のずれ）：<span class="math inline">\(\hat{\varepsilon_{i}}=Y_{i}-\hat{Y_{i}}=Y_{i}-(\hat{\beta_{0}}+\hat{\beta_{1}}X_i)\)</span></li>
 <li class="fragment">残差平方和：<span class="math inline">\(\sum \hat{\varepsilon_{i}}^2=\sum \{Y_{i}-(\hat{\beta_{0}}+\hat{\beta_{1}}X_i)\}^2\)</span>
 <ul>
 <li class="fragment">そのまま足すと0になるので二乗する</li>
@@ -284,7 +375,6 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 </section>
 <section id="大統領選データでの計算" class="slide level2 smaller">
 <h2>大統領選データでの計算</h2>
-<div class="fragment fade-in">
 <div class="columns">
 <div class="column" style="width:20%;">
 <table class="caption-top">
@@ -323,48 +413,121 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 </tr>
 </tbody>
 </table>
+<div class="fragment fade-in">
 <ul>
 <li><span class="math inline">\(\bar{X}=2.66\)</span></li>
 <li><span class="math inline">\(\bar{Y}=51.98\)</span></li>
 </ul>
+</div>
 </div><div class="column" style="width:80%;">
+<div class="fragment fade-in">
 <p><span class="math display">\[
 \begin{aligned}
-\hat{\beta_{1}}&amp;=\frac{\sum(X_i-\bar{X})(Y_i-\bar{Y})}{\sum(X_i-\bar{X})^2}\\\\&amp;=\frac{(3.47 - 2.66) (52.37 - 51.98) + (1.71 - 2.66) (45.55 - 51.98) + \cdots}{(3.47 - 2.66)^2 + (1.71 - 2.66)^2 + \cdots}\\\\&amp;=2.22\\\
+\hat{\beta_{1}}&amp;=\frac{\sum(X_i-\bar{X})(Y_i-\bar{Y})}{\sum(X_i-\bar{X})^2}\\\\&amp;=\frac{(3.47 - 2.66) (52.37 - 51.98) + (1.71 - 2.66) (45.55 - 51.98) + \cdots}{(3.47 - 2.66)^2 + (1.71 - 2.66)^2 + \cdots}\\\\&amp;=2.22\\\\
 \hat{\beta_{0}}&amp;=\bar{Y}-\hat{\beta_{1}}\bar{X}\\\\&amp;=51.98-2.22\times2.66\\\\&amp;=46.1
 \end{aligned}
 \]</span></p>
+</div>
 </div></div>
-</div>
+<aside class="notes">
+<p>手順</p>
+<ul>
+<li>まず、独立変数<span class="math inline">\(X\)</span>（経済成長率）と従属変数<span class="math inline">\(Y\)</span>（与党候補得票率）の平均を出す</li>
+<li>次に傾き<span class="math inline">\(\hat{\beta}_{1}\)</span>を計算する
+<ul>
+<li>分子の計算
+<ul>
+<li>各年の<span class="math inline">\(X\)</span>からその平均<span class="math inline">\(\bar{X}\)</span>を引く</li>
+<li>各年の<span class="math inline">\(Y\)</span>からその平均<span class="math inline">\(\bar{Y}\)</span>を引く</li>
+<li>両者を掛け合わせたものを足していく</li>
+</ul></li>
+<li>分母の計算
+<ul>
+<li>各年の<span class="math inline">\(X\)</span>からその平均<span class="math inline">\(\bar{X}\)</span>を引く</li>
+<li>上記を二乗したものを足していく</li>
+</ul></li>
+</ul></li>
+<li>最後に切片<span class="math inline">\(\hat{\beta}_{0}\)</span>を計算する。平均と傾きを代入すれば簡単にできる。</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="クイズ-1" class="slide level2">
-<h2>クイズ</h2>
-<p><span class="math inline">\(\hat{\beta_{1}}\)</span>が正になるのは次のうちどのデータだと思いますか？</p>
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="3">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<section id="散布図と推定された回帰直線" class="slide level2">
+<h2>散布図と推定された回帰直線</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="04_OLSbasics_slide_files/figure-revealjs/OLS-quiz2-1.png" class="quarto-figure quarto-figure-center" width="900"></p>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="04_OLSbasics_slide_files/figure-revealjs/OLS-quiz2-2.png" class="quarto-figure quarto-figure-center" width="900"></p>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="04_OLSbasics_slide_files/figure-revealjs/OLS-quiz2-3.png" class="quarto-figure quarto-figure-center" width="900"></p>
+<p><img data-src="04_OLSbasics_slide_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
 </figure>
 </div>
 </div>
 </div>
-</div>
+<p>切片<span class="math inline">\(\hat{\beta}_{1}=2.22&gt;0\)</span>（正）</p>
+<aside class="notes">
+<p>散布図にOLS推定された切片・傾きを持つ回帰直線を引いたグラフ</p>
+<ul>
+<li>注意すべきは<span class="math inline">\(\hat{\beta}_{1}=2.22&gt;0\)</span>（正）</li>
+<li>散布図が右肩上がりの場合は直線も右肩上がり→推定される傾きの係数も正</li>
+<li>散布図が右肩下がりの場合は直線も右肩下がり→推定される傾きの係数も負</li>
+</ul>
+<p>→なぜか？傾きの計算式と散布図を両方見るとわかる</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<!-- ## クイズ -->
+<!-- $\hat{\beta_{1}}$が正になるのは次のうちどのデータだと思いますか？（[チャット](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=b1cf683915c3ce67acf8ae8aacba198a)） -->
+<!-- ```{r OLS-quiz2} -->
+<!-- #| layout-ncol: 3 -->
+<!-- #| fig-height: 5 -->
+<!-- #| fig-width: 3 -->
+<!-- N <- 50 -->
+<!-- scatter_dta <- tibble( -->
+<!--     x        = runif(N, min = 0, max = 1), -->
+<!--     y1       = 0.4 + 0.8 * x + rnorm(N, mean = 0, sd = 0.1), -->
+<!--     y2       = 0.4 - 0 * x   + rnorm(N, mean = 0, sd = 0.1), -->
+<!--     y3       = 0.8 - 0.8 * x + rnorm(N, mean = 0, sd = 0.1) -->
+<!-- ) -->
+<!-- x_mean <- scatter_dta$x |> mean() -->
+<!-- y1_mean <- scatter_dta$y1 |> mean() -->
+<!-- y2_mean <- scatter_dta$y2 |> mean() -->
+<!-- y3_mean <- scatter_dta$y3 |> mean() -->
+<!-- scatter_dta |> -->
+<!--   ggplot(aes(x = x, y = y1)) + -->
+<!--   geom_point(size = 3) + -->
+<!--   labs(title = "データ1", -->
+<!--        x = "X", -->
+<!--        y = "Y") -->
+<!-- scatter_dta |> -->
+<!--   ggplot(aes(x = x, y = y2)) + -->
+<!--   geom_point(size = 3) + -->
+<!--   labs(title = "データ2", -->
+<!--        x = "X", -->
+<!--        y = "Y") -->
+<!-- scatter_dta |> -->
+<!--   ggplot(aes(x = x, y = y3)) + -->
+<!--   geom_point(size = 3) + -->
+<!--   labs(title = "データ3", -->
+<!--        x = "X", -->
+<!--        y = "Y") -->
+<!-- ``` -->
 </section>
 <section id="推定値の意味" class="slide level2">
 <h2>推定値の意味</h2>
@@ -396,35 +559,35 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 </div>
 </div>
 <aside class="notes">
-<p>右肩上がりの関係が成り立っている散布図</p>
-<ul>
-<li>縦と横の点線がXとYそれぞれの平均値</li>
-</ul>
-<p>右上（青い網掛け）</p>
-<ul>
-<li>X - bar(X)が正＝Xの平均よりも大きい</li>
-<li>Y - bar(Y)が正＝Yの平均よりも大きい</li>
-<li>掛け合わせて正</li>
-</ul>
-<p>左下（緑の網掛け）</p>
-<ul>
-<li>X - bar(X)が負＝Xの平均よりも小さい</li>
-<li>Y - bar(Y)が負＝Xの平均よりも小さい</li>
-<li>掛け合わせて正</li>
-</ul>
 <p>図の説明</p>
 <ul>
 <li>散布図＋回帰直線</li>
 <li>点線がXとYそれぞれの平均値</li>
 <li>回帰直線XとYそれぞれの平均値を座標とする点を通る</li>
 </ul>
-<p>右下（青い網掛け）</p>
+<p>右肩上がりの関係が成り立っている散布図</p>
+<ul>
+<li>縦と横の点線がXとYそれぞれの平均値</li>
+</ul>
+<p>右上（青い網掛け）→XとYがそれぞれの平均よりも大きいデータ</p>
+<ul>
+<li>X - bar(X)が正＝Xの平均よりも大きい</li>
+<li>Y - bar(Y)が正＝Yの平均よりも大きい</li>
+<li>掛け合わせて正</li>
+</ul>
+<p>左下（緑の網掛け）→XとYがそれぞれの平均よりも大きいデータ</p>
+<ul>
+<li>X - bar(X)が負＝Xの平均よりも小さい</li>
+<li>Y - bar(Y)が負＝Xの平均よりも小さい</li>
+<li>掛け合わせて正</li>
+</ul>
+<p>右下（青い網掛け）→Xは平均より大きく、Yは平均より小さいデータ</p>
 <ul>
 <li>X - bar(X)が正＝Xの平均よりも大きい</li>
 <li>Y - bar(Y)が負＝Yの平均よりも小さい</li>
 <li>掛け合わせて負</li>
 </ul>
-<p>左下（緑の網掛け）</p>
+<p>左下（緑の網掛け）→Xは平均より小さく、Yは平均より大きいデータ</p>
 <ul>
 <li>X - bar(X)が負＝Xの平均よりも小さい</li>
 <li>Y - bar(Y)が正＝Xの平均よりも大きい</li>
@@ -445,19 +608,33 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 <section>
 <section id="olsのランダム性" class="title-slide slide level1 center">
 <h1>OLSのランダム性</h1>
-
+<aside class="notes">
+<p>ここまで45分</p>
+<p>休憩5分</p>
+<p>目標15分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="確率変数" class="slide level2">
 <h2>確率変数</h2>
 <p>特定の確率で値が定まる変数</p>
 <div class="fragment fade-in">
 <p><strong>確率分布</strong>は確率変数が取る値の確率を定める</p>
+</div>
 <ul>
 <li class="fragment">コイン投げ→分布：表1/2、裏1/2</li>
 <li class="fragment">サイコロ→分布：各目が1/6</li>
 <li class="fragment">身長など多くの<strong>連続変数</strong>→<strong>正規分布</strong></li>
 </ul>
-</div>
 </section>
 <section id="正規分布" class="slide level2">
 <h2>正規分布</h2>
@@ -504,6 +681,26 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 <section id="サンプリングによるランダム性" class="slide level2">
 <h2>サンプリングによるランダム性</h2>
 <p><img data-src="figs/sampling_randomness.png"></p>
+<aside class="notes">
+<p>サンプリングによるランダム性</p>
+<ul>
+<li>ランダムにとってきたサンプルからOLSを推定するという作業をするごとに推定結果は変わる
+<ul>
+<li>同じデータで何回OLS推定を回しても結果は変わらないので注意</li>
+</ul></li>
+<li>そのランダムに変わる推定結果は実は正規分布に従う</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <!-- ## モデル化されたランダム性 -->
 <!-- 従属変数にそもそも**誤差項**が含まれていることによって$\hat{\beta_{1}}$はランダム性を持つ -->
 <!-- ::: {.incremental} -->
@@ -527,7 +724,20 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 <section>
 <section id="olsの不偏性" class="title-slide slide level1 center">
 <h1>OLSの不偏性</h1>
-
+<aside class="notes">
+<p>ここまで65分（01:05:00）</p>
+<p>目標20分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="olsの不偏性-1" class="slide level2">
 <h2>OLSの不偏性</h2>
@@ -546,11 +756,11 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 <h2>OLSのバイアス</h2>
 <p><span class="math inline">\(X\)</span>と<span class="math inline">\(\varepsilon\)</span>に相関があるとき（＝内生性があるとき）、<span class="math inline">\(\hat{\beta}_{1}\)</span>には<strong>バイアス</strong>（偏り）が生じる</p>
 <div class="fragment fade-in">
-<p><span class="math inline">\(\hat{\beta_{1}}\)</span>の期待値：<span class="math inline">\(E[\hat{\beta_{1}}]=\beta_{1}+\text{corr}(X, \varepsilon)\frac{\sigma_{\varepsilon}}{\sigma_{X}}\)</span></p>
+<p><span class="math inline">\(\hat{\beta_{1}}\)</span>の期待値（平均）：<span class="math inline">\(E[\hat{\beta_{1}}]=\beta_{1}+\text{corr}(X, \varepsilon)\frac{\sigma_{\varepsilon}}{\sigma_{X}}\)</span></p>
 <ul>
 <li class="fragment">第2項<span class="math inline">\(\text{corr}(X, \varepsilon)\frac{\sigma_{\varepsilon}}{\sigma_{X}}\)</span>が<strong>バイアス</strong>
 <ul>
-<li class="fragment"><span class="math inline">\(\text{corr}(X, \varepsilon)\)</span>：<span class="math inline">\(X\)</span>と<span class="math inline">\(\varepsilon\)</span>との相関</li>
+<li class="fragment"><span class="math inline">\(\text{corr}(X, \varepsilon)\)</span>：<span class="math inline">\(X\)</span>と<span class="math inline">\(\varepsilon\)</span>との相関（correlation）</li>
 </ul></li>
 <li class="fragment">バイアスのパターン
 <ul>
@@ -580,12 +790,25 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 <section id="例凶悪犯罪とアイスクリームの売上" class="slide level2">
 <h2>例：凶悪犯罪とアイスクリームの売上</h2>
 <img data-src="figs/endogeneity_bias.png" class="r-stretch">
-<p>Q. 暑いほどアイスクリームが売れる時、OLS推定値<span class="math inline">\(\hat{\beta}_{1}\)</span>は真値<span class="math inline">\(\beta_{1}=0\)</span>よりも大きくなる？それとも小さくなる？</p>
+<p>Q. 暑いほどアイスクリームが売れる時、OLS推定値<span class="math inline">\(\hat{\beta}_{1}\)</span>は真値<span class="math inline">\(\beta_{1}=0\)</span>よりも大きくなる？それとも小さくなる？（<a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=b1cf683915c3ce67acf8ae8aacba198a">WebClassチャット</a>）</p>
 </section></section>
 <section>
 <section id="まとめ" class="title-slide slide level1 center">
 <h1>まとめ</h1>
-
+<aside class="notes">
+<p>ここまで85分（01:25:00）</p>
+<p>目標5分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="本日の目的と到達目標-1" class="slide level2 smaller">
 <h2>本日の目的と到達目標</h2>

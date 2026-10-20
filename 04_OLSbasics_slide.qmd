@@ -29,6 +29,9 @@ metadata-files:
 1. まとめ
 
 # はじめに
+::: {.notes}
+目標10分
+:::
 ## 本日の目的と到達目標 {.smaller}
 #### 目的
 回帰分析の最も基本的な形である二変量モデルを紹介する。基本となる統計モデルについて復習した後に、回帰分析によって回帰係数を推定し、その推定値を因果効果として解釈するための基本的な方法として、最小二乗法（OLS）を学ぶ。確率分布の基本を学んだ後、OLSで得られた因果効果の推定量のランダム性を議論する。さらに内生性が推定結果をどのように歪めるのかについても検討する。
@@ -44,9 +47,20 @@ metadata-files:
 :::
 
 ## 小テストの講評
-TBD
+- 受験者数197人
+- 平均3.42/7点
+- 標準偏差1.15点
+- 最小値0点
+- 最大値7点
+
+コメント：問3と問5-7が正答率低い（正答と解説は[こちら](03_statR_assign.qmd)）。
 
 # 二変量回帰モデル
+::: {.notes}
+ここまで10分
+
+目標10分
+:::
 ## 例：アメリカ大統領選挙
 ```{r data-set}
 #| include: false
@@ -60,6 +74,11 @@ dta |>
   geom_label_repel(aes(label = Year)) +
   labs(x = "所得の変化（%）", y = "与党の得票率（%）")
 ```
+::: {.notes}
+- だいたい右肩上がりの関係が見える
+- 関係は直線で示せる→モデル化
+:::
+
 
 ## モデルの特定化
 ::: {.fragment .fade-in}
@@ -86,8 +105,14 @@ $$
 :::
 
 # 最小二乗法
+::: {.notes}
+ここまで20分
+
+目標25分
+:::
+
 ## クイズ
-以下の3つの線のうち、どれが一番いいと思いますか？それはなぜですか？
+以下の3つの線のうち、どれが一番いいと思いますか？それはなぜですか？（[WebClassチャット](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=b1cf683915c3ce67acf8ae8aacba198a)）
 
 ```{r OLS-quiz1}
 #| layout-ncol: 3
@@ -123,6 +148,14 @@ dta |>
 
 ```
 
+::: {.notes}
+正解は(b)
+
+- 一番データとの当てはまりが良さそう
+- 「当てはまりが良い」を客観的に決められないか？→最小二乗法
+
+:::
+
 
 ## 最小二乗法
 #### Ordinary Least Square: OLS
@@ -141,10 +174,14 @@ dta |>
 ![](figs/OLS_2.png){.fragment .center}
 :::
 
+::: {.notes}
+引いた線とデータとのずれ→小さければ「当てはまりが良い」とみなす
+:::
+
 ## OLSの手順
 ::: {.incremental}
-- 予測値：$\hat{Y_i}=\hat{\beta_{0}}+\hat{\beta_{1}}X_i$
-- 残差：$\hat{\varepsilon_{i}}=Y_{i}-\hat{Y_{i}}=Y_{i}-(\hat{\beta_{0}}+\hat{\beta_{1}}X_i)$
+- 予測値（＝直線）：$\hat{Y_i}=\hat{\beta_{0}}+\hat{\beta_{1}}X_i$
+- 残差（＝各データと直線のずれ）：$\hat{\varepsilon_{i}}=Y_{i}-\hat{Y_{i}}=Y_{i}-(\hat{\beta_{0}}+\hat{\beta_{1}}X_i)$
 - 残差平方和：$\sum \hat{\varepsilon_{i}}^2=\sum \{Y_{i}-(\hat{\beta_{0}}+\hat{\beta_{1}}X_i)\}^2$
    - そのまま足すと0になるので二乗する
 - 残差平方和を最小化する$\hat{\beta_{1}}$と$\hat{\beta_{0}}$を求める
@@ -154,7 +191,6 @@ dta |>
 :::
 
 ## 大統領選データでの計算 {.smaller}
-::: {.fragment .fade-in}
 ::: {.columns}
 
 ::: {.column width=20%}
@@ -166,31 +202,114 @@ dta |>
 | 1960   | 0.56  | 49.92 | 
 | …     | …    | …    | 
 
+::: {.fragment .fade-in}
 - $\bar{X}=2.66$
 - $\bar{Y}=51.98$
 
 :::
 
+:::
+
 ::: {.column width=80%}
+::: {.fragment .fade-in}
 $$
 \begin{aligned}
-\hat{\beta_{1}}&=\frac{\sum(X_i-\bar{X})(Y_i-\bar{Y})}{\sum(X_i-\bar{X})^2}\\\\&=\frac{(3.47 - 2.66) (52.37 - 51.98) + (1.71 - 2.66) (45.55 - 51.98) + \cdots}{(3.47 - 2.66)^2 + (1.71 - 2.66)^2 + \cdots}\\\\&=2.22\\\
+\hat{\beta_{1}}&=\frac{\sum(X_i-\bar{X})(Y_i-\bar{Y})}{\sum(X_i-\bar{X})^2}\\\\&=\frac{(3.47 - 2.66) (52.37 - 51.98) + (1.71 - 2.66) (45.55 - 51.98) + \cdots}{(3.47 - 2.66)^2 + (1.71 - 2.66)^2 + \cdots}\\\\&=2.22\\\\
 \hat{\beta_{0}}&=\bar{Y}-\hat{\beta_{1}}\bar{X}\\\\&=51.98-2.22\times2.66\\\\&=46.1
 \end{aligned}
 $$
 :::
 :::
+:::
+
+::: {.notes}
+手順
+
+- まず、独立変数$X$（経済成長率）と従属変数$Y$（与党候補得票率）の平均を出す
+- 次に傾き$\hat{\beta}_{1}$を計算する
+   - 分子の計算
+      - 各年の$X$からその平均$\bar{X}$を引く
+      - 各年の$Y$からその平均$\bar{Y}$を引く
+      - 両者を掛け合わせたものを足していく
+   - 分母の計算
+      - 各年の$X$からその平均$\bar{X}$を引く
+      - 上記を二乗したものを足していく
+- 最後に切片$\hat{\beta}_{0}$を計算する。平均と傾きを代入すれば簡単にできる。
 
 :::
 
+## 散布図と推定された回帰直線
+```{r}
+dta |> 
+  ggplot(aes(x = RDI, y = Vote100)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm",
+              se = FALSE,
+              colour = "red") +
+  labs(x = "所得の変化（%）", 
+       y = "与党の得票率（%）")
+```
 
-## クイズ
-$\hat{\beta_{1}}$が正になるのは次のうちどのデータだと思いますか？
-```{r OLS-quiz2}
-#| layout-ncol: 3
-#| fig-height: 5
-#| fig-width: 3
+切片$\hat{\beta}_{1}=2.22>0$（正）
 
+::: {.notes}
+散布図にOLS推定された切片・傾きを持つ回帰直線を引いたグラフ
+
+- 注意すべきは$\hat{\beta}_{1}=2.22>0$（正）
+- 散布図が右肩上がりの場合は直線も右肩上がり→推定される傾きの係数も正
+- 散布図が右肩下がりの場合は直線も右肩下がり→推定される傾きの係数も負
+
+→なぜか？傾きの計算式と散布図を両方見るとわかる
+
+:::
+
+<!-- ## クイズ -->
+<!-- $\hat{\beta_{1}}$が正になるのは次のうちどのデータだと思いますか？（[チャット](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=b1cf683915c3ce67acf8ae8aacba198a)） -->
+<!-- ```{r OLS-quiz2} -->
+<!-- #| layout-ncol: 3 -->
+<!-- #| fig-height: 5 -->
+<!-- #| fig-width: 3 -->
+
+<!-- N <- 50 -->
+<!-- scatter_dta <- tibble( -->
+<!--     x        = runif(N, min = 0, max = 1), -->
+<!--     y1       = 0.4 + 0.8 * x + rnorm(N, mean = 0, sd = 0.1), -->
+<!--     y2       = 0.4 - 0 * x   + rnorm(N, mean = 0, sd = 0.1), -->
+<!--     y3       = 0.8 - 0.8 * x + rnorm(N, mean = 0, sd = 0.1) -->
+<!-- ) -->
+
+<!-- x_mean <- scatter_dta$x |> mean() -->
+<!-- y1_mean <- scatter_dta$y1 |> mean() -->
+<!-- y2_mean <- scatter_dta$y2 |> mean() -->
+<!-- y3_mean <- scatter_dta$y3 |> mean() -->
+
+<!-- scatter_dta |> -->
+<!--   ggplot(aes(x = x, y = y1)) + -->
+<!--   geom_point(size = 3) + -->
+<!--   labs(title = "データ1", -->
+<!--        x = "X", -->
+<!--        y = "Y") -->
+
+<!-- scatter_dta |> -->
+<!--   ggplot(aes(x = x, y = y2)) + -->
+<!--   geom_point(size = 3) + -->
+<!--   labs(title = "データ2", -->
+<!--        x = "X", -->
+<!--        y = "Y") -->
+
+<!-- scatter_dta |> -->
+<!--   ggplot(aes(x = x, y = y3)) + -->
+<!--   geom_point(size = 3) + -->
+<!--   labs(title = "データ3", -->
+<!--        x = "X", -->
+<!--        y = "Y") -->
+
+<!-- ``` -->
+
+## 推定値の意味
+::: {.panel-tabset}
+#### 右肩上がりの場合
+```{r OLS-intpret1}
 N <- 50
 scatter_dta <- tibble(
     x        = runif(N, min = 0, max = 1),
@@ -204,33 +323,6 @@ y1_mean <- scatter_dta$y1 |> mean()
 y2_mean <- scatter_dta$y2 |> mean()
 y3_mean <- scatter_dta$y3 |> mean()
 
-scatter_dta |> 
-  ggplot(aes(x = x, y = y1)) +
-  geom_point(size = 3) +
-  labs(title = "データ1",
-       x = "X", 
-       y = "Y")
-
-scatter_dta |> 
-  ggplot(aes(x = x, y = y2)) +
-  geom_point(size = 3) +
-  labs(title = "データ2",
-       x = "X", 
-       y = "Y")
-
-scatter_dta |> 
-  ggplot(aes(x = x, y = y3)) +
-  geom_point(size = 3) +
-  labs(title = "データ3",
-       x = "X", 
-       y = "Y")
-
-```
-
-## 推定値の意味
-::: {.panel-tabset}
-#### 右肩上がりの場合
-```{r OLS-intpret1}
 scatter_dta |> 
   ggplot(aes(x = x, y = y1)) +
   geom_point(size = 3) +
@@ -309,35 +401,35 @@ scatter_dta |>
 
 
 ::: {.notes}
-右肩上がりの関係が成り立っている散布図
-
-- 縦と横の点線がXとYそれぞれの平均値
-
-右上（青い網掛け）
-
-- X - bar(X)が正＝Xの平均よりも大きい
-- Y - bar(Y)が正＝Yの平均よりも大きい
-- 掛け合わせて正
-
-左下（緑の網掛け）
-
-- X - bar(X)が負＝Xの平均よりも小さい
-- Y - bar(Y)が負＝Xの平均よりも小さい
-- 掛け合わせて正
-
 図の説明
 
 - 散布図＋回帰直線
 - 点線がXとYそれぞれの平均値
 - 回帰直線XとYそれぞれの平均値を座標とする点を通る
 
-右下（青い網掛け）
+右肩上がりの関係が成り立っている散布図
+
+- 縦と横の点線がXとYそれぞれの平均値
+
+右上（青い網掛け）→XとYがそれぞれの平均よりも大きいデータ
+
+- X - bar(X)が正＝Xの平均よりも大きい
+- Y - bar(Y)が正＝Yの平均よりも大きい
+- 掛け合わせて正
+
+左下（緑の網掛け）→XとYがそれぞれの平均よりも大きいデータ
+
+- X - bar(X)が負＝Xの平均よりも小さい
+- Y - bar(Y)が負＝Xの平均よりも小さい
+- 掛け合わせて正
+
+右下（青い網掛け）→Xは平均より大きく、Yは平均より小さいデータ
 
 - X - bar(X)が正＝Xの平均よりも大きい
 - Y - bar(Y)が負＝Yの平均よりも小さい
 - 掛け合わせて負
 
-左下（緑の網掛け）
+左下（緑の網掛け）→Xは平均より小さく、Yは平均より大きいデータ
 
 - X - bar(X)が負＝Xの平均よりも小さい
 - Y - bar(Y)が正＝Xの平均よりも大きい
@@ -347,18 +439,26 @@ scatter_dta |>
 
 
 # OLSのランダム性
+::: {.notes}
+ここまで45分
+
+休憩5分
+
+目標15分
+:::
+
 ## 確率変数
 特定の確率で値が定まる変数
 
 ::: {.fragment .fade-in}
 **確率分布**は確率変数が取る値の確率を定める
+:::
 
 ::: {.incremental}
 - コイン投げ→分布：表1/2、裏1/2
 - サイコロ→分布：各目が1/6
 - 身長など多くの**連続変数**→**正規分布**
 
-:::
 :::
 
 ## 正規分布
@@ -396,6 +496,14 @@ $\hat{\beta_{1}}$のランダム性の原因
 ## サンプリングによるランダム性
 ![](figs/sampling_randomness.png)
 
+::: {.notes}
+サンプリングによるランダム性
+
+- ランダムにとってきたサンプルからOLSを推定するという作業をするごとに推定結果は変わる
+    - 同じデータで何回OLS推定を回しても結果は変わらないので注意
+- そのランダムに変わる推定結果は実は正規分布に従う
+
+:::
 
 <!-- ## モデル化されたランダム性 -->
 <!-- 従属変数にそもそも**誤差項**が含まれていることによって$\hat{\beta_{1}}$はランダム性を持つ -->
@@ -422,6 +530,13 @@ $\hat{\beta_{1}}$のランダム性の原因
 <!-- ``` -->
 
 # OLSの不偏性
+::: {.notes}
+ここまで65分（01:05:00）
+
+目標20分
+:::
+
+
 ## OLSの不偏性
 $X$と$\varepsilon$が無相関のとき（＝内生性がないとき）、$\hat{\beta}_{1}$は真の値$\beta_{1}$の**不偏推定量**である。
 
@@ -443,11 +558,11 @@ tibble(x = c(-3, 3)) |>
 $X$と$\varepsilon$に相関があるとき（＝内生性があるとき）、$\hat{\beta}_{1}$には**バイアス**（偏り）が生じる
 
 ::: {.fragment .fade-in}
-$\hat{\beta_{1}}$の期待値：$E[\hat{\beta_{1}}]=\beta_{1}+\text{corr}(X, \varepsilon)\frac{\sigma_{\varepsilon}}{\sigma_{X}}$
+$\hat{\beta_{1}}$の期待値（平均）：$E[\hat{\beta_{1}}]=\beta_{1}+\text{corr}(X, \varepsilon)\frac{\sigma_{\varepsilon}}{\sigma_{X}}$
 
 ::: {.incremental}
 - 第2項$\text{corr}(X, \varepsilon)\frac{\sigma_{\varepsilon}}{\sigma_{X}}$が**バイアス**
-     - $\text{corr}(X, \varepsilon)$：$X$と$\varepsilon$との相関
+     - $\text{corr}(X, \varepsilon)$：$X$と$\varepsilon$との相関（correlation）
 - バイアスのパターン
      - $\text{corr}(X, \varepsilon)>0$（正の相関）→$\beta_{1}$が**過大推定**
      - $\text{corr}(X, \varepsilon)<0$（負の相関）→$\beta_{1}$が**過小推定**
@@ -467,9 +582,15 @@ $\hat{\beta_{1}}$の期待値：$E[\hat{\beta_{1}}]=\beta_{1}+\text{corr}(X, \va
 
 ![](figs/endogeneity_bias.png){.r-stretch}
 
-Q. 暑いほどアイスクリームが売れる時、OLS推定値$\hat{\beta}_{1}$は真値$\beta_{1}=0$よりも大きくなる？それとも小さくなる？
+Q. 暑いほどアイスクリームが売れる時、OLS推定値$\hat{\beta}_{1}$は真値$\beta_{1}=0$よりも大きくなる？それとも小さくなる？（[WebClassチャット](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=b1cf683915c3ce67acf8ae8aacba198a)）
 
 # まとめ
+::: {.notes}
+ここまで85分（01:25:00）
+
+目標5分
+:::
+
 ## 本日の目的と到達目標 {.smaller}
 #### 目的
 回帰分析の最も基本的な形である二変量モデルを紹介する。基本となる統計モデルについて復習した後に、回帰分析によって回帰係数を推定し、その推定値を因果効果として解釈するための基本的な方法として、最小二乗法（OLS）を学ぶ。確率分布の基本を学んだ後、OLSで得られた因果効果の推定量のランダム性を議論する。さらに内生性が推定結果をどのように歪めるのかについても検討する。
