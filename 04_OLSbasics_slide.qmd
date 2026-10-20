@@ -580,9 +580,18 @@ $\hat{\beta_{1}}$の期待値（平均）：$E[\hat{\beta_{1}}]=\beta_{1}+\text{
 
 ## 例：凶悪犯罪とアイスクリームの売上
 
-![](figs/endogeneity_bias.png){.r-stretch}
+$凶悪犯罪_{i}=\beta_{0}+\beta_{1}アイスクリーム_{i}+\varepsilon_{i}$を推定したところ$\hat{\beta}_{1}>0$だった。
 
-Q. 暑いほどアイスクリームが売れる時、OLS推定値$\hat{\beta}_{1}$は真値$\beta_{1}=0$よりも大きくなる？それとも小さくなる？（[WebClassチャット](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=b1cf683915c3ce67acf8ae8aacba198a)）
+::: {.fragment .fade-in}
+![](figs/endogeneity_bias.png){width=80%}
+
+:::
+
+:::{.fragment .fade-in}
+$\text{corr}(X,\varepsilon)>0$により$\hat{\beta}$は過大推定
+:::
+
+<!-- Q. 暑いほどアイスクリームが売れる時、OLS推定値$\hat{\beta}_{1}$は真値$\beta_{1}=0$よりも大きくなる？それとも小さくなる？（[WebClassチャット](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=b1cf683915c3ce67acf8ae8aacba198a)） -->
 
 # まとめ
 ::: {.notes}

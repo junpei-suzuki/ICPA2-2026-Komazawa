@@ -293,7 +293,7 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 <section id="クイズ" class="slide level2">
 <h2>クイズ</h2>
 <p>以下の3つの線のうち、どれが一番いいと思いますか？それはなぜですか？（<a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=b1cf683915c3ce67acf8ae8aacba198a">WebClassチャット</a>）</p>
-<div class="cell quarto-layout-panel" data-layout-ncol="3" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="3">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -789,8 +789,14 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 </section>
 <section id="例凶悪犯罪とアイスクリームの売上" class="slide level2">
 <h2>例：凶悪犯罪とアイスクリームの売上</h2>
-<img data-src="figs/endogeneity_bias.png" class="r-stretch">
-<p>Q. 暑いほどアイスクリームが売れる時、OLS推定値<span class="math inline">\(\hat{\beta}_{1}\)</span>は真値<span class="math inline">\(\beta_{1}=0\)</span>よりも大きくなる？それとも小さくなる？（<a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=b1cf683915c3ce67acf8ae8aacba198a">WebClassチャット</a>）</p>
+<p><span class="math inline">\(凶悪犯罪_{i}=\beta_{0}+\beta_{1}アイスクリーム_{i}+\varepsilon_{i}\)</span>を推定したところ<span class="math inline">\(\hat{\beta}_{1}&gt;0\)</span>だった。</p>
+<div class="fragment fade-in">
+<p><img data-src="figs/endogeneity_bias.png" style="width:80.0%"></p>
+</div>
+<div class="fragment fade-in">
+<p><span class="math inline">\(\text{corr}(X,\varepsilon)&gt;0\)</span>により<span class="math inline">\(\hat{\beta}\)</span>は過大推定</p>
+</div>
+<!-- Q. 暑いほどアイスクリームが売れる時、OLS推定値$\hat{\beta}_{1}$は真値$\beta_{1}=0$よりも大きくなる？それとも小さくなる？（[WebClassチャット](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=b1cf683915c3ce67acf8ae8aacba198a)） -->
 </section></section>
 <section>
 <section id="まとめ" class="title-slide slide level1 center">
