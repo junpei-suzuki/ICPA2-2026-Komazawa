@@ -29,6 +29,9 @@ metadata-files:
 1. まとめ
 
 # はじめに
+::: {.notes}
+目標15分
+:::
 ## 本日の目的と到達目標 {.smaller}
 #### 目的
 二変量回帰モデルについて深掘りする。標準誤差の概念を導入し、OLS推定の精度に影響する要因を議論する。その中でも特にサンプルサイズに焦点を当て、OLS推定値がもつ「一致性」という性質を紹介する。さらに、通常の標準誤差が適用できない条件として不均一分散や誤差同士の相関という問題についても議論する。
@@ -43,9 +46,20 @@ metadata-files:
 :::
 
 ## 小テストの講評
-TBD
+- 受験者数172人
+- 平均8.81/10点
+- 標準偏差1.95点
+- 最小値0点
+- 最大値10点
+
+大変よくできましたが、問4と問9と問10が若干正解率が低い（→[正答](04_OLSbasics_quiz.qmd)）
 
 # 復習：OLSの基本
+::: {.notes}
+ここまで15分
+
+目標15分
+:::
 ## 最小二乗法
 #### Ordinary Least Square: OLS
 ::: {.r-stack}
@@ -89,9 +103,17 @@ tibble(x = c(-3, 3)) |>
 
 :::
 
+$X$と$\varepsilon$とが相関するとき（＝内生性があるとき）に期待値（平均）はずれてしまう
+
 # OLS推定の精度
+::: {.notes}
+ここまで30分
+
+目標20分
+:::
+
 ## 質問
-どちらが真値を正確に推定しているでしょうか？
+洋画試聴時間とTOEICの点数の関係のモデルの推定を100回×2セット行いました。標本セットAとBの分布は以下の通りです。どちらの標本セットが真値を正確に推定していると言えるでしょうか？（[WebClassチャット](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=794e2647280c975dea1763c0b5079ed5)）
 
 ```{r}
 tibble(x = c(-3, 3)) |> 
@@ -99,11 +121,11 @@ tibble(x = c(-3, 3)) |>
   stat_function(fun = dnorm,
                 n = 1000, 
                 args = list(mean = 0, sd = 1),
-                aes(linetype = "A.広い正規分布")) +
+                aes(linetype = "標本セットA")) +
     stat_function(fun = dnorm,
                 n = 1000, 
                 args = list(mean = 0, sd = 0.3),
-                aes(linetype = "B.狭い正規分布")) + scale_x_continuous(breaks = c(-3, 0, 3),
+                aes(linetype = "標本セットB")) + scale_x_continuous(breaks = c(-3, 0, 3),
                      labels = c("",
                                 bquote(beta[1] == 20),
                                 "")) +
@@ -229,10 +251,10 @@ scatter_regvar2 |>
 
 
 ## クイズ
-以下の2つのグラフでは$\hat{\beta_{1}}$の分散はどちらが小さいでしょうか
+以下の2つのグラフでは$\hat{\beta_{1}}$の分散はどちらが小さいでしょうか（[WebClass](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=1febc8b86f93f51b5c14edba2280e32d&page=1)）
 
 ::: {.panel-tabset}
-#### クイズ①
+#### 問①
 ```{r quiz1}
 #| layout-ncol: 2
 #| fig-height: 2
@@ -265,7 +287,7 @@ scatter_b |>
        y = "従属変数（Y）")
 ```
 
-#### クイズ②
+#### 問②
 ```{r quiz2}
 #| layout-ncol: 2
 #| fig-height: 2
@@ -285,7 +307,7 @@ scatter_c |>
   ggplot(aes(x = x, y = y)) +
   geom_point() +
   xlim(4, 14) + ylim(14, 40) +
-  labs(title = "グラフ（c）",
+  labs(title = "グラフ（a）",
        x = "独立変数（X）",
        y = "従属変数（Y）")
 
@@ -293,17 +315,38 @@ scatter_d |>
   ggplot(aes(x = x, y = y)) +
   geom_point() +
   xlim(4, 14) + ylim(14, 40) +
-  labs(title = "グラフ（d）",
+  labs(title = "グラフ（b）",
        x = "独立変数（X）",
        y = "従属変数（Y）")
 ```
 
 :::
 
+::: {.notes}
+問①：グラフ(b)の方が小さい＝精度が高い
+
+- サンプルサイズ$N$は同じだが、$X$の分散が小さい
+
+問②：グラフ（b）の方が小さい＝精度が高い
+
+- サンプルサイズ$N$が大きい
+
+:::
+
 
 # OLSの一致性
+::: {.notes}
+ここまで50分
+
+休憩5分
+
+目標15分
+:::
+
 ## 質問
 他の条件が同じなら、$N$が無限大に近づいていくにつれて$\text{var}(\hat{\beta_{1}})=\frac{\hat{\sigma}^2}{N\times\text{var}(X)}$の値はどうなっていくと思いますか。
+
+[WebClassチャット](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=794e2647280c975dea1763c0b5079ed5)
 
 
 ## OLS推定値の一致性
@@ -367,7 +410,25 @@ tibble(x = c(-3, 3)) |>
 ## 一致性の意味
 ![](figs/consistency.png){.r-strech}
 
+::: {.notes}
+日本人という母集団で洋画試聴がTOEICの点数をどれくらい上げるか
+
+- ここでは内生性はないと仮定
+- 母集団の真の値がわからない→ランダムサンプリングして推定
+- 基本的には標本サイズが大きい方が良い
+   - 小さい標本($n=10$)で出てきた値→期待値からかけ離れているかも
+   - 大きい標本($n=10,000$)で出てきた値→期待値に近い
+
+:::
+
+
 # 不均一分散と誤差の相関
+::: {.notes}
+ここまで70分
+
+目標15分
+:::
+
 ## OLS推定値の分散
 **ある一定の条件を満たした場合**の$\hat{\beta_{1}}$の分散は以下の式で計算。
 
@@ -394,12 +455,7 @@ $$
 :::
 
 ## 不均一分散
-誤差項$\varepsilon_i$が観察同士で相関
-
-::: {.incremental}
-- 例：年齢と年収
-
-:::
+誤差項$\varepsilon_i$が$X$の値に応じて変わってしまう
 
 ::: {.fragment .fade-in}
 ```{r}
@@ -433,6 +489,11 @@ scatter_hetero |>
 ```
 :::
 
+::: {.incremental}
+- 例：年齢と年収
+
+:::
+
 
 ## 誤差項同士の相関
 誤差項$\varepsilon_i$が観察同士で相関
@@ -448,6 +509,13 @@ scatter_hetero |>
 :::
 
 # まとめ
+::: {.notes}
+ここまで85分
+
+目標5分
+:::
+
+
 ## 本日の目的と到達目標 {.smaller}
 #### 目的
 二変量回帰モデルについて深掘りする。標準誤差の概念を導入し、OLS推定の精度に影響する要因を議論する。その中でも特にサンプルサイズに焦点を当て、OLS推定値がもつ「一致性」という性質を紹介する。さらに、通常の標準誤差が適用できない条件として不均一分散や誤差同士の相関という問題についても議論する。

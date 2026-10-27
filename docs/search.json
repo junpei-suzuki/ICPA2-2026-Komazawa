@@ -1192,7 +1192,7 @@
     "href": "04_OLSbasics_quiz.html#問題",
     "title": "04/小テスト問題",
     "section": "問題",
-    "text": "問題\n問１：上の文章の【１】に当てはまるのは以下のどちらか。\n\n\\(GPA_{i}=\\beta_{0}+\\beta_{1}勉強時間_{i}+\\varepsilon_{i}\\)\n\\(勉強時間_{i}=\\beta_{0}+\\beta_{1}GPA_{i}+\\varepsilon_{i}\\)\n\n問２：上の文章の【２】に当てはまるのは以下のうちどれか。\n\n週あたりの勉強時間が0時間だった時のGPAの値\nGPAが1単位増えるときに勉強時間がどれだけ増えるか\n勉強時間が1時間増えるたびにGPAがどれだけ増えるか\n勉強時間以外にGPAに影響する要因すべて\n\n問３：上の文章の【３】に当てはまるのは以下のどれか。\n\nはっきりしない\n右肩上がりの\n右肩下がりの\n\n問４：上の文章の「【４】残差」について、残差を表しているものとして正しいのは以下のグラフ上で表される赤線のうちどちらか。\n\n（ある観察から回帰曲線に向かって垂直に下ろした線）\n\n（ある観察から回帰曲線に向かってy軸と並行に下ろした線）\n\n\n問５：上の文章の【５】に当てはまるのは以下のどれか。\n\n\\(\\hat{\\beta_{1}}=\\frac{1}{\\sum(X_i-\\bar{X})^2}\\)\n\\(\\hat{\\beta_{1}}=\\frac{\\sum(X_i-\\bar{X})(Y_i-\\bar{Y})}{\\sum(X_i-\\bar{X})^2}\\)\n\\(\\hat{\\beta_{1}}=\\sum(X_i-\\bar{X})(Y_i-\\bar{Y})\\)\n\\(\\hat{\\beta_{1}}=\\frac{N}{\\sum(X_i-\\bar{X})^2}\\)\n\n問６：上の文章の【６】に当てはまるのは以下のどちらか。\n\n大きい\n小さい\n\n問７：上の文章の「【７】ランダム性」について正しい説明は以下のうちどちらか。\n\n同じデータでも最小二乗法で推定するたびに違う値が推定される\n同じ母集団からでも別の標本で最小二乗法を推定すると違う値が推定される\n\n問８：上の文章の【８】に当てはまるのは次のうちどちらか。\n\nまったく相関を持たない\n何らかの相関を持つ\n\n問９：上の文章の【９】に当てはまるのは次のうちどちらか。\n\n大きく\n小さく\n\n問１０：上の文章の【１０】に当てはまるのは次のうちどちらか。\n\n\\(\\beta_{1}\\)に完全に一致する\n\\(\\beta_{1}\\)を平均とする正規分布にしたがう"
+    "text": "問題\n問１：上の文章の【１】に当てはまるのは以下のどちらか。\n\n\\(GPA_{i}=\\beta_{0}+\\beta_{1}勉強時間_{i}+\\varepsilon_{i}\\)◯\n\\(勉強時間_{i}=\\beta_{0}+\\beta_{1}GPA_{i}+\\varepsilon_{i}\\)\n\n問２：上の文章の【２】に当てはまるのは以下のうちどれか。\n\n週あたりの勉強時間が0時間だった時のGPAの値\nGPAが1単位増えるときに勉強時間がどれだけ増えるか\n勉強時間が1時間増えるたびにGPAがどれだけ増えるか◯\n勉強時間以外にGPAに影響する要因すべて\n\n問３：上の文章の【３】に当てはまるのは以下のどれか。\n\nはっきりしない\n右肩上がりの◯\n右肩下がりの\n\n問４：上の文章の「【４】残差」について、残差を表しているものとして正しいのは以下のグラフ上で表される赤線のうちどちらか。\n\n（ある観察から回帰曲線に向かって垂直に下ろした線）\n\n（ある観察から回帰曲線に向かってy軸と並行に下ろした線）◯\n\n\n問５：上の文章の【５】に当てはまるのは以下のどれか。\n\n\\(\\hat{\\beta_{1}}=\\frac{1}{\\sum(X_i-\\bar{X})^2}\\)\n\\(\\hat{\\beta_{1}}=\\frac{\\sum(X_i-\\bar{X})(Y_i-\\bar{Y})}{\\sum(X_i-\\bar{X})^2}\\)◯\n\\(\\hat{\\beta_{1}}=\\sum(X_i-\\bar{X})(Y_i-\\bar{Y})\\)\n\\(\\hat{\\beta_{1}}=\\frac{N}{\\sum(X_i-\\bar{X})^2}\\)\n\n問６：上の文章の【６】に当てはまるのは以下のどちらか。\n\n大きい◯\n小さい\n\n問７：上の文章の「【７】ランダム性」について正しい説明は以下のうちどちらか。\n\n同じデータでも最小二乗法で推定するたびに違う値が推定される\n同じ母集団からでも別の標本で最小二乗法を推定すると違う値が推定される◯\n\n問８：上の文章の【８】に当てはまるのは次のうちどちらか。\n\nまったく相関を持たない\n何らかの相関を持つ◯\n\n問９：上の文章の【９】に当てはまるのは次のうちどちらか。\n\n大きく◯\n小さく\n\n問１０：上の文章の【１０】に当てはまるのは次のうちどちらか。\n\n\\(\\beta_{1}\\)に完全に一致する\n\\(\\beta_{1}\\)を平均とする正規分布にしたがう◯"
   },
   {
     "objectID": "04_OLSbasics_slide.html#大統領選データでの計算",
@@ -1255,7 +1255,7 @@
     "href": "05_OLSapp_slide.html#小テストの講評",
     "title": "05/二変量回帰分析：応用編",
     "section": "小テストの講評",
-    "text": "小テストの講評\nTBD"
+    "text": "小テストの講評\n\n受験者数172人\n平均8.81/10点\n標準偏差1.95点\n最小値0点\n最大値10点\n\n大変よくできましたが、問4と問9と問10が若干正解率が低い（→正答）"
   },
   {
     "objectID": "05_OLSapp_slide.html#出席登録をお願いします",
@@ -1311,14 +1311,14 @@
     "href": "05_OLSapp_slide.html#ols推定値の分布",
     "title": "05/二変量回帰分析：応用編",
     "section": "OLS推定値の分布",
-    "text": "OLS推定値の分布\n\\(X\\)と\\(\\varepsilon\\)が無相関のとき（＝内生性がないとき）、\\(\\hat{\\beta}_{1}\\)は真の値\\(\\beta_{1}\\)を期待値（平均）とする正規分布にしたがう。\n\n\nError in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation"
+    "text": "OLS推定値の分布\n\\(X\\)と\\(\\varepsilon\\)が無相関のとき（＝内生性がないとき）、\\(\\hat{\\beta}_{1}\\)は真の値\\(\\beta_{1}\\)を期待値（平均）とする正規分布にしたがう。\n\n\n\n\n\n\n\n\n\n\\(X\\)と\\(\\varepsilon\\)とが相関するとき（＝内生性があるとき）に期待値（平均）はずれてしまう"
   },
   {
     "objectID": "05_OLSapp_slide.html#質問",
     "href": "05_OLSapp_slide.html#質問",
     "title": "05/二変量回帰分析：応用編",
     "section": "質問",
-    "text": "質問\nどちらが真値を正確に推定しているでしょうか？\n\n\nError in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation"
+    "text": "質問\n洋画試聴時間とTOEICの点数の関係のモデルの推定を100回×2セット行いました。標本セットAとBの分布は以下の通りです。どちらの標本セットが真値を正確に推定していると言えるでしょうか？（WebClassチャット）"
   },
   {
     "objectID": "05_OLSapp_slide.html#ols推定値の精度",
@@ -1367,7 +1367,7 @@
     "href": "05_OLSapp_slide.html#クイズ",
     "title": "05/二変量回帰分析：応用編",
     "section": "クイズ",
-    "text": "クイズ\n以下の2つのグラフでは\\(\\hat{\\beta_{1}}\\)の分散はどちらが小さいでしょうか\n\nクイズ①クイズ②"
+    "text": "クイズ\n以下の2つのグラフでは\\(\\hat{\\beta_{1}}\\)の分散はどちらが小さいでしょうか（WebClass）\n\n問①問②\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n問①：グラフ(b)の方が小さい＝精度が高い\n\nサンプルサイズ\\(N\\)は同じだが、\\(X\\)の分散が小さい\n\n問②：グラフ（b）の方が小さい＝精度が高い\n\nサンプルサイズ\\(N\\)が大きい"
   },
   {
     "objectID": "05_OLSapp_slide.html#回帰分散の図解",
@@ -1381,21 +1381,21 @@
     "href": "05_OLSapp_slide.html#質問-1",
     "title": "05/二変量回帰分析：応用編",
     "section": "質問",
-    "text": "質問\n他の条件が同じなら、\\(N\\)が無限大に近づいていくにつれて\\(\\text{var}(\\hat{\\beta_{1}})=\\frac{\\hat{\\sigma}^2}{N\\times\\text{var}(X)}\\)の値はどうなっていくと思いますか。"
+    "text": "質問\n他の条件が同じなら、\\(N\\)が無限大に近づいていくにつれて\\(\\text{var}(\\hat{\\beta_{1}})=\\frac{\\hat{\\sigma}^2}{N\\times\\text{var}(X)}\\)の値はどうなっていくと思いますか。\nWebClassチャット"
   },
   {
     "objectID": "05_OLSapp_slide.html#ols推定値の一致性",
     "href": "05_OLSapp_slide.html#ols推定値の一致性",
     "title": "05/二変量回帰分析：応用編",
     "section": "OLS推定値の一致性",
-    "text": "OLS推定値の一致性\nサンプルサイズ（\\(N\\)）が大きくなるにつれて、OLS推定値\\(\\hat{\\beta_{1}}\\)は真値\\(\\beta_{1}\\)に確率的に収束（\\(\\text{plim}\\hat{\\beta}_1=\\beta_1\\)）\n\n\n\n\nError in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation\n\n\n\n\n\n\nError in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation\n\n\n\n\n\n\nError in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation"
+    "text": "OLS推定値の一致性\nサンプルサイズ（\\(N\\)）が大きくなるにつれて、OLS推定値\\(\\hat{\\beta_{1}}\\)は真値\\(\\beta_{1}\\)に確率的に収束（\\(\\text{plim}\\hat{\\beta}_1=\\beta_1\\)）"
   },
   {
     "objectID": "05_OLSapp_slide.html#一致性の意味",
     "href": "05_OLSapp_slide.html#一致性の意味",
     "title": "05/二変量回帰分析：応用編",
     "section": "一致性の意味",
-    "text": "一致性の意味"
+    "text": "一致性の意味\n\n\n日本人という母集団で洋画試聴がTOEICの点数をどれくらい上げるか\n\nここでは内生性はないと仮定\n母集団の真の値がわからない→ランダムサンプリングして推定\n基本的には標本サイズが大きい方が良い\n\n小さい標本(\\(n=10\\))で出てきた値→期待値からかけ離れているかも\n大きい標本(\\(n=10,000\\))で出てきた値→期待値に近い"
   },
   {
     "objectID": "05_OLSapp_slide.html#ols推定値の分散-1",
@@ -1409,7 +1409,7 @@
     "href": "05_OLSapp_slide.html#不均一分散",
     "title": "05/二変量回帰分析：応用編",
     "section": "不均一分散",
-    "text": "不均一分散\n誤差項\\(\\varepsilon_i\\)が観察同士で相関\n\n例：年齢と年収"
+    "text": "不均一分散\n誤差項\\(\\varepsilon_i\\)が\\(X\\)の値に応じて変わってしまう\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n例：年齢と年収"
   },
   {
     "objectID": "05_OLSapp_slide.html#誤差項同士の相関",
@@ -1423,7 +1423,7 @@
     "href": "05_OLSapp.html",
     "title": "05/二変量回帰分析：応用編",
     "section": "",
-    "text": "準備学習\n\n【事前】教科書（第3章3.4-3.6: pp.86-98）を読む。\n【事後】配布資料やノートを見直し、到達目標が達成できているかチェックする。\n【事後】WebClass上での小テスト回答（金曜日まで） \n\n\n\nスライド\n    View slides in full screen",
+    "text": "準備学習\n\n【事前】教科書（第3章3.4-3.6: pp.86-98）を読む。\n【事後】配布資料やノートを見直し、到達目標が達成できているかチェックする。\n【事後】WebClass上での小テスト回答（金曜日まで）\n\n問題はこちら\n\n\n\n\nスライド\n    View slides in full screen",
     "crumbs": [
       "二変量回帰分析",
       "05/応用編"

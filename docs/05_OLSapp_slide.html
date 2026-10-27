@@ -168,7 +168,19 @@
 <section>
 <section id="はじめに" class="title-slide slide level1 center">
 <h1>はじめに</h1>
-
+<aside class="notes">
+<p>目標15分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="本日の目的と到達目標" class="slide level2 smaller">
 <h2>本日の目的と到達目標</h2>
@@ -186,12 +198,32 @@
 </section>
 <section id="小テストの講評" class="slide level2">
 <h2>小テストの講評</h2>
-<p>TBD</p>
+<ul>
+<li>受験者数172人</li>
+<li>平均8.81/10点</li>
+<li>標準偏差1.95点</li>
+<li>最小値0点</li>
+<li>最大値10点</li>
+</ul>
+<p>大変よくできましたが、問4と問9と問10が若干正解率が低い（→<a href="./04_OLSbasics_quiz.html">正答</a>）</p>
 </section></section>
 <section>
 <section id="復習olsの基本" class="title-slide slide level1 center">
 <h1>復習：OLSの基本</h1>
-
+<aside class="notes">
+<p>ここまで15分</p>
+<p>目標15分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="最小二乗法" class="slide level2">
 <h2>最小二乗法</h2>
@@ -220,22 +252,44 @@
 <h2>OLS推定値の分布</h2>
 <p><span class="math inline">\(X\)</span>と<span class="math inline">\(\varepsilon\)</span>が無相関のとき（＝内生性がないとき）、<span class="math inline">\(\hat{\beta}_{1}\)</span>は真の値<span class="math inline">\(\beta_{1}\)</span>を<strong>期待値</strong>（平均）とする<strong>正規分布</strong>にしたがう。</p>
 <div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-error">
-<pre><code>Error in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation</code></pre>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="05_OLSapp_slide_files/figure-revealjs/norm-OLS-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+</figure>
 </div>
 </div>
+</div>
+<p><span class="math inline">\(X\)</span>と<span class="math inline">\(\varepsilon\)</span>とが相関するとき（＝内生性があるとき）に期待値（平均）はずれてしまう</p>
 </section></section>
 <section>
 <section id="ols推定の精度" class="title-slide slide level1 center">
 <h1>OLS推定の精度</h1>
-
+<aside class="notes">
+<p>ここまで30分</p>
+<p>目標20分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="質問" class="slide level2">
 <h2>質問</h2>
-<p>どちらが真値を正確に推定しているでしょうか？</p>
+<p>洋画試聴時間とTOEICの点数の関係のモデルの推定を100回×2セット行いました。標本セットAとBの分布は以下の通りです。どちらの標本セットが真値を正確に推定していると言えるでしょうか？（<a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=794e2647280c975dea1763c0b5079ed5">WebClassチャット</a>）</p>
 <div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-error">
-<pre><code>Error in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation</code></pre>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="05_OLSapp_slide_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -294,7 +348,7 @@
 </section>
 <section class="slide level2">
 
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -315,12 +369,12 @@
 </section>
 <section id="クイズ" class="slide level2">
 <h2>クイズ</h2>
-<p>以下の2つのグラフでは<span class="math inline">\(\hat{\beta_{1}}\)</span>の分散はどちらが小さいでしょうか</p>
+<p>以下の2つのグラフでは<span class="math inline">\(\hat{\beta_{1}}\)</span>の分散はどちらが小さいでしょうか（<a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=1febc8b86f93f51b5c14edba2280e32d&amp;page=1">WebClass</a>）</p>
 <div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">クイズ①</a></li><li><a href="#tabset-1-2">クイズ②</a></li></ul>
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">問①</a></li><li><a href="#tabset-1-2">問②</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -340,7 +394,7 @@
 </div>
 </div>
 <div id="tabset-1-2">
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -361,15 +415,50 @@
 </div>
 </div>
 </div>
+<aside class="notes">
+<p>問①：グラフ(b)の方が小さい＝精度が高い</p>
+<ul>
+<li>サンプルサイズ<span class="math inline">\(N\)</span>は同じだが、<span class="math inline">\(X\)</span>の分散が小さい</li>
+</ul>
+<p>問②：グラフ（b）の方が小さい＝精度が高い</p>
+<ul>
+<li>サンプルサイズ<span class="math inline">\(N\)</span>が大きい</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="olsの一致性" class="title-slide slide level1 center">
 <h1>OLSの一致性</h1>
-
+<aside class="notes">
+<p>ここまで50分</p>
+<p>休憩5分</p>
+<p>目標15分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="質問-1" class="slide level2">
 <h2>質問</h2>
 <p>他の条件が同じなら、<span class="math inline">\(N\)</span>が無限大に近づいていくにつれて<span class="math inline">\(\text{var}(\hat{\beta_{1}})=\frac{\hat{\sigma}^2}{N\times\text{var}(X)}\)</span>の値はどうなっていくと思いますか。</p>
+<p><a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=794e2647280c975dea1763c0b5079ed5">WebClassチャット</a></p>
 </section>
 <section id="ols推定値の一致性" class="slide level2">
 <h2>OLS推定値の一致性</h2>
@@ -377,22 +466,34 @@
 <div class="r-stack">
 <div class="fragment">
 <div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-error">
-<pre><code>Error in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation</code></pre>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="05_OLSapp_slide_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+</figure>
 </div>
-</div>
-</div>
-<div class="fragment">
-<div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-error">
-<pre><code>Error in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation</code></pre>
 </div>
 </div>
 </div>
 <div class="fragment">
 <div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-error">
-<pre><code>Error in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : invalid mathematical annotation</code></pre>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="05_OLSapp_slide_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="05_OLSapp_slide_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -401,11 +502,46 @@
 <section id="一致性の意味" class="slide level2">
 <h2>一致性の意味</h2>
 <p><img data-src="figs/consistency.png" class="r-strech"></p>
+<aside class="notes">
+<p>日本人という母集団で洋画試聴がTOEICの点数をどれくらい上げるか</p>
+<ul>
+<li>ここでは内生性はないと仮定</li>
+<li>母集団の真の値がわからない→ランダムサンプリングして推定</li>
+<li>基本的には標本サイズが大きい方が良い
+<ul>
+<li>小さい標本(<span class="math inline">\(n=10\)</span>)で出てきた値→期待値からかけ離れているかも</li>
+<li>大きい標本(<span class="math inline">\(n=10,000\)</span>)で出てきた値→期待値に近い</li>
+</ul></li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="不均一分散と誤差の相関" class="title-slide slide level1 center">
 <h1>不均一分散と誤差の相関</h1>
-
+<aside class="notes">
+<p>ここまで70分</p>
+<p>目標15分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="ols推定値の分散-1" class="slide level2">
 <h2>OLS推定値の分散</h2>
@@ -432,12 +568,9 @@
 </section>
 <section id="不均一分散" class="slide level2">
 <h2>不均一分散</h2>
-<p>誤差項<span class="math inline">\(\varepsilon_i\)</span>が観察同士で相関</p>
-<ul>
-<li class="fragment">例：年齢と年収</li>
-</ul>
+<p>誤差項<span class="math inline">\(\varepsilon_i\)</span>が<span class="math inline">\(X\)</span>の値に応じて変わってしまう</p>
 <div class="fragment fade-in">
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -456,6 +589,9 @@
 </div>
 </div>
 </div>
+<ul>
+<li class="fragment">例：年齢と年収</li>
+</ul>
 </section>
 <section id="誤差項同士の相関" class="slide level2">
 <h2>誤差項同士の相関</h2>
@@ -480,7 +616,20 @@
 <section>
 <section id="まとめ" class="title-slide slide level1 center">
 <h1>まとめ</h1>
-
+<aside class="notes">
+<p>ここまで85分</p>
+<p>目標5分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="本日の目的と到達目標-1" class="slide level2 smaller">
 <h2>本日の目的と到達目標</h2>
