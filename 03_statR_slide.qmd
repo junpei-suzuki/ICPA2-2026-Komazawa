@@ -45,6 +45,9 @@ metadata-files:
 
 :::
 
+## 本日の授業の位置付け
+![](figs/graphic_syllabus_ICPA2.png){.r-stretch}
+
 ## 小テストの講評 (1/4)
 
 - 受験者数176人

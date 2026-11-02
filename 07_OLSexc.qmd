@@ -46,6 +46,9 @@ local({
 
 :::
 
+## 本日の授業の位置付け
+![](figs/graphic_syllabus_ICPA2.png){.r-stretch}
+
 ## 実習の準備
 ### Posit Cloudの準備
 Posit Cloudにログインし、前回のWorkspace（例えば「ICPA2」）に入ったら、以下の準備を行おう。
@@ -135,7 +138,7 @@ $$
 - 傾き：$\hat{\beta_{1}}=\frac{\sum(X_i-\bar{X})(Y_i-\bar{Y})}{\sum(X_i-\bar{X})^2}$
 - 切片：$\hat{\beta_{0}}=\bar{Y}-\hat{\beta_{1}}\bar{X}$
 
-上記のOLS推定値のばらつきを**標準誤差**（standard error）と呼ぶ。一定の条件を満たす場合、傾き$\hat{\beta_{1}}$の標準誤差は$\text{var}(\hat{\beta_{1}})=\frac{\hat{\sigma}^2}{N\times\text{var}(X)}$で計算できる。母集団における真の傾きを$\beta_{1}$とした場合、推定される$\hat{\beta_{1}}$は$\beta_{1}$を期待値、$\sqrt{\text{var}(\hat{\beta_{1}})}$を標準偏差とする正規分布にしたがう。
+上記のOLS推定値のばらつきを**標準誤差**（standard error）と呼ぶ。一定の条件を満たす場合、傾き$\hat{\beta_{1}}$の標準誤差は$\operatorname{se}(\hat{\beta_{1}})=\sqrt{\operatorname{var}(\hat{\beta_{1}})}=\sqrt{\frac{\hat{\sigma}^2}{N\times\operatorname{var}(X)}}$で計算できる。母集団における真の傾きを$\beta_{1}$とした場合、推定される$\hat{\beta_{1}}$は$\beta_{1}$を期待値、$\operatorname{se}(\hat{\beta_{1}})=\sqrt{\frac{\hat{\sigma}^2}{N\times\operatorname{var}(X)}}$を標準偏差とする正規分布にしたがう。
 
 ### OLSの実装と解釈
 OLS推定をR上で実施するには`lm()`関数を使う。`lm()`関数に限らず、Rではコマンドのヘルプを`?関数`で閲覧できる。`?lm`と入力すると、`lm()`関数の使い方が載っている[^help]。`lm()`関数の第一引数はformulaであり、`y ~ x`のように従属変数と独立変数をモデル化する。`data`引数では使うデータを指定する。

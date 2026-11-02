@@ -65,6 +65,9 @@ metadata-files:
 1. ランダム化実験の3つの限界を列挙できる。
 :::
 
+## 本日の授業の位置付け
+![](figs/graphic_syllabus_ICPA2.png){.r-stretch}
+
 ## 小テストの講評
 平均3.7/5点
 

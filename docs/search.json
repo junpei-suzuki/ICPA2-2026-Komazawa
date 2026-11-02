@@ -1794,7 +1794,7 @@
     "href": "07_OLSexc.html#二変量回帰分析",
     "title": "07/二変量回帰分析：実習編",
     "section": "二変量回帰分析",
-    "text": "二変量回帰分析\n\n二変量モデルのOLS推定\n独立変数\\(X\\)と従属変数\\(Y\\)を以下のようにモデル化する。\n\\[\nY_i=\\beta_{0}+\\beta_{1}X_i+\\varepsilon_{i}\n\\]\nこの時、\\(\\beta_{0}\\)は切片で、\\(X\\)の値が0の時の\\(Y\\)、\\(\\beta_{1}\\)は傾きで\\(X\\)の値が1単位増大した時に\\(Y\\)がどれくらい増えるか、\\(\\varepsilon\\)は誤差項で、\\(X\\)以外に\\(Y\\)に影響を与える要因全てである。\n傾き\\(\\beta_{1}\\)と切片\\(\\beta_{0}\\)をそれぞれ最小二乗法（OLS）を使って推定した値をそれぞれ\\(\\hat{\\beta}_{0}\\)と\\(\\hat{\\beta}_{1}\\)とすると、以下の通り計算される（\\(\\bar{X}\\)と\\(\\bar{Y}\\)はそれぞれ\\(X\\)と\\(Y\\)の平均）。\n\n傾き：\\(\\hat{\\beta_{1}}=\\frac{\\sum(X_i-\\bar{X})(Y_i-\\bar{Y})}{\\sum(X_i-\\bar{X})^2}\\)\n切片：\\(\\hat{\\beta_{0}}=\\bar{Y}-\\hat{\\beta_{1}}\\bar{X}\\)\n\n上記のOLS推定値のばらつきを標準誤差（standard error）と呼ぶ。一定の条件を満たす場合、傾き\\(\\hat{\\beta_{1}}\\)の標準誤差は\\(\\text{var}(\\hat{\\beta_{1}})=\\frac{\\hat{\\sigma}^2}{N\\times\\text{var}(X)}\\)で計算できる。母集団における真の傾きを\\(\\beta_{1}\\)とした場合、推定される\\(\\hat{\\beta_{1}}\\)は\\(\\beta_{1}\\)を期待値、\\(\\sqrt{\\text{var}(\\hat{\\beta_{1}})}\\)を標準偏差とする正規分布にしたがう。\n\n\nOLSの実装と解釈\nOLS推定をR上で実施するにはlm()関数を使う。lm()関数に限らず、Rではコマンドのヘルプを?関数で閲覧できる。?lmと入力すると、lm()関数の使い方が載っている3。lm()関数の第一引数はformulaであり、y ~ xのように従属変数と独立変数をモデル化する。data引数では使うデータを指定する。\nここでドーナツデータを使い、ドーナツと体重の二変量モデルをOLS推定してみよう。以下のコマンドで推定を実施し、OLS_resultというオブジェクトに保存できる。\n\nOLSresult &lt;- lm(weight ~ donuts, data = dta)\n\nこのOLS_resultオブジェクトをもう一度コンソールに打ち込んでも良いが、これだと結果が見づらい。以下のようにsummary()を使って結果をわかりやすく表示できる。\n\nsummary(OLSresult)\n\n\nCall:\nlm(formula = weight ~ donuts, data = dta)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-42.238  -4.299   0.343  15.922  24.976 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  55.6080     7.4200   7.494 1.21e-05 ***\ndonuts        4.1287     0.8707   4.742 0.000608 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 20.68 on 11 degrees of freedom\nMultiple R-squared:  0.6715,    Adjusted R-squared:  0.6416 \nF-statistic: 22.48 on 1 and 11 DF,  p-value: 0.0006078\n\n\n上記で注目すべきはまずCoefficietsの欄である。\n\nEstimateはそれぞれ切片(intercept)とdonutsの傾きを表している。(intercept)が55.6ということは、ドーナツを全く食べていない場合の平均体重は55.6キロ程度ということである。donutsの傾きは4.13だが、これはドーナツを週一個多く食べるごとに体重が4.13キロ増えることを意味する。\nStd. Errorでは切片および傾きの標準誤差が表示されている。donutsの標準誤差を見ると0.87程度だが、これが傾き推定値のばらつきを表している。\nt valueとPr(&gt;|t|)は統計的仮説検定に関わる。詳細は次週以降。\n\n次に決定係数\\(R^2\\)もわかる。下から2行目のMultiple R-squaredがそれで、この結果では0.67くらいである。体重のばらつきの67%がこのモデルで説明されていることを意味する。4\n\n\n分析結果を散布図上に書き込む\n以上の分析から、ドーナツと体重の関係は\\(体重_{i}=55.6+4.13\\timesドーナツ_{i}\\)であると推定された。この式が表す直線は以下のコマンドで散布図上に描ける。\n\nplot(dta$donuts, dta$weight)\nabline(OLSresult)\n\n\n\n\n\n\n\n\n\n\n一部のデータを使った分析\n上記の分析では13人全員分のデータを使ってOLS推定を行ったが、lm()関数のsubsetオプションを使えば条件にあった一部のデータだけを使って推定できる。\n例えば、男性だけで分析したい場合は以下のコマンドでできる。今回は切片が60.14、傾きが3.86になっているのに注意。\n\nOLSresult_Male &lt;- lm(weight ~ donuts, data = dta,\n                     subset = (male == 1)) # ==と2回続けるのに注意\nsummary(OLSresult_Male)\n\n\nCall:\nlm(formula = weight ~ donuts, data = dta, subset = (male == 1))\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-45.40  -2.54  10.61  13.87  21.27 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)   60.140     10.883   5.526 0.000882 ***\ndonuts         3.855      1.081   3.565 0.009164 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 23.7 on 7 degrees of freedom\nMultiple R-squared:  0.6448,    Adjusted R-squared:  0.594 \nF-statistic: 12.71 on 1 and 7 DF,  p-value: 0.009164\n\n\n例えば、大人だけで分析したい場合は以下のコマンドで。切片は63.64、傾きは3.79になった。\n\nOLSresult_Adult &lt;- lm(weight ~ donuts, data = dta,\n                     subset = (child == 0)) # ==と2回続けるのに注意\nsummary(OLSresult_Adult)\n\n\nCall:\nlm(formula = weight ~ donuts, data = dta, subset = (child == \n    0))\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-30.2010  -7.6807   0.3041   9.2366  17.9660 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  63.6414     5.7463  11.075 1.52e-06 ***\ndonuts        3.7877     0.6287   6.025 0.000196 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 14.49 on 9 degrees of freedom\nMultiple R-squared:  0.8013,    Adjusted R-squared:  0.7792 \nF-statistic:  36.3 on 1 and 9 DF,  p-value: 0.0001964\n\n\nHomerを除外する場合は以下。切片は55.69、傾きは3.91。\n\nOLSresult_NoHomer &lt;- lm(weight ~ donuts, data = dta,\n                     subset = (name != \"Homer\")) \n# 名前は文字列なので\"\"は忘れない。\n# また!=はノットイコールを意味する。\nsummary(OLSresult_NoHomer)\n\n\nCall:\nlm(formula = weight ~ donuts, data = dta, subset = (name != \"Homer\"))\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-41.229  -8.296   2.866  16.494  25.551 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  55.6862     7.6486   7.281 2.66e-05 ***\ndonuts        3.9112     0.9688   4.037  0.00237 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 21.31 on 10 degrees of freedom\nMultiple R-squared:  0.6198,    Adjusted R-squared:  0.5817 \nF-statistic:  16.3 on 1 and 10 DF,  p-value: 0.002371\n\n\n\n\n頑健標準誤差（時間があれば）\n傾き\\(\\hat{\\beta_{1}}\\)の標準誤差は基本的に\\(\\text{var}(\\hat{\\beta_{1}})=\\frac{\\hat{\\sigma}^2}{N\\times\\text{var}(X)}\\)で計算できるが、誤差項の均一分散や誤差項同士の相関がない場合に限られる。不均一分散や誤差項同士の相関が生じている場合には、頑健標準誤差という別の計算式を使った標準誤差を使う。\n実は頑健標準誤差はRのデフォルト機能では計算できない。ここで使うのはパッケージである。ライブラリとはRに機能を追加するもので、ゲームで言ったらMODとかに近い（多分）。今回はAERパッケージをインストールし、Rに組み込む。インストールはinstall.packages()5でできるが、これは基本一回やればよい。その上でlibrary()コマンドを実行して、Rに組み込む。library()コマンドで組み込んだパッケージはセッションを立ち上げるたびにリセットされるので、その度に実行し直すこと。\n\ninstall.packages(\"AER\") # これは一度だけで大丈夫\n\n\nThe downloaded binary packages are in\n    /var/folders/hy/0rwqjktd7mb2ycrqdj1w7pgc0000gn/T//RtmpK28GHk/downloaded_packages\n\nlibrary(AER) # これはセッションのたびに実行\n\nLoading required package: car\n\n\nLoading required package: carData\n\n\nLoading required package: lmtest\n\n\nLoading required package: zoo\n\n\n\nAttaching package: 'zoo'\n\n\nThe following objects are masked from 'package:base':\n\n    as.Date, as.Date.numeric\n\n\nLoading required package: sandwich\n\n\nLoading required package: survival\n\n\n以上ができたら、coeftest()関数で頑健標準誤差を計算できる。vcov = vcovHCオプションで不均一分散を考慮した標準誤差を指定している\n\nsummary(OLSresult) # デフォルトの分析結果\n\n\nCall:\nlm(formula = weight ~ donuts, data = dta)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-42.238  -4.299   0.343  15.922  24.976 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  55.6080     7.4200   7.494 1.21e-05 ***\ndonuts        4.1287     0.8707   4.742 0.000608 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 20.68 on 11 degrees of freedom\nMultiple R-squared:  0.6715,    Adjusted R-squared:  0.6416 \nF-statistic: 22.48 on 1 and 11 DF,  p-value: 0.0006078\n\n# 頑健標準誤差を使った分析結果\ncoeftest(OLSresult, vcov = vcovHC(OLSresult, type = \"HC1\"))\n\n\nt test of coefficients:\n\n            Estimate Std. Error t value  Pr(&gt;|t|)    \n(Intercept) 55.60799    7.68225  7.2385 1.668e-05 ***\ndonuts       4.12871    0.48053  8.5920 3.293e-06 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n最初のモデルと結果を見比べると、切片と係数の値（Estimate）自体は同じである一方、標準誤差Std. Errorの値が変わっている。",
+    "text": "二変量回帰分析\n\n二変量モデルのOLS推定\n独立変数\\(X\\)と従属変数\\(Y\\)を以下のようにモデル化する。\n\\[\nY_i=\\beta_{0}+\\beta_{1}X_i+\\varepsilon_{i}\n\\]\nこの時、\\(\\beta_{0}\\)は切片で、\\(X\\)の値が0の時の\\(Y\\)、\\(\\beta_{1}\\)は傾きで\\(X\\)の値が1単位増大した時に\\(Y\\)がどれくらい増えるか、\\(\\varepsilon\\)は誤差項で、\\(X\\)以外に\\(Y\\)に影響を与える要因全てである。\n傾き\\(\\beta_{1}\\)と切片\\(\\beta_{0}\\)をそれぞれ最小二乗法（OLS）を使って推定した値をそれぞれ\\(\\hat{\\beta}_{0}\\)と\\(\\hat{\\beta}_{1}\\)とすると、以下の通り計算される（\\(\\bar{X}\\)と\\(\\bar{Y}\\)はそれぞれ\\(X\\)と\\(Y\\)の平均）。\n\n傾き：\\(\\hat{\\beta_{1}}=\\frac{\\sum(X_i-\\bar{X})(Y_i-\\bar{Y})}{\\sum(X_i-\\bar{X})^2}\\)\n切片：\\(\\hat{\\beta_{0}}=\\bar{Y}-\\hat{\\beta_{1}}\\bar{X}\\)\n\n上記のOLS推定値のばらつきを標準誤差（standard error）と呼ぶ。一定の条件を満たす場合、傾き\\(\\hat{\\beta_{1}}\\)の標準誤差は\\(\\operatorname{se}(\\hat{\\beta_{1}})=\\sqrt{\\operatorname{var}(\\hat{\\beta_{1}})}=\\sqrt{\\frac{\\hat{\\sigma}^2}{N\\times\\operatorname{var}(X)}}\\)で計算できる。母集団における真の傾きを\\(\\beta_{1}\\)とした場合、推定される\\(\\hat{\\beta_{1}}\\)は\\(\\beta_{1}\\)を期待値、\\(\\operatorname{se}(\\hat{\\beta_{1}})=\\sqrt{\\frac{\\hat{\\sigma}^2}{N\\times\\operatorname{var}(X)}}\\)を標準偏差とする正規分布にしたがう。\n\n\nOLSの実装と解釈\nOLS推定をR上で実施するにはlm()関数を使う。lm()関数に限らず、Rではコマンドのヘルプを?関数で閲覧できる。?lmと入力すると、lm()関数の使い方が載っている3。lm()関数の第一引数はformulaであり、y ~ xのように従属変数と独立変数をモデル化する。data引数では使うデータを指定する。\nここでドーナツデータを使い、ドーナツと体重の二変量モデルをOLS推定してみよう。以下のコマンドで推定を実施し、OLS_resultというオブジェクトに保存できる。\n\nOLSresult &lt;- lm(weight ~ donuts, data = dta)\n\nこのOLS_resultオブジェクトをもう一度コンソールに打ち込んでも良いが、これだと結果が見づらい。以下のようにsummary()を使って結果をわかりやすく表示できる。\n\nsummary(OLSresult)\n\n\nCall:\nlm(formula = weight ~ donuts, data = dta)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-42.238  -4.299   0.343  15.922  24.976 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  55.6080     7.4200   7.494 1.21e-05 ***\ndonuts        4.1287     0.8707   4.742 0.000608 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 20.68 on 11 degrees of freedom\nMultiple R-squared:  0.6715,    Adjusted R-squared:  0.6416 \nF-statistic: 22.48 on 1 and 11 DF,  p-value: 0.0006078\n\n\n上記で注目すべきはまずCoefficietsの欄である。\n\nEstimateはそれぞれ切片(intercept)とdonutsの傾きを表している。(intercept)が55.6ということは、ドーナツを全く食べていない場合の平均体重は55.6キロ程度ということである。donutsの傾きは4.13だが、これはドーナツを週一個多く食べるごとに体重が4.13キロ増えることを意味する。\nStd. Errorでは切片および傾きの標準誤差が表示されている。donutsの標準誤差を見ると0.87程度だが、これが傾き推定値のばらつきを表している。\nt valueとPr(&gt;|t|)は統計的仮説検定に関わる。詳細は次週以降。\n\n次に決定係数\\(R^2\\)もわかる。下から2行目のMultiple R-squaredがそれで、この結果では0.67くらいである。体重のばらつきの67%がこのモデルで説明されていることを意味する。4\n\n\n分析結果を散布図上に書き込む\n以上の分析から、ドーナツと体重の関係は\\(体重_{i}=55.6+4.13\\timesドーナツ_{i}\\)であると推定された。この式が表す直線は以下のコマンドで散布図上に描ける。\n\nplot(dta$donuts, dta$weight)\nabline(OLSresult)\n\n\n\n\n\n\n\n\n\n\n一部のデータを使った分析\n上記の分析では13人全員分のデータを使ってOLS推定を行ったが、lm()関数のsubsetオプションを使えば条件にあった一部のデータだけを使って推定できる。\n例えば、男性だけで分析したい場合は以下のコマンドでできる。今回は切片が60.14、傾きが3.86になっているのに注意。\n\nOLSresult_Male &lt;- lm(weight ~ donuts, data = dta,\n                     subset = (male == 1)) # ==と2回続けるのに注意\nsummary(OLSresult_Male)\n\n\nCall:\nlm(formula = weight ~ donuts, data = dta, subset = (male == 1))\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-45.40  -2.54  10.61  13.87  21.27 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)   60.140     10.883   5.526 0.000882 ***\ndonuts         3.855      1.081   3.565 0.009164 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 23.7 on 7 degrees of freedom\nMultiple R-squared:  0.6448,    Adjusted R-squared:  0.594 \nF-statistic: 12.71 on 1 and 7 DF,  p-value: 0.009164\n\n\n例えば、大人だけで分析したい場合は以下のコマンドで。切片は63.64、傾きは3.79になった。\n\nOLSresult_Adult &lt;- lm(weight ~ donuts, data = dta,\n                     subset = (child == 0)) # ==と2回続けるのに注意\nsummary(OLSresult_Adult)\n\n\nCall:\nlm(formula = weight ~ donuts, data = dta, subset = (child == \n    0))\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-30.2010  -7.6807   0.3041   9.2366  17.9660 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  63.6414     5.7463  11.075 1.52e-06 ***\ndonuts        3.7877     0.6287   6.025 0.000196 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 14.49 on 9 degrees of freedom\nMultiple R-squared:  0.8013,    Adjusted R-squared:  0.7792 \nF-statistic:  36.3 on 1 and 9 DF,  p-value: 0.0001964\n\n\nHomerを除外する場合は以下。切片は55.69、傾きは3.91。\n\nOLSresult_NoHomer &lt;- lm(weight ~ donuts, data = dta,\n                     subset = (name != \"Homer\")) \n# 名前は文字列なので\"\"は忘れない。\n# また!=はノットイコールを意味する。\nsummary(OLSresult_NoHomer)\n\n\nCall:\nlm(formula = weight ~ donuts, data = dta, subset = (name != \"Homer\"))\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-41.229  -8.296   2.866  16.494  25.551 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  55.6862     7.6486   7.281 2.66e-05 ***\ndonuts        3.9112     0.9688   4.037  0.00237 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 21.31 on 10 degrees of freedom\nMultiple R-squared:  0.6198,    Adjusted R-squared:  0.5817 \nF-statistic:  16.3 on 1 and 10 DF,  p-value: 0.002371\n\n\n\n\n頑健標準誤差（時間があれば）\n傾き\\(\\hat{\\beta_{1}}\\)の標準誤差は基本的に\\(\\text{var}(\\hat{\\beta_{1}})=\\frac{\\hat{\\sigma}^2}{N\\times\\text{var}(X)}\\)で計算できるが、誤差項の均一分散や誤差項同士の相関がない場合に限られる。不均一分散や誤差項同士の相関が生じている場合には、頑健標準誤差という別の計算式を使った標準誤差を使う。\n実は頑健標準誤差はRのデフォルト機能では計算できない。ここで使うのはパッケージである。ライブラリとはRに機能を追加するもので、ゲームで言ったらMODとかに近い（多分）。今回はAERパッケージをインストールし、Rに組み込む。インストールはinstall.packages()5でできるが、これは基本一回やればよい。その上でlibrary()コマンドを実行して、Rに組み込む。library()コマンドで組み込んだパッケージはセッションを立ち上げるたびにリセットされるので、その度に実行し直すこと。\n\ninstall.packages(\"AER\") # これは一度だけで大丈夫\n\n\nThe downloaded binary packages are in\n    /var/folders/hy/0rwqjktd7mb2ycrqdj1w7pgc0000gn/T//RtmpFxY5p0/downloaded_packages\n\nlibrary(AER) # これはセッションのたびに実行\n\nLoading required package: car\n\n\nLoading required package: carData\n\n\nLoading required package: lmtest\n\n\nLoading required package: zoo\n\n\n\nAttaching package: 'zoo'\n\n\nThe following objects are masked from 'package:base':\n\n    as.Date, as.Date.numeric\n\n\nLoading required package: sandwich\n\n\nLoading required package: survival\n\n\n以上ができたら、coeftest()関数で頑健標準誤差を計算できる。vcov = vcovHCオプションで不均一分散を考慮した標準誤差を指定している\n\nsummary(OLSresult) # デフォルトの分析結果\n\n\nCall:\nlm(formula = weight ~ donuts, data = dta)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-42.238  -4.299   0.343  15.922  24.976 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  55.6080     7.4200   7.494 1.21e-05 ***\ndonuts        4.1287     0.8707   4.742 0.000608 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 20.68 on 11 degrees of freedom\nMultiple R-squared:  0.6715,    Adjusted R-squared:  0.6416 \nF-statistic: 22.48 on 1 and 11 DF,  p-value: 0.0006078\n\n# 頑健標準誤差を使った分析結果\ncoeftest(OLSresult, vcov = vcovHC(OLSresult, type = \"HC1\"))\n\n\nt test of coefficients:\n\n            Estimate Std. Error t value  Pr(&gt;|t|)    \n(Intercept) 55.60799    7.68225  7.2385 1.668e-05 ***\ndonuts       4.12871    0.48053  8.5920 3.293e-06 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n最初のモデルと結果を見比べると、切片と係数の値（Estimate）自体は同じである一方、標準誤差Std. Errorの値が変わっている。",
     "crumbs": [
       "二変量回帰分析",
       "07/実習編"
@@ -1831,5 +1831,233 @@
     "title": "04/二変量回帰分析：基本編",
     "section": "散布図と推定された回帰直線",
     "text": "散布図と推定された回帰直線\n\n\n\n\n\n\n\n\n\n切片\\(\\hat{\\beta}_{1}=2.22&gt;0\\)（正）\n\n散布図にOLS推定された切片・傾きを持つ回帰直線を引いたグラフ\n\n注意すべきは\\(\\hat{\\beta}_{1}=2.22&gt;0\\)（正）\n散布図が右肩上がりの場合は直線も右肩上がり→推定される傾きの係数も正\n散布図が右肩下がりの場合は直線も右肩下がり→推定される傾きの係数も負\n\n→なぜか？傾きの計算式と散布図を両方見るとわかる"
+  },
+  {
+    "objectID": "04_OLSbasics_slide.html#本日の授業の位置付け",
+    "href": "04_OLSbasics_slide.html#本日の授業の位置付け",
+    "title": "04/二変量回帰分析：基本編",
+    "section": "本日の授業の位置付け",
+    "text": "本日の授業の位置付け"
+  },
+  {
+    "objectID": "03_statR_slide.html#本日の授業の位置付け",
+    "href": "03_statR_slide.html#本日の授業の位置付け",
+    "title": "03/統計学とR言語",
+    "section": "本日の授業の位置付け",
+    "text": "本日の授業の位置付け"
+  },
+  {
+    "objectID": "02_causality_slide.html#本日の授業の位置付け",
+    "href": "02_causality_slide.html#本日の授業の位置付け",
+    "title": "02/数量データと因果推論",
+    "section": "本日の授業の位置付け",
+    "text": "本日の授業の位置付け"
+  },
+  {
+    "objectID": "05_OLSapp_slide.html#本日の授業の位置付け",
+    "href": "05_OLSapp_slide.html#本日の授業の位置付け",
+    "title": "05/二変量回帰分析：応用編",
+    "section": "本日の授業の位置付け",
+    "text": "本日の授業の位置付け"
+  },
+  {
+    "objectID": "07_OLSexc.html#本日の授業の位置付け",
+    "href": "07_OLSexc.html#本日の授業の位置付け",
+    "title": "07/二変量回帰分析：実習編",
+    "section": "本日の授業の位置付け",
+    "text": "本日の授業の位置付け",
+    "crumbs": [
+      "二変量回帰分析",
+      "07/実習編"
+    ]
+  },
+  {
+    "objectID": "08_testbasics_slide.html#今日の目次",
+    "href": "08_testbasics_slide.html#今日の目次",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "今日の目次",
+    "text": "今日の目次\n\nはじめに\n統計的仮説検定\n第1種／第2種の過誤\n\\(t\\)検定\n\\(p\\)値\nまとめ"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#本日の目的と到達目標",
+    "href": "08_testbasics_slide.html#本日の目的と到達目標",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "本日の目的と到達目標",
+    "text": "本日の目的と到達目標\n目的\n統計的仮説検定の枠組みを学ぶ。仮説検定の基本的な手順を紹介し、帰無仮説や対立仮説、第1種／第2種の過誤など基本的な概念を習得する。続いてOLS推定値における仮説検定である\\(t\\)検定の手順について学び、その中でも最も重要な\\(p\\)値という概念を理解する。\n\n到達目標\n\n帰無仮説・対立仮説・有意水準という言葉を用いて、統計的仮説検定の基本的な手順を説明できる。\n第1種／第2種の過誤の違いと、両者の関係を説明できる。\nOLSの係数と標準誤差に言及しつつ、\\(t\\)検定の基本的な考え方を説明できる。\n\\(p\\)値の意味を説明し、それを用いて統計的有意性を判断できる。\nOLSの推定結果から統計的有意性を判断し、その結果を適切に解釈できる。"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#本日の授業の位置付け",
+    "href": "08_testbasics_slide.html#本日の授業の位置付け",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "本日の授業の位置付け",
+    "text": "本日の授業の位置付け"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#小テストの講評",
+    "href": "08_testbasics_slide.html#小テストの講評",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "小テストの講評",
+    "text": "小テストの講評\nTBD"
+  },
+  {
+    "objectID": "06_OLSadv_slide.html#本日の授業の位置付け",
+    "href": "06_OLSadv_slide.html#本日の授業の位置付け",
+    "title": "06/二変量回帰分析：発展編",
+    "section": "本日の授業の位置付け",
+    "text": "本日の授業の位置付け"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#出席登録をお願いします",
+    "href": "08_testbasics_slide.html#出席登録をお願いします",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "出席登録をお願いします",
+    "text": "出席登録をお願いします"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#本日の目的と到達目標-1",
+    "href": "08_testbasics_slide.html#本日の目的と到達目標-1",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "本日の目的と到達目標",
+    "text": "本日の目的と到達目標\n目的\n統計的仮説検定の枠組みを学ぶ。仮説検定の基本的な手順を紹介し、帰無仮説や対立仮説、第1種／第2種の過誤など基本的な概念を習得する。続いてOLS推定値における仮説検定である\\(t\\)検定の手順について学び、その中でも最も重要な\\(p\\)値という概念を理解する。\n\n到達目標\n\n帰無仮説・対立仮説・有意水準という言葉を用いて、統計的仮説検定の基本的な手順を説明できる。\n第1種／第2種の過誤の違いと、両者の関係を説明できる。\nOLSの係数と標準誤差に言及しつつ、\\(t\\)検定の基本的な考え方を説明できる。\n\\(p\\)値の意味を説明し、それを用いて統計的有意性を判断できる。\nOLSの推定結果から統計的有意性を判断し、その結果を適切に解釈できる。"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#次回までに",
+    "href": "08_testbasics_slide.html#次回までに",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "次回までに",
+    "text": "次回までに\n\n事後学習\n\n授業資料を見直し、目標到達をセルフチェック\nWebClass上での確認小テスト（金曜日まで）\n\n\n\n事前学習\n\n教科書（第4章4.4-4.5: pp.146-161）を読む。"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#例身長と賃金",
+    "href": "08_testbasics_slide.html#例身長と賃金",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "例：身長と賃金",
+    "text": "例：身長と賃金\n身長が高いほど賃金は上がるのだろうか。100人の日本人のデータ1を集めて以下のモデルを推定してみよう。\n\\[\n賃金_{i}=\\beta_{0}+\\beta_{1}身長_{i}+\\varepsilon_{i}\n\\]\n\nOLS推定をしたところ、傾きの推定値は\\(\\hat{\\beta}_{1}=220\\)となった。\n身長が高くなるほど賃金も上がる、と結論づけて良いだろうか？（WebClassチャット）\n\n賃金は円（時給）、身長はcm単位。"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#統計的仮説検定-hypothesis-testing",
+    "href": "08_testbasics_slide.html#統計的仮説検定-hypothesis-testing",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "統計的仮説検定 (hypothesis testing)",
+    "text": "統計的仮説検定 (hypothesis testing)\nある仮説が正しいかどうかを統計的に判断する枠組み\n\n帰無仮説を定める\n\n「身長は賃金に影響を与えない」（\\(H_{0}:\\beta_{1}=0\\)）\n\n対立仮説を定める\n\n「身長は賃金に影響を与える」（\\(H_{1}:\\beta_{1}\\ne0\\)）\n\n帰無仮説が正しいと仮定したときに、推定された\\(\\hat{\\beta}_{1}\\)がどれだけ出やすいかを検討\n\n\\(\\hat{\\beta}_{1}\\)が0から離れている→帰無仮説が正しいとしたら出そうにない→帰無仮説を棄却\n\\(\\hat{\\beta}_{1}\\)が0に近い→帰無仮説が正しいとしたら普通にあり得る→帰無仮説は棄却できない"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#仮説検定と正規分布",
+    "href": "08_testbasics_slide.html#仮説検定と正規分布",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "仮説検定と正規分布",
+    "text": "仮説検定と正規分布\nOLS推定値\\(\\hat{\\beta}_{1}\\)は正規分布にしたがう\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOLS推定値\\(\\hat{\\beta}_{1}\\)は正規分布にしたがう\n\n内生性はないとして、帰無仮説が正しいと仮定すると\\(\\hat{\\beta}_{1}\\)がしたがう正規分布の期待値（平均）は0になる\n推定された\\(\\hat{\\beta}_{1}=220\\)は期待値（平均）0のこの正規分布から出てくる確率は低そう\nもし\\(\\hat{\\beta}_{1}=105\\)と推定されていたら、この正規分布から出てくる値としては珍しくなさそう"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#有意水準",
+    "href": "08_testbasics_slide.html#有意水準",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "有意水準",
+    "text": "有意水準\nどれくらいの確率であれば帰無仮説を棄却するかの基準\n\n\\(\\alpha\\)で表記し、\\(\\alpha=0.05\\)（5%）で設定することが多い12\n推定された\\(\\hat{\\beta}_{1}\\)より大きな／小さな数が出てくる確率が…\n\n\\(\\alpha\\)より小さければ帰無仮説を棄却→統計的に有意\n\\(\\alpha\\)より大きければ帰無仮説を棄却できない→統計的に有意でない\n\n\n5%という値に科学的な根拠はないが、慣習としてそうなっている。実務上は1%、5%、10%と複数設けることも多いが、事前に決めておくことが大切である。"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#例身長と賃金-1",
+    "href": "08_testbasics_slide.html#例身長と賃金-1",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "例：身長と賃金",
+    "text": "例：身長と賃金\n推定された傾きは\\(\\hat{\\beta}_{1}=220\\)、標準誤差は\\(\\operatorname{se}(\\hat{\\beta}_{1})=100\\)であったとすると…\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n推定された傾きは\\(\\hat{\\beta}_{1}=220\\)、標準誤差は\\(\\operatorname{se}(\\hat{\\beta}_{1})=100\\)であったとすると…\n\n帰無仮説が正しい場合には\\(\\hat{\\beta}_{1}\\)は期待値（平均）が0、標準偏差を100とする正規分布にしたがい、220という推定値はこの赤線が示す位置に来る。\nこの220という値がどれくらい出にくいかというのを判断するものとして有意水準がある。今有意水準を5%（\\(\\alpha=0.05\\)）とすると、水色の網掛けの部分が有意水準に相当する。すなわち、この正規分布において、だいたい196以上の値が出る確率が右側の網掛けの部分の面積で、これが2.5%になる。他方-196以下の値が出る確率が左側の網掛けの部分の面積で、これも2.5%。合わせて5%ということになる。まとめると、この分布では196以上の値あるいは-196以下の値が出る確率は合わせて5%なので、220というのはその5%程度しか発生しない値の範囲内に入っているので、非常に珍しく、したがって帰無仮説は棄却されて統計的には有意（意味がある）と言える。"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#第1種第2種の過誤-1",
+    "href": "08_testbasics_slide.html#第1種第2種の過誤-1",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "第1種／第2種の過誤",
+    "text": "第1種／第2種の過誤\n\n\n統計的仮説検定に密接に関係する第1種の過誤と第2種の過誤。直感的な例として妊娠を考えてみよう。\n\n第1種の過誤…本当は妊娠していないのに、「妊娠している」と判断してしまうミス。偽陽性ともいう。\n第2種の過誤…本当は妊娠しているのに、「妊娠してない」と判断してしまうミス。偽陰性ともいう。"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#質問",
+    "href": "08_testbasics_slide.html#質問",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "質問",
+    "text": "質問\nなたは妊娠検査薬の開発者です。\n製品に「妊娠していないのに妊娠していると判定する」という、偽陽性をめぐる苦情が多く寄せられたため、陽性と判定する基準を厳しくすることにしました。\nこの変更によって、今度はどのような問題が起こる可能性があるでしょうか？（WebClassチャット）\n\n第1種の過誤と第2種の過誤にはトレードオフがある。\n\n第1種の過誤を減らそうと妊娠の基準を厳しくしたら、妊娠してるのにしてないと判断される第2種過誤（偽陰性）が増える。\n第2種の過誤を減らそうと妊娠の基準を緩くしたら、妊娠してないのにしてると判断される第1種過誤（偽陽性）が増える。"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#統計的仮説検定と過誤",
+    "href": "08_testbasics_slide.html#統計的仮説検定と過誤",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "統計的仮説検定と過誤",
+    "text": "統計的仮説検定と過誤\n第1種の過誤 (Type I Error)\n帰無仮説が正しいのに棄却してしまうこと（偽陽性）\n\n例：本当は身長は賃金に影響しないのに影響すると結論\n\n\\(H_{0}:\\beta_{1}=0\\)が正しいのに\\(H_{1}:\\beta_{1}\\ne0\\)と判断\n\n\n\n第2種の過誤 (Type II Error)\n帰無仮説が誤っているのに棄却しないこと（偽陰性）\n\n例：本当は身長は賃金に影響するのに影響しないと結論\n\n\\(H_{1}:\\beta_{1}\\ne0\\)が正しいのに\\(H_{0}:\\beta_{1}=0\\)と判断\n\n\n\n\n第1種の過誤と第2種の過誤の間にはトレードオフがある"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#有意水準と第1種の過誤",
+    "href": "08_testbasics_slide.html#有意水準と第1種の過誤",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "有意水準と第1種の過誤",
+    "text": "有意水準と第1種の過誤\n有意水準\\(\\alpha\\)は第1種の過誤を犯す確率である。\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n第1種の過誤と第2種の過誤がなぜトレードオフであるのかをより厳密に理解するためには、有意水準\\(\\alpha\\)が第1種の過誤を犯す確率であると解釈すればわかりやすい。\n\n今\\(\\alpha=0.05\\)（有意水準5%）にする。帰無仮説が正しいと仮定した時、196以上あるいは-196以下の範囲に推定値が収まる確率が5%であるのは先述の通り。この範囲に推定値が収まれば、帰無仮説を棄却するのであった。これを言い換えると、帰無仮説が正しいとして（すなわち\\(\\beta_{1}=0\\)）であるとしても、5%の確率で推定値は196以上あるいは-196以下の範囲に収まってしまう、ということになる。したがって帰無仮説が正しいとしても、第1種の過誤を5%の確率で犯してしまう。\nそれでは第1種の過誤を犯す確率を減らそうとして、\\(\\alpha=0.01\\)（有意水準1%）にする。帰無仮説が正しいとしても、推定値が257.58以上もしくは-257.58以下の範囲に収まる確率は1%、すなわち第1種の過誤を犯す確率は1%に下がった。しかしここで発生するのは、もし帰無仮説が正しくなかったらどうか、ということ。帰無仮説が正しくなかったとしても、257.58以上もしくは-257.58以下の値という、1%の確率で出てくる範囲に推定値が入ってこないと帰無仮説は棄却されない＝第2種の過誤を犯してしまう。\n今度は第2種の過誤が起こる可能性を減らそうと、有意水準をあげて\\(\\alpha=0.1\\)（有意水準10%）にする。164.49以上もしくは-164.49以下の値が出てくる確率は10%だから、この範囲に推定値が収まってくれれば帰無仮説は棄却される。しかし今度は帰無仮説が正しかったら問題が発生する。帰無仮説が正しかったとして、この範囲に推定値が収まる確率は10%もあるのだから、今度は第1種の過誤を犯す確率は10%に上がってしまう。\n\nこの話は詳しくは検出力（来週）"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#t検定-t-test",
+    "href": "08_testbasics_slide.html#t検定-t-test",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "t検定 (t-test)",
+    "text": "t検定 (t-test)\n\n\n実際のOLS推定値の仮説検定では、\\(\\hat{\\beta}_{1}\\)そのものではなく標準誤差で割った\\(\\frac{\\hat{\\beta}_{1}}{\\operatorname{se}(\\hat{\\beta}_{1})}\\)で検定を行う\n\n\\(\\frac{\\hat{\\beta}_{1}}{\\operatorname{se}(\\hat{\\beta}_{1})}\\)を\\(t\\)値といい、\\(t\\)値は正規分布ではなく\\(t\\)分布にしたがう\n\n\\(t\\)分布は1908年にウィリアム・ゴセットが発見1\n\n\\(t\\)検定はすごくわかりやすい\n\n\\(t\\)値がだいたい2以上/-2以下なら統計的有意\nそうでないなら統計的有意でない\n\n\n\n\n\n\nWilliam Gosset (1876-1937)\n\n\n\nゴセットはギネスビールの醸造技術者だったが、会社からは論文発表を禁止されていたため「スチューデント（Student）」というペンネームを使った。ここから\\(t\\)分布のことを「スチューデントの\\(t\\)分布」と呼ぶことがある。"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#t値を使う理由",
+    "href": "08_testbasics_slide.html#t値を使う理由",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "t値を使う理由",
+    "text": "t値を使う理由\n同じ\\(\\hat{\\beta}_{1}\\)の値でも、標準誤差に応じてその珍しさは変わる\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n→標準誤差で割って尺度を統一し、有意性の判断が容易に"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#t分布",
+    "href": "08_testbasics_slide.html#t分布",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "t分布",
+    "text": "t分布\n\\(t\\)分布は正規分布に似ているが、一応別の分布\n\n自由度（\\(N-k\\)）によって形が変わる\n\n\\(N\\)はサンプルサイズ、\\(k\\)は変数の数\n\n自由度が小さい時は裾が厚く、自由度が大きくなるにつれて正規分布に近づく\n\nサンプルが十分大きければ、正規分布とみなしてよい"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#臨界値",
+    "href": "08_testbasics_slide.html#臨界値",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "臨界値",
+    "text": "臨界値\n統計的に有意かどうかを判断するための閾値\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n統計的に有意かどうかを判断するための閾値\n\nサンプルサイズが十分に大きい\\(t\\)分布なら…\n\n1.64以上／-1.64以下→10%水準で有意\n1.96以上／-1.96以下→5%水準で有意\n2.56以上／-2.56以下→1%水準で有意"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#例大統領選挙",
+    "href": "08_testbasics_slide.html#例大統領選挙",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "例：大統領選挙",
+    "text": "例：大統領選挙\nアメリカ大統領選挙のデータを使って、以下のモデルを推定\n\\[\n得票率_t=\\beta_{0}+\\beta_{1}所得の変化率_t+\\varepsilon_{t}\n\\]\n\n結果は次のとおり\n\n傾きは\\(\\hat{\\beta}_{1}=2.2\\)、標準誤差は\\(\\operatorname{se}(\\hat{\\beta}_{1})=0.55\\)\n\\(t\\)値は\\(\\frac{\\hat{\\beta}_{1}}{\\operatorname{se}(\\hat{\\beta}_{1})}\\approx\\frac{2.2}{0.55}=4&gt;1.96\\)→5%水準で統計的に有意"
+  },
+  {
+    "objectID": "08_testbasics_slide.html#p値p-value",
+    "href": "08_testbasics_slide.html#p値p-value",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "p値（p-value）",
+    "text": "p値（p-value）\n帰無仮説が正しいとして、推定された傾きの値よりも極端な値を観察する確率\n\n\\(p\\)値が有意水準\\(\\alpha\\)より下回っていれば統計的に有意"
+  },
+  {
+    "objectID": "08_testbasics_quiz.html",
+    "href": "08_testbasics_quiz.html",
+    "title": "08/確認小テスト",
+    "section": "",
+    "text": "締切：2026年11月20日24:00\n以下の文章を読み、続く問題に答えなさい。なお回答はWebClass上とする。"
+  },
+  {
+    "objectID": "08_testbasics_quiz.html#文章",
+    "href": "08_testbasics_quiz.html#文章",
+    "title": "08/確認小テスト",
+    "section": "文章",
+    "text": "文章\n政治体制は経済にどのような影響を与えるだろうか。特に民主主義体制は所得の分配を平等にするのだろうか、それとも不平等にするのだろうか。この問いを検証するために、世界167カ国の民主主義度と所得の不平等度のデータを収集した。このデータの記述統計とコードブックは以下の通り。\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n変数\n観察数\n平均\n標準偏差\n最小\n最大\n備考\n\n\n\n\ndem_score14\n167\n5.55\n2.18\n1.08\n9.93\nエコノミスト誌による民主主義度の指数。高いスコアほどその国の民主主義スコアが高いことを意味する。\n\n\ngini10\n153\n40.13\n9.22\n24.70\n74.30\n2000年から2010年までの所得の不平等度を表すジニ係数。高いスコアほどその国の所得が不平等であることを表す。\n\n\n\n\n\nこのデータを用いて、モデル【１】をOLSで推定してみよう。R上でこのモデルを推定するコマンドは【２】になる。OLS推定を実行したところ、\\(\\hat{\\beta}_{1}=-0.8944\\)、標準誤差は\\(0.3489\\)になった。"
+  },
+  {
+    "objectID": "08_testbasics_quiz.html#問題",
+    "href": "08_testbasics_quiz.html#問題",
+    "title": "08/確認小テスト",
+    "section": "問題",
+    "text": "問題\n問１：上の文章の【１】に当てはまるのは以下のどれか。\n\n\\(民主主義度_{i} = \\beta_{0} + \\beta_{1} 所得の不平等度_{i} + \\varepsilon_{i}\\)\n\\(所得分配の不平等度_{i} = \\beta_{0} + \\beta_{1} 民主主義度_{i} + \\varepsilon_{i}\\)\n\n問２：上の文章の【２】に当てはまるのは以下のどれか。なおデータセットはworld、分析結果はOLS_resultというオブジェクトに格納されているものとする。\n\nOLS_result &lt;- lm(dem_score14 ~ gini10, data = world)\nOLS_result &lt;- lm(gini10 ~ dem_score14, data = world)\nworld &lt;- lm(dem_score14 ~ gini10, data = OLS_result)\nworld &lt;- lm(gini10 ~ dem_score14, data = OLS_result)\n\n問３：上の文章の【２】について、推定された係数\\(\\hat{\\beta}_{1}\\)の値からわかることとして正しいのは以下のうちどれか。\n\n民主主義度が1単位増えるほど不平等度は約0.89上がる。\n民主主義度が1単位増えるほど不平等度は約0.89下がる。\n民主主義度が1単位増えるほど不平等度は約0.35上がる。\n民主主義度が1単位増えるほど不平等度は約0.35下がる。\n\n問４：上の文章の下線部の分析結果について考える。係数\\(\\hat{\\beta}_{1}\\)についての帰無仮説として正しいものは以下のうちどれか。\n\n民主主義度が増えると不平等度が下がる。\n民主主義度が増えても不平等度は変化しない。\n民主主義度が増えると不平等度が上がる。\n\n問５：上の文章の下線部の分析結果について考える。係数\\(\\hat{\\beta}_{1}\\)についての両側対立仮説として正しいものは以下のうちどれか。\n\n民主主義度が増えると不平等度に何らかの変化が起こる。\n民主主義度が増えても不平等度は変化しない。\n民主主義度が増えると不平等度が下がる。\n民主主義度が増えると不平等度が上がる。\n\n問６：上の文章の下線部の分析結果について考える。係数\\(\\hat{\\beta}_{1}\\)および\\(t\\)値\\(\\frac{\\hat{\\beta}_{1}}{\\operatorname{se}(\\hat{\\beta}_{1})}\\)について正しい説明は次のうちどれか。正しいものを全て選べ。\n\n帰無仮説が正しいとした場合、\\(\\hat{\\beta}_{1}\\)は期待値を0とする正規分布にしたがう。\n帰無仮説が正しいとした場合、\\(\\frac{\\hat{\\beta}_{1}}{\\operatorname{se}(\\hat{\\beta}_{1})}\\)は\\(t\\)分布にしたがう。\nこのデータとモデルの自由度では、\\(\\frac{\\hat{\\beta}_{1}}{\\operatorname{se}(\\hat{\\beta}_{1})}\\)がしたがう分布はほぼ正規分布に近似できる。\nこのデータとモデルの自由度では、\\(\\frac{\\hat{\\beta}_{1}}{\\operatorname{se}(\\hat{\\beta}_{1})}\\)がしたがう分布は正規分布よりも裾が厚くなる。\n\n問７：上の文章の下線部の分析結果について考える。この結果における\\(t\\)値\\(\\frac{\\hat{\\beta}_{1}}{\\operatorname{se}(\\hat{\\beta}_{1})}\\)はいくつか。小数点第3位以下は四捨五入した上で数値を入力しなさい。\n\n数値を入力：　　　\n\n問８：上の文章の下線部の分析結果について考える。問７で計算された\\(t\\)値に対応する\\(p\\)値について正しい説明は次のうちどれか。正しいものを全て選べ。\n\n有意水準を\\(\\alpha=0.1\\)とすると、対応する\\(p\\)値は\\(\\alpha\\)を下回る。\n有意水準を\\(\\alpha=0.05\\)とすると、対応する\\(p\\)値は\\(\\alpha\\)を下回る。\n有意水準を\\(\\alpha=0.01\\)とすると、対応する\\(p\\)値は\\(\\alpha\\)を下回る。\n\n問９：上の文章の下線部の分析結果について考える。問８の正しい説明から、係数の推定値\\(\\hat{\\beta}_{1}=-0.8944\\)について言えることは何か。次から正しい説明を全て選べ。\n\n民主主義度が上がるほど不平等度が下がるという関係は10%水準で有意である。\n民主主義度が上がるほど不平等度が下がるという関係は5%水準で有意である。\n民主主義度が上がるほど不平等度が下がるという関係は1%水準で有意である。\n民主主義度と不平等度との関係は有意ではない。\n\n問１０：上の文章の下線部の分析結果について考える。この状況における第1種の過誤の可能性として正しいものは次のうちどれか。\n\n本当は民主主義度と不平等度に何らかの関係があるにも関わらず、何も関係がないと判断される。\n本当は民主主義度と不平等度に何らかの関係があると考えられるが、分析結果もこれを支持している。\n本当は民主主義度は不平等度と関係がないにも関わらず、負の関係にあると判断されている。\n本当は民主主義度は不平等度と正の関係にあるにも関わらず、負の関係にあると判断されている。"
+  },
+  {
+    "objectID": "08_testbasics.html",
+    "href": "08_testbasics.html",
+    "title": "08/統計的仮説検定：基本編",
+    "section": "",
+    "text": "準備学習\n\n教科書（第4章冒頭および4.1-4.3: pp.125-146）を読む。\n【事後】配布資料やノートを見直し、到達目標が達成できているかチェックする。\n【事後】WebClass上での小テスト回答（金曜日まで） \n\n\n\nスライド\n    View slides in full screen"
   }
 ]

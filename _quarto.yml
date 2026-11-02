@@ -39,6 +39,7 @@ website:
       - section: 統計的仮説検定
         contents: 
         - text: "08/基本編"
+          href: 08_testbasics.qmd
         - text: "09/応用編"
         - text: "10/実習編"
       - section: 多変量回帰分析

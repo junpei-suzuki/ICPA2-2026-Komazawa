@@ -1,0 +1,931 @@
+---
+title: "08/統計的仮説検定：基本編"
+date: 2026/11/17
+
+modified-date: today
+
+format: 
+  revealjs:
+    footer: "統計的仮説検定：基本編"
+    mermaid:
+      theme: neutral
+
+metadata-files: 
+  - "style/slide.yml"
+---
+
+{{< include _common.qmd >}}
+
+## 出席登録をお願いします
+![](figs/attendance_webclass.png)
+
+## 今日の目次
+
+1. はじめに
+1. 統計的仮説検定
+1. 第1種／第2種の過誤
+1. $t$検定
+1. $p$値
+1. まとめ
+
+# はじめに
+## 本日の目的と到達目標 {.smaller}
+#### 目的
+統計的仮説検定の枠組みを学ぶ。仮説検定の基本的な手順を紹介し、帰無仮説や対立仮説、第1種／第2種の過誤など基本的な概念を習得する。続いてOLS推定値における仮説検定である$t$検定の手順について学び、その中でも最も重要な$p$値という概念を理解する。
+
+::: {.fragment .fade-in}
+#### 到達目標
+1. 帰無仮説・対立仮説・有意水準という言葉を用いて、統計的仮説検定の基本的な手順を説明できる。
+1. 第1種／第2種の過誤の違いと、両者の関係を説明できる。
+1. OLSの係数と標準誤差に言及しつつ、$t$検定の基本的な考え方を説明できる。
+1. $p$値の意味を説明し、それを用いて統計的有意性を判断できる。
+1. OLSの推定結果から統計的有意性を判断し、その結果を適切に解釈できる。
+
+:::
+
+## 本日の授業の位置付け
+![](figs/graphic_syllabus_ICPA2.png){.r-stretch}
+
+## 小テストの講評
+TBD
+
+# 統計的仮説検定
+## 例：身長と賃金
+身長が高いほど賃金は上がるのだろうか。100人の日本人のデータ[^unit]を集めて以下のモデルを推定してみよう。
+
+$$
+賃金_{i}=\beta_{0}+\beta_{1}身長_{i}+\varepsilon_{i}
+$$
+
+::: {.fragment .fade-in}
+OLS推定をしたところ、傾きの推定値は$\hat{\beta}_{1}=220$となった。
+
+身長が高くなるほど賃金も上がる、と結論づけて良いだろうか？（[WebClassチャット](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=520bfaa84709978d160c509dba98f066)）
+
+:::
+
+[^unit]: 賃金は円（時給）、身長はcm単位。
+
+## 統計的仮説検定 (hypothesis testing)
+ある仮説が正しいかどうかを統計的に判断する枠組み
+
+::: {.incremental}
+1. **帰無仮説**を定める
+   - 「身長は賃金に影響を**与えない**」（$H_{0}:\beta_{1}=0$）
+1. **対立仮説**を定める
+   - 「身長は賃金に影響を**与える**」（$H_{1}:\beta_{1}\ne0$）
+1. 帰無仮説が正しいと仮定したときに、推定された$\hat{\beta}_{1}$がどれだけ出やすいかを検討
+   - $\hat{\beta}_{1}$が0から離れている→帰無仮説が正しいとしたら出そうにない→帰無仮説を棄却
+   - $\hat{\beta}_{1}$が0に近い→帰無仮説が正しいとしたら普通にあり得る→帰無仮説は棄却できない
+
+:::
+
+## 仮説検定と正規分布
+OLS推定値$\hat{\beta}_{1}$は正規分布にしたがう
+
+::: {.r-stack}
+
+::: {.fragment}
+```{r}
+tibble(x = c(-300, 300)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 100)) +
+  scale_y_continuous() +
+  labs(x = "", y = "")
+```
+:::
+
+::: {.fragment}
+```{r}
+tibble(x = c(-300, 300)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 100)) +
+  geom_vline(xintercept = 220,
+             colour = "red", 
+             linewidth = 1) +
+  annotate("text",
+           x = 265, 
+           y = 0.0035, 
+           size = 7,
+           label = "220",
+           colour = "red") +
+  scale_y_continuous() +
+  labs(x = "", y = "")
+```
+:::
+
+::: {.fragment}
+```{r}
+tibble(x = c(-300, 300)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 100)) +
+  geom_vline(xintercept = 105,
+             colour = "blue", 
+             linewidth = 1) +
+  annotate("text",
+           x = 150, 
+           y = 0.0035, 
+           size = 7,
+           label = "105",
+           colour = "blue") +
+  scale_y_continuous() +
+  labs(x = "", y = "")
+```
+:::
+
+:::
+
+::: {.notes}
+OLS推定値$\hat{\beta}_{1}$は正規分布にしたがう
+
+- 内生性はないとして、帰無仮説が正しいと仮定すると$\hat{\beta}_{1}$がしたがう正規分布の期待値（平均）は0になる
+- 推定された$\hat{\beta}_{1}=220$は期待値（平均）0のこの正規分布から出てくる確率は低そう
+- もし$\hat{\beta}_{1}=105$と推定されていたら、この正規分布から出てくる値としては珍しくなさそう
+
+:::
+
+## 有意水準
+どれくらいの確率であれば帰無仮説を棄却するかの基準
+
+::: {.incremental}
+- $\alpha$で表記し、$\alpha=0.05$（5%）で設定することが多い[^siglev1][^siglev2]
+- 推定された$\hat{\beta}_{1}$より大きな／小さな数が出てくる確率が…
+   - $\alpha$より**小さければ**帰無仮説を棄却→**統計的に有意**
+   - $\alpha$より**大きければ**帰無仮説を棄却できない→**統計的に有意でない**
+
+:::
+
+[^siglev1]: 5%という値に科学的な根拠はないが、慣習としてそうなっている。
+[^siglev2]: 実務上は1%、5%、10%と複数設けることも多いが、事前に決めておくことが大切である。
+
+## 例：身長と賃金
+推定された傾きは$\hat{\beta}_{1}=220$、標準誤差は$\operatorname{se}(\hat{\beta}_{1})=100$であったとすると…
+
+::: {.r-stack}
+::: {.fragment}
+```{r}
+tibble(x = c(-300, 300)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 100)) +
+  geom_vline(xintercept = 220,
+             colour = "red", 
+             linewidth = 1) +
+  annotate("text",
+           x = 265, 
+           y = 0.0035, 
+           size = 7,
+           label = "220",
+           colour = "red") +
+  scale_y_continuous() +
+  labs(x = "", y = "")
+```
+:::
+
+::: {.fragment}
+```{r}
+lower_bound <- qnorm(0.025, mean = 0, sd = 100)
+upper_bound <- qnorm(0.975, mean = 0, sd = 100)
+
+tibble(x = c(-300, 300)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = ~ dnorm(.x, mean = 0, sd = 100),
+                xlim = c(-300, lower_bound),
+                geom = "area", 
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = ~ dnorm(.x, mean = 0, sd = 100),
+                xlim = c(upper_bound, 300), 
+                geom = "area",
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 100)) +
+  geom_vline(xintercept = 220,
+             colour = "red", 
+             linewidth = 1) +
+  annotate("text",
+           x = 265, 
+           y = 0.0035, 
+           size = 7,
+           label = "220",
+           colour = "red") +
+    scale_y_continuous() +
+  labs(x = "", y = "")
+```
+:::
+
+:::
+
+::: {.notes}
+推定された傾きは$\hat{\beta}_{1}=220$、標準誤差は$\operatorname{se}(\hat{\beta}_{1})=100$であったとすると…
+
+- 帰無仮説が正しい場合には$\hat{\beta}_{1}$は期待値（平均）が0、標準偏差を100とする正規分布にしたがい、220という推定値はこの赤線が示す位置に来る。
+- この220という値がどれくらい出にくいかというのを判断するものとして有意水準がある。今有意水準を5%（$\alpha=0.05$）とすると、水色の網掛けの部分が有意水準に相当する。すなわち、この正規分布において、だいたい196以上の値が出る確率が右側の網掛けの部分の面積で、これが2.5%になる。他方-196以下の値が出る確率が左側の網掛けの部分の面積で、これも2.5%。合わせて5%ということになる。まとめると、この分布では196以上の値あるいは-196以下の値が出る確率は合わせて5%なので、220というのはその5%程度しか発生しない値の範囲内に入っているので、非常に珍しく、したがって帰無仮説は棄却されて統計的には有意（意味がある）と言える。
+
+:::
+
+# 第1種／第2種の過誤
+## 第1種／第2種の過誤
+![](figs/type1_2_errors.png){.r-stretch}
+
+::: {.notes}
+統計的仮説検定に密接に関係する第1種の過誤と第2種の過誤。直感的な例として妊娠を考えてみよう。
+
+- **第1種の過誤**…本当は妊娠していないのに、「妊娠している」と判断してしまうミス。偽陽性ともいう。
+- **第2種の過誤**…本当は妊娠しているのに、「妊娠してない」と判断してしまうミス。偽陰性ともいう。
+
+
+:::
+
+## 質問
+なたは妊娠検査薬の開発者です。
+
+製品に「妊娠していないのに妊娠していると判定する」という、偽陽性をめぐる苦情が多く寄せられたため、陽性と判定する基準を厳しくすることにしました。
+
+この変更によって、今度はどのような問題が起こる可能性があるでしょうか？（[WebClassチャット](https://webclass.komazawa-u.ac.jp/webclass/login.php?id=520bfaa84709978d160c509dba98f066)）
+
+::: {.notes}
+第1種の過誤と第2種の過誤にはトレードオフがある。
+
+- 第1種の過誤を減らそうと妊娠の基準を厳しくしたら、妊娠してるのにしてないと判断される第2種過誤（偽陰性）が増える。
+- 第2種の過誤を減らそうと妊娠の基準を緩くしたら、妊娠してないのにしてると判断される第1種過誤（偽陽性）が増える。
+
+:::
+
+## 統計的仮説検定と過誤
+#### 第1種の過誤 (Type I Error)
+帰無仮説が正しいのに棄却してしまうこと（**偽陽性**）
+
+::: {.incremental}
+- 例：本当は身長は賃金に影響しないのに影響すると結論
+   - $H_{0}:\beta_{1}=0$が正しいのに$H_{1}:\beta_{1}\ne0$と判断
+
+:::
+
+::: {.fragment .fade-in}
+#### 第2種の過誤 (Type II Error)
+帰無仮説が誤っているのに棄却しないこと（**偽陰性**）
+
+::: {.incremental}
+- 例：本当は身長は賃金に影響するのに影響しないと結論
+   - $H_{1}:\beta_{1}\ne0$が正しいのに$H_{0}:\beta_{1}=0$と判断
+
+:::
+:::
+
+::: {.fragment .fade-in}
+第1種の過誤と第2種の過誤の間にはトレードオフがある
+:::
+
+## 有意水準と第1種の過誤
+有意水準$\alpha$は第1種の過誤を犯す確率である。
+
+::: {.r-stack}
+::: {.fragment}
+```{r}
+lower_bound <- qnorm(0.025, mean = 0, sd = 100)
+upper_bound <- qnorm(0.975, mean = 0, sd = 100)
+
+tibble(x = c(-300, 300)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = ~ dnorm(.x, mean = 0, sd = 100),
+                xlim = c(-300, lower_bound),
+                geom = "area", 
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = ~ dnorm(.x, mean = 0, sd = 100),
+                xlim = c(upper_bound, 300), 
+                geom = "area",
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 100)) +
+  annotate("text",
+           x = lower_bound + 50,
+           y = 0.0005,
+           label = round(lower_bound, 2),
+           size = 6) +
+    annotate("text",
+           x = upper_bound - 50,
+           y = 0.0005,
+           label = round(upper_bound, 2),
+           size = 6) +
+  scale_y_continuous() +
+  labs(title = "有意水準が5%（α=0.05）の場合",
+       x = "",
+       y = "")
+```
+:::
+
+::: {.fragment}
+```{r}
+lower_bound <- qnorm(0.005, mean = 0, sd = 100) # -257
+upper_bound <- qnorm(0.995, mean = 0, sd = 100) # 257
+
+tibble(x = c(-300, 300)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = ~ dnorm(.x, mean = 0, sd = 100),
+                xlim = c(-300, lower_bound),
+                geom = "area", 
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = ~ dnorm(.x, mean = 0, sd = 100),
+                xlim = c(upper_bound, 300), 
+                geom = "area",
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 100)) +
+  annotate("text",
+           x = lower_bound + 50,
+           y = 0.0005,
+           label = round(lower_bound, 2),
+           size = 6) +
+    annotate("text",
+           x = upper_bound - 50,
+           y = 0.0005,
+           label = round(upper_bound, 2),
+           size = 6) +
+  scale_y_continuous() +
+  labs(title = "有意水準が1%（α=0.01）の場合",
+       x = "",
+       y = "")
+```
+:::
+
+::: {.fragment}
+```{r}
+lower_bound <- qnorm(0.05, mean = 0, sd = 100) # -164
+upper_bound <- qnorm(0.95, mean = 0, sd = 100) # 164
+
+tibble(x = c(-300, 300)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = ~ dnorm(.x, mean = 0, sd = 100),
+                xlim = c(-300, lower_bound),
+                geom = "area", 
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = ~ dnorm(.x, mean = 0, sd = 100),
+                xlim = c(upper_bound, 300), 
+                geom = "area",
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 100)) +
+    annotate("text",
+           x = lower_bound + 50,
+           y = 0.0005,
+           label = round(lower_bound, 2),
+           size = 6) +
+    annotate("text",
+           x = upper_bound - 50,
+           y = 0.0005,
+           label = round(upper_bound, 2),
+           size = 6) +
+  scale_y_continuous() +
+  labs(title = "有意水準が10%（α=0.1）の場合",
+       x = "",
+       y = "")
+```
+:::
+
+:::
+
+::: {.notes}
+第1種の過誤と第2種の過誤がなぜトレードオフであるのかをより厳密に理解するためには、有意水準$\alpha$が第1種の過誤を犯す確率であると解釈すればわかりやすい。
+
+- 今$\alpha=0.05$（有意水準5%）にする。帰無仮説が正しいと仮定した時、196以上あるいは-196以下の範囲に推定値が収まる確率が5%であるのは先述の通り。この範囲に推定値が収まれば、帰無仮説を棄却するのであった。これを言い換えると、帰無仮説が正しいとして（すなわち$\beta_{1}=0$）であるとしても、5%の確率で推定値は196以上あるいは-196以下の範囲に収まってしまう、ということになる。したがって帰無仮説が正しいとしても、第1種の過誤を5%の確率で犯してしまう。
+- それでは第1種の過誤を犯す確率を減らそうとして、$\alpha=0.01$（有意水準1%）にする。帰無仮説が正しいとしても、推定値が257.58以上もしくは-257.58以下の範囲に収まる確率は1%、すなわち第1種の過誤を犯す確率は1%に下がった。しかしここで発生するのは、もし帰無仮説が正しくなかったらどうか、ということ。帰無仮説が正しくなかったとしても、257.58以上もしくは-257.58以下の値という、1%の確率で出てくる範囲に推定値が入ってこないと帰無仮説は棄却されない＝第2種の過誤を犯してしまう。
+- 今度は第2種の過誤が起こる可能性を減らそうと、有意水準をあげて$\alpha=0.1$（有意水準10%）にする。164.49以上もしくは-164.49以下の値が出てくる確率は10%だから、この範囲に推定値が収まってくれれば帰無仮説は棄却される。しかし今度は帰無仮説が正しかったら問題が発生する。帰無仮説が正しかったとして、この範囲に推定値が収まる確率は10%もあるのだから、今度は第1種の過誤を犯す確率は10%に上がってしまう。
+
+この話は詳しくは検出力（来週）
+
+:::
+
+# t検定
+## t検定 (t-test)
+::: {.columns}
+::: {.column width=80%}
+実際のOLS推定値の仮説検定では、$\hat{\beta}_{1}$そのものではなく標準誤差で割った$\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}$で検定を行う
+
+::: {.incremental}
+- $\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}$を$t$値といい、$t$値は**正規分布**ではなく**$t$分布**にしたがう
+    - $t$分布は1908年に**ウィリアム・ゴセット**が発見[^gosset]
+- $t$検定はすごくわかりやすい
+   - $t$値がだいたい2以上/-2以下なら**統計的有意**
+   - そうでないなら**統計的有意でない**
+
+
+:::
+
+:::
+
+::: {.column width=20%}
+![William Gosset (1876-1937)](https://upload.wikimedia.org/wikipedia/commons/4/42/William_Sealy_Gosset.jpg?utm_source=ja.wikipedia.org&utm_campaign=imageinfo&utm_content=original)
+
+:::
+
+:::
+
+[^gosset]: ゴセットはギネスビールの醸造技術者だったが、会社からは論文発表を禁止されていたため「スチューデント（Student）」というペンネームを使った。ここから$t$分布のことを「スチューデントの$t$分布」と呼ぶことがある。
+
+## t値を使う理由
+同じ$\hat{\beta}_{1}$の値でも、標準誤差に応じてその珍しさは変わる
+
+::: {.r-stack}
+::: {.fragment}
+```{r}
+lower_bound <- qnorm(0.025, mean = 0, sd = 100)
+upper_bound <- qnorm(0.975, mean = 0, sd = 100)
+
+tibble(x = c(-300, 300)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = ~ dnorm(.x, mean = 0, sd = 100),
+                xlim = c(-300, lower_bound),
+                geom = "area", 
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = ~ dnorm(.x, mean = 0, sd = 100),
+                xlim = c(upper_bound, 300), 
+                geom = "area",
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 100)) +
+  geom_vline(xintercept = 220,
+             colour = "red", 
+             linewidth = 1) +
+  annotate("text",
+           x = 265, 
+           y = 0.0035, 
+           size = 7,
+           label = "220",
+           colour = "red") +
+  annotate("text",
+           x = lower_bound + 50,
+           y = 0.0005,
+           label = round(lower_bound, 2),
+           size = 6) +
+  annotate("text",
+           x = upper_bound - 50,
+           y = 0.0005,
+           label = round(upper_bound, 2),
+           size = 6) +
+  scale_y_continuous() +
+  ylim(0, 0.004) +
+  labs(title = "標準誤差が100の場合",
+       x = "",
+       y = "")
+```
+:::
+
+::: {.fragment}
+```{r}
+lower_bound <- qnorm(0.025, mean = 0, sd = 120)
+upper_bound <- qnorm(0.975, mean = 0, sd = 120)
+
+tibble(x = c(-300, 300)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = ~ dnorm(.x, mean = 0, sd = 120),
+                xlim = c(-300, lower_bound),
+                geom = "area", 
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = ~ dnorm(.x, mean = 0, sd = 120),
+                xlim = c(upper_bound, 300), 
+                geom = "area",
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 120)) +
+  geom_vline(xintercept = 220,
+             colour = "red", 
+             linewidth = 1) +
+  annotate("text",
+           x = 265, 
+           y = 0.0035, 
+           size = 7,
+           label = "220",
+           colour = "red") +
+  annotate("text",
+           x = lower_bound + 50,
+           y = 0.0005,
+           label = round(lower_bound, 2),
+           size = 6) +
+  annotate("text",
+           x = upper_bound - 50,
+           y = 0.0005,
+           label = round(upper_bound, 2),
+           size = 6) +  
+  scale_y_continuous() +
+  ylim(0, 0.004) +
+  labs(title = "標準誤差が120の場合",
+       x = "",
+       y = "")
+```
+:::
+
+:::
+
+::: {.fragment .fade-in}
+→標準誤差で割って尺度を統一し、有意性の判断が容易に
+:::
+
+## t分布
+$t$分布は正規分布に似ているが、一応別の分布
+
+::: {.incremental}
+- **自由度**（$N-k$）によって形が変わる
+   - $N$はサンプルサイズ、$k$は変数の数
+- 自由度が小さい時は裾が厚く、自由度が大きくなるにつれて正規分布に近づく
+   - サンプルが十分大きければ、正規分布とみなしてよい
+
+:::
+
+::: {.r-stack}
+::: {.fragment}
+```{r}
+#| fig-height: 2
+tibble(x = c(-3, 3)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 1),
+                aes(linetype = "正規分布")) +
+  stat_function(fun = dt,
+                n = 1000, 
+                args = list(df = 2),
+                aes(linetype = "t分布（自由度2）")) +
+  ylim(0, 0.4) +
+  scale_linetype_manual(values = c("正規分布" = 2,
+                                   "t分布（自由度2）" = 1)) +
+  labs(x = "",
+       y = "",
+       linetype = "")
+```
+:::
+
+::: {.fragment}
+```{r}
+#| fig-height: 2
+tibble(x = c(-3, 3)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 1),
+                aes(linetype = "正規分布")) +
+  stat_function(fun = dt,
+                n = 1000, 
+                args = list(df = 5),
+                aes(linetype = "t分布（自由度5）")) +
+  ylim(0, 0.4) +
+  scale_linetype_manual(values = c("正規分布" = 2,
+                                   "t分布（自由度5）" = 1)) +
+  labs(x = "",
+       y = "",
+       linetype = "")
+```
+:::
+
+::: {.fragment}
+```{r}
+#| fig-height: 2
+tibble(x = c(-3, 3)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 1),
+                aes(linetype = "正規分布")) +
+  stat_function(fun = dt,
+                n = 1000, 
+                args = list(df = 50),
+                aes(linetype = "t分布（自由度50）")) +
+  ylim(0, 0.4) +
+  scale_linetype_manual(values = c("正規分布" = 2,
+                                   "t分布（自由度50）" = 1)) +
+  labs(x = "",
+       y = "",
+       linetype = "")
+```
+:::
+
+
+:::
+
+## 臨界値
+統計的に有意かどうかを判断するための閾値
+
+::: {.r-stack}
+::: {.fragment}
+```{r}
+lower_bound <- qt(0.05, df = 1000)
+upper_bound <- qt(0.95, df = 1000)
+
+tibble(x = c(-3, 3)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = ~ dt(.x, df = 1000),
+                xlim = c(-3, lower_bound),
+                geom = "area", 
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = ~ dt(.x, df = 1000),
+                xlim = c(upper_bound, 3), 
+                geom = "area",
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = dt,
+                n = 1000, 
+                args = list(df = 1000)) +
+  annotate("text",
+           x = lower_bound + 0.5,
+           y = 0.05,
+           label = round(lower_bound, 2),
+           size = 6) +
+  annotate("text",
+           x = upper_bound - 0.5,
+           y = 0.05,
+           label = round(upper_bound, 2),
+           size = 6) +  
+  scale_y_continuous() +
+  labs(title = "有意水準が10%（α=0.1）の場合",
+       x = "",
+       y = "")
+```
+:::
+
+::: {.fragment}
+```{r}
+lower_bound <- qt(0.025, df = 1000)
+upper_bound <- qt(0.975, df = 1000)
+
+tibble(x = c(-3, 3)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = ~ dt(.x, df = 1000),
+                xlim = c(-3, lower_bound),
+                geom = "area", 
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = ~ dt(.x, df = 1000),
+                xlim = c(upper_bound, 3), 
+                geom = "area",
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = dt,
+                n = 1000, 
+                args = list(df = 1000)) +
+  annotate("text",
+           x = lower_bound + 0.5,
+           y = 0.05,
+           label = round(lower_bound, 2),
+           size = 6) +
+  annotate("text",
+           x = upper_bound - 0.5,
+           y = 0.05,
+           label = round(upper_bound, 2),
+           size = 6) +  
+  scale_y_continuous() +
+  labs(title = "有意水準が5%（α=0.05）の場合",
+       x = "",
+       y = "")
+```
+:::
+
+::: {.fragment}
+```{r}
+lower_bound <- qt(0.005, df = 1000)
+upper_bound <- qt(0.995, df = 1000)
+
+tibble(x = c(-3, 3)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = ~ dt(.x, df = 1000),
+                xlim = c(-3, lower_bound),
+                geom = "area", 
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = ~ dt(.x, df = 1000),
+                xlim = c(upper_bound, 3), 
+                geom = "area",
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = dt,
+                n = 1000, 
+                args = list(df = 1000)) +
+  annotate("text",
+           x = lower_bound + 0.5,
+           y = 0.05,
+           label = round(lower_bound, 2),
+           size = 6) +
+  annotate("text",
+           x = upper_bound - 0.5,
+           y = 0.05,
+           label = round(upper_bound, 2),
+           size = 6) +  
+  scale_y_continuous() +
+  labs(title = "有意水準が1%（α=0.01）の場合",
+       x = "",
+       y = "")
+```
+:::
+
+:::
+
+::: {.notes}
+統計的に有意かどうかを判断するための閾値
+
+- サンプルサイズが十分に大きい$t$分布なら…
+   - 1.64以上／-1.64以下→10%水準で有意
+   - 1.96以上／-1.96以下→5%水準で有意
+   - 2.56以上／-2.56以下→1%水準で有意
+
+:::
+
+## 例：大統領選挙
+```{r}
+#| include: false
+load("data/Ch3_ChapterExample_Incumbent_vote.RData")
+
+lm_result <- lm(Vote100 ~ RDI, data = dta)
+```
+
+アメリカ大統領選挙のデータを使って、以下のモデルを推定
+
+$$
+得票率_t=\beta_{0}+\beta_{1}所得の変化率_t+\varepsilon_{t}
+$$
+
+::: {.fragment .fade-in}
+結果は次のとおり
+
+::: {.incremental}
+- 傾きは$\hat{\beta}_{1}=2.2$、標準誤差は$\operatorname{se}(\hat{\beta}_{1})=0.55$
+- $t$値は$\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}\approx\frac{2.2}{0.55}=4>1.96$→5%水準で統計的に有意
+
+:::
+:::
+
+# p値
+## p値（p-value）
+帰無仮説が正しいとして、推定された傾きの値よりも極端な値を観察する確率
+
+::: {.incremental}
+- $p$値が有意水準$\alpha$より下回っていれば統計的に有意
+:::
+
+::: {.r-stack}
+::: {.fragment}
+```{r}
+#| fig-height: 3
+beta <- 2.2
+se   <- 0.55
+tval <- beta / se
+
+pval <- (1 - pt(tval, df = 1000)) * 2
+
+lower_bound <- qt(pval / 2, df = 1000)
+upper_bound <- qt(1 - pval / 2, df = 1000)
+
+tibble(x = c(-4.5, 4.5)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = ~ dt(.x, df = 1000),
+                xlim = c(-3, lower_bound),
+                geom = "area", 
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = ~ dt(.x, df = 1000),
+                xlim = c(upper_bound, 3), 
+                geom = "area",
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = dt,
+                n = 1000, 
+                args = list(df = 1000)) +
+  annotate("text",
+           x = lower_bound + 0.5,
+           y = 0.05,
+           label = "-4以下になるのは\n0.0034%",
+           size = 3) +
+  annotate("text",
+           x = upper_bound - 0.5,
+           y = 0.05,
+           label = "4以上になるのは\n0.0034%",
+           size = 3) +  
+  scale_x_continuous(breaks = c(-4, -2, 0, 2, 4)) +
+  labs(title = "係数2.2標準誤差0.55→t値4→p値0.0064%",
+       x = "",
+       y = "")
+```
+
+:::
+
+::: {.fragment}
+```{r}
+#| fig-height: 3
+beta <- 0.8
+se   <- 0.55
+tval <- beta / se
+
+pval <- (1 - pt(tval, df = 1000)) * 2
+
+lower_bound <- qt(pval / 2, df = 1000)
+upper_bound <- qt(1 - pval / 2, df = 1000)
+
+tibble(x = c(-4.5, 4.5)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = ~ dt(.x, df = 1000),
+                xlim = c(-3, lower_bound),
+                geom = "area", 
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = ~ dt(.x, df = 1000),
+                xlim = c(upper_bound, 3), 
+                geom = "area",
+                fill = "skyblue",
+                alpha = 0.5,
+                n = 500) +
+  stat_function(fun = dt,
+                n = 1000, 
+                args = list(df = 1000)) +
+  annotate("text",
+           x = lower_bound,
+           y = 0.05,
+           label = "-1.45以下になるのは\n7.3%",
+           size = 3) +
+  annotate("text",
+           x = upper_bound,
+           y = 0.05,
+           label = "1.45以上になるのは\n7.3%",
+           size = 3) +  
+  scale_x_continuous(breaks = c(-4, -2, 0, 2, 4)) +
+  labs(title = "係数0.8標準誤差0.55→t値1.45→p値14.61%",
+       x = "",
+       y = "")
+```
+
+:::
+
+:::
+
+# まとめ
+## 本日の目的と到達目標 {.smaller}
+#### 目的
+統計的仮説検定の枠組みを学ぶ。仮説検定の基本的な手順を紹介し、帰無仮説や対立仮説、第1種／第2種の過誤など基本的な概念を習得する。続いてOLS推定値における仮説検定である$t$検定の手順について学び、その中でも最も重要な$p$値という概念を理解する。
+
+::: {.fragment .fade-in}
+#### 到達目標
+1. 帰無仮説・対立仮説・有意水準という言葉を用いて、統計的仮説検定の基本的な手順を説明できる。
+1. 第1種／第2種の過誤の違いと、両者の関係を説明できる。
+1. OLSの係数と標準誤差に言及しつつ、$t$検定の基本的な考え方を説明できる。
+1. $p$値の意味を説明し、それを用いて統計的有意性を判断できる。
+1. OLSの推定結果から統計的有意性を判断し、その結果を適切に解釈できる。
+
+:::
+## 次回までに
+::: {.fragment .fade-in}
+#### 事後学習
+
+ - 授業資料を見直し、目標到達をセルフチェック
+ - WebClass上での確認小テスト（金曜日まで）
+
+:::
+
+::: {.fragment .fade-in}
+#### 事前学習
+
+ - 教科書（第4章4.4-4.5: pp.146-161）を読む。
+ 
+:::

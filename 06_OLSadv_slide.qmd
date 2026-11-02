@@ -42,6 +42,9 @@ metadata-files:
 
 :::
 
+## 本日の授業の位置付け
+![](figs/graphic_syllabus_ICPA2.png)
+
 ## 小テストの講評
 TBD
 

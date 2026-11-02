@@ -327,6 +327,7 @@ window.Quarto = {
   <ul>
   <li><a href="#準備学習" id="toc-準備学習" class="nav-link active" data-scroll-target="#準備学習">準備学習</a></li>
   <li><a href="#実習の進行と到達目標" id="toc-実習の進行と到達目標" class="nav-link" data-scroll-target="#実習の進行と到達目標">実習の進行と到達目標</a></li>
+  <li><a href="#本日の授業の位置付け" id="toc-本日の授業の位置付け" class="nav-link" data-scroll-target="#本日の授業の位置付け">本日の授業の位置付け</a></li>
   <li><a href="#実習の準備" id="toc-実習の準備" class="nav-link" data-scroll-target="#実習の準備">実習の準備</a>
   <ul class="collapse">
   <li><a href="#posit-cloudの準備" id="toc-posit-cloudの準備" class="nav-link" data-scroll-target="#posit-cloudの準備">Posit Cloudの準備</a></li>
@@ -406,6 +407,10 @@ window.Quarto = {
 </ul>
 </div>
 </div>
+</section>
+<section id="本日の授業の位置付け" class="level2">
+<h2 class="anchored" data-anchor-id="本日の授業の位置付け">本日の授業の位置付け</h2>
+<p><img src="figs/graphic_syllabus_ICPA2.png" class="r-stretch img-fluid"></p>
 </section>
 <section id="実習の準備" class="level2">
 <h2 class="anchored" data-anchor-id="実習の準備">実習の準備</h2>
@@ -538,7 +543,7 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 <li>傾き：<span class="math inline">\(\hat{\beta_{1}}=\frac{\sum(X_i-\bar{X})(Y_i-\bar{Y})}{\sum(X_i-\bar{X})^2}\)</span></li>
 <li>切片：<span class="math inline">\(\hat{\beta_{0}}=\bar{Y}-\hat{\beta_{1}}\bar{X}\)</span></li>
 </ul>
-<p>上記のOLS推定値のばらつきを<strong>標準誤差</strong>（standard error）と呼ぶ。一定の条件を満たす場合、傾き<span class="math inline">\(\hat{\beta_{1}}\)</span>の標準誤差は<span class="math inline">\(\text{var}(\hat{\beta_{1}})=\frac{\hat{\sigma}^2}{N\times\text{var}(X)}\)</span>で計算できる。母集団における真の傾きを<span class="math inline">\(\beta_{1}\)</span>とした場合、推定される<span class="math inline">\(\hat{\beta_{1}}\)</span>は<span class="math inline">\(\beta_{1}\)</span>を期待値、<span class="math inline">\(\sqrt{\text{var}(\hat{\beta_{1}})}\)</span>を標準偏差とする正規分布にしたがう。</p>
+<p>上記のOLS推定値のばらつきを<strong>標準誤差</strong>（standard error）と呼ぶ。一定の条件を満たす場合、傾き<span class="math inline">\(\hat{\beta_{1}}\)</span>の標準誤差は<span class="math inline">\(\operatorname{se}(\hat{\beta_{1}})=\sqrt{\operatorname{var}(\hat{\beta_{1}})}=\sqrt{\frac{\hat{\sigma}^2}{N\times\operatorname{var}(X)}}\)</span>で計算できる。母集団における真の傾きを<span class="math inline">\(\beta_{1}\)</span>とした場合、推定される<span class="math inline">\(\hat{\beta_{1}}\)</span>は<span class="math inline">\(\beta_{1}\)</span>を期待値、<span class="math inline">\(\operatorname{se}(\hat{\beta_{1}})=\sqrt{\frac{\hat{\sigma}^2}{N\times\operatorname{var}(X)}}\)</span>を標準偏差とする正規分布にしたがう。</p>
 </section>
 <section id="olsの実装と解釈" class="level3">
 <h3 class="anchored" data-anchor-id="olsの実装と解釈">OLSの実装と解釈</h3>
@@ -688,7 +693,7 @@ F-statistic:  16.3 on 1 and 10 DF,  p-value: 0.002371</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 The downloaded binary packages are in
-    /var/folders/hy/0rwqjktd7mb2ycrqdj1w7pgc0000gn/T//RtmpK28GHk/downloaded_packages</code></pre>
+    /var/folders/hy/0rwqjktd7mb2ycrqdj1w7pgc0000gn/T//RtmpFxY5p0/downloaded_packages</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER) <span class="co"># これはセッションのたびに実行</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">

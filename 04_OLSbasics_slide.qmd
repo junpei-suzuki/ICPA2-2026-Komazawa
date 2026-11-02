@@ -46,6 +46,9 @@ metadata-files:
 
 :::
 
+## 本日の授業の位置付け
+![](figs/graphic_syllabus_ICPA2.png){.r-stretch}
+
 ## 小テストの講評
 - 受験者数197人
 - 平均3.42/7点

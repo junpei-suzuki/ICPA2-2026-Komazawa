@@ -1,0 +1,187 @@
+---
+title: "08/確認小テスト"
+modified-date: today
+format: html
+---
+
+{{< include _common.qmd >}}
+
+**締切：2026年11月20日24:00**
+
+以下の文章を読み、続く問題に答えなさい。なお回答はWebClass上とする。
+
+## 文章
+```{r}
+#| include: false
+pacman::p_load(
+  poliscidata
+)
+
+data(world)
+
+world |> 
+  select(dem_score14, gini10) |>
+  summary()
+
+world |> 
+  ggplot(aes(x = dem_score14, gini10)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+政治体制は経済にどのような影響を与えるだろうか。特に民主主義体制は所得の分配を平等にするのだろうか、それとも不平等にするのだろうか。この問いを検証するために、世界167カ国の民主主義度と所得の不平等度のデータを収集した。このデータの記述統計とコードブックは以下の通り。
+
+```{r}
+#| echo: FALSE
+world <- world |> 
+  select(dem_score14, gini10)
+
+var <- world |> 
+  colnames()
+
+n <- world |>
+  summarize(dem_score14 = dem_score14 |> 
+              is.finite() |> 
+              sum(),
+            gini10 = gini10 |> 
+              is.finite() |> 
+              sum())  |> 
+  as.matrix() |> 
+  as.vector()
+
+mean <- world |> 
+  summarize(dem_score14 = mean(dem_score14,
+                               na.rm = TRUE),
+            gini10 = mean(gini10,
+                          na.rm = TRUE)) |> 
+  as.matrix() |> 
+  as.vector()
+
+sd <- world |> 
+  summarize(dem_score14 = sd(dem_score14,
+                               na.rm = TRUE),
+            gini10 = sd(gini10,
+                          na.rm = TRUE))   |> 
+  as.matrix() |> 
+  as.vector()
+
+min <- world |> 
+  summarize(dem_score14 = min(dem_score14,
+                               na.rm = TRUE),
+            gini10 = min(gini10,
+                          na.rm = TRUE))   |> 
+  as.matrix() |> 
+  as.vector()
+
+max <- world |> 
+  summarize(dem_score14 = max(dem_score14,
+                               na.rm = TRUE),
+            gini10 = max(gini10,
+                          na.rm = TRUE))   |> 
+  as.matrix() |> 
+  as.vector()
+
+desc <- c("エコノミスト誌による民主主義度の指数。高いスコアほどその国の民主主義スコアが高いことを意味する。",
+          "2000年から2010年までの所得の不平等度を表すジニ係数。高いスコアほどその国の所得が不平等であることを表す。")
+
+codebook <- tibble(
+  var = var,
+  n = n,
+  mean = mean,
+  sd = sd,
+  min = min,
+  max = max,
+  desc = desc
+)
+
+codebook |> 
+  knitr::kable(
+    col.names = c("変数",
+                  "観察数",
+                  "平均",
+                  "標準偏差",
+                  "最小",
+                  "最大",
+                  "備考"),
+    digits = 2
+  )
+
+```
+
+このデータを用いて、モデル【１】をOLSで推定してみよう。R上でこのモデルを推定するコマンドは【２】になる。OLS推定を実行したところ、<u>$\hat{\beta}_{1}=-0.8944$、標準誤差は$0.3489$になった。</u>
+
+```{r}
+#| include: false
+OLS_result <- lm(gini10 ~ dem_score14,
+                 data = world)
+
+OLS_result |> 
+  summary()
+```
+
+
+
+## 問題
+
+問１：上の文章の【１】に当てはまるのは以下のどれか。
+
+1. $民主主義度_{i} = \beta_{0} + \beta_{1} 所得の不平等度_{i} + \varepsilon_{i}$
+1. $所得分配の不平等度_{i} = \beta_{0} + \beta_{1} 民主主義度_{i} + \varepsilon_{i}$
+
+問２：上の文章の【２】に当てはまるのは以下のどれか。なおデータセットは`world`、分析結果は`OLS_result`というオブジェクトに格納されているものとする。
+
+1. `OLS_result <- lm(dem_score14 ~ gini10, data = world)`
+1. `OLS_result <- lm(gini10 ~ dem_score14, data = world)`
+1. `world <- lm(dem_score14 ~ gini10, data = OLS_result)`
+1. `world <- lm(gini10 ~ dem_score14, data = OLS_result)`
+
+問３：上の文章の【２】について、推定された係数$\hat{\beta}_{1}$の値からわかることとして正しいのは以下のうちどれか。
+
+1. 民主主義度が1単位増えるほど不平等度は約0.89上がる。
+1. 民主主義度が1単位増えるほど不平等度は約0.89下がる。
+1. 民主主義度が1単位増えるほど不平等度は約0.35上がる。
+1. 民主主義度が1単位増えるほど不平等度は約0.35下がる。
+
+問４：上の文章の下線部の分析結果について考える。係数$\hat{\beta}_{1}$についての**帰無仮説**として正しいものは以下のうちどれか。
+
+1. 民主主義度が増えると不平等度が下がる。
+1. 民主主義度が増えても不平等度は変化しない。
+1. 民主主義度が増えると不平等度が上がる。
+
+問５：上の文章の下線部の分析結果について考える。係数$\hat{\beta}_{1}$についての**両側対立仮説**として正しいものは以下のうちどれか。
+
+1. 民主主義度が増えると不平等度に何らかの変化が起こる。
+1. 民主主義度が増えても不平等度は変化しない。
+1. 民主主義度が増えると不平等度が下がる。
+1. 民主主義度が増えると不平等度が上がる。
+
+問６：上の文章の下線部の分析結果について考える。係数$\hat{\beta}_{1}$および$t$値$\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}$について正しい説明は次のうちどれか。正しいものを全て選べ。
+
+1. 帰無仮説が正しいとした場合、$\hat{\beta}_{1}$は期待値を0とする正規分布にしたがう。
+1. 帰無仮説が正しいとした場合、$\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}$は$t$分布にしたがう。
+1. このデータとモデルの自由度では、$\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}$がしたがう分布はほぼ正規分布に近似できる。
+1. このデータとモデルの自由度では、$\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}$がしたがう分布は正規分布よりも裾が厚くなる。
+
+問７：上の文章の下線部の分析結果について考える。この結果における$t$値$\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}$はいくつか。小数点第3位以下は四捨五入した上で数値を入力しなさい。
+
+- 数値を入力：<u>　　　</u>
+
+問８：上の文章の下線部の分析結果について考える。問７で計算された$t$値に対応する$p$値について正しい説明は次のうちどれか。正しいものを全て選べ。
+
+1. 有意水準を$\alpha=0.1$とすると、対応する$p$値は$\alpha$を下回る。
+1. 有意水準を$\alpha=0.05$とすると、対応する$p$値は$\alpha$を下回る。
+1. 有意水準を$\alpha=0.01$とすると、対応する$p$値は$\alpha$を下回る。
+
+問９：上の文章の下線部の分析結果について考える。問８の正しい説明から、係数の推定値$\hat{\beta}_{1}=-0.8944$について言えることは何か。次から正しい説明を全て選べ。
+
+1. 民主主義度が上がるほど不平等度が下がるという関係は10%水準で有意である。
+1. 民主主義度が上がるほど不平等度が下がるという関係は5%水準で有意である。
+1. 民主主義度が上がるほど不平等度が下がるという関係は1%水準で有意である。
+1. 民主主義度と不平等度との関係は有意ではない。
+
+問１０：上の文章の下線部の分析結果について考える。この状況における第1種の過誤の可能性として正しいものは次のうちどれか。
+
+1. 本当は民主主義度と不平等度に何らかの関係があるにも関わらず、何も関係がないと判断される。
+1. 本当は民主主義度と不平等度に何らかの関係があると考えられるが、分析結果もこれを支持している。
+1. 本当は民主主義度は不平等度と関係がないにも関わらず、負の関係にあると判断されている。
+1. 本当は民主主義度は不平等度と正の関係にあるにも関わらず、負の関係にあると判断されている。

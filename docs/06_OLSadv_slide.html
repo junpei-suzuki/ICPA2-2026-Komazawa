@@ -184,6 +184,10 @@
 </ol>
 </div>
 </section>
+<section id="本日の授業の位置付け" class="slide level2">
+<h2>本日の授業の位置付け</h2>
+<p><img data-src="figs/graphic_syllabus_ICPA2.png"></p>
+</section>
 <section id="小テストの講評" class="slide level2">
 <h2>小テストの講評</h2>
 <p>TBD</p>
@@ -202,7 +206,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06_OLSadv_slide_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" width="900"></p>
+<p><img data-src="06_OLSadv_slide_files/figure-html/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" width="900"></p>
 </figure>
 </div>
 </div>
@@ -243,19 +247,19 @@
 <p>モデルがデータにどれだけ適合しているかの度合い</p>
 <div class="fragment fade-in">
 <p>Q. 以下のデータ（a)と（b）ではどちらがデータに適合している？（<a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=55782cfa4c4320364f8bf4a3d03b59c6&amp;page=1">WebClassアンケート</a>）</p>
-<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
+<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06_OLSadv_slide_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
+<p><img data-src="06_OLSadv_slide_files/figure-html/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
 </figure>
 </div>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06_OLSadv_slide_files/figure-revealjs/unnamed-chunk-3-2.png" class="quarto-figure quarto-figure-center" width="1200"></p>
+<p><img data-src="06_OLSadv_slide_files/figure-html/unnamed-chunk-3-2.png" class="quarto-figure quarto-figure-center" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -298,7 +302,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06_OLSadv_slide_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+<p><img data-src="06_OLSadv_slide_files/figure-html/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
 </figure>
 </div>
 </div>
@@ -339,7 +343,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06_OLSadv_slide_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+<p><img data-src="06_OLSadv_slide_files/figure-html/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
 </figure>
 </div>
 </div>
@@ -366,7 +370,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06_OLSadv_slide_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
+<p><img data-src="06_OLSadv_slide_files/figure-html/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -649,44 +653,6 @@
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
