@@ -168,7 +168,19 @@
 <section>
 <section id="はじめに" class="title-slide slide level1 center">
 <h1>はじめに</h1>
-
+<aside class="notes">
+<p>目標15分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="本日の目的と到達目標" class="slide level2 smaller">
 <h2>本日の目的と到達目標</h2>
@@ -186,16 +198,36 @@
 </section>
 <section id="本日の授業の位置付け" class="slide level2">
 <h2>本日の授業の位置付け</h2>
-<p><img data-src="figs/graphic_syllabus_ICPA2.png"></p>
+<img data-src="figs/graphic_syllabus_ICPA2.png" class="r-stretch">
 </section>
 <section id="小テストの講評" class="slide level2">
 <h2>小テストの講評</h2>
-<p>TBD</p>
+<ul>
+<li>受験者数177人</li>
+<li>平均5.52/7点</li>
+<li>標準偏差1.38点</li>
+<li>最小値0点</li>
+<li>最大値7点</li>
+</ul>
+<p>大変よくできましたが、問4と問7は要注意（→<a href="./05_OLSapp_quiz.html">正答</a>）</p>
 </section></section>
 <section>
 <section id="復習olsの分散と一致性" class="title-slide slide level1 center">
 <h1>復習：OLSの分散と一致性</h1>
-
+<aside class="notes">
+<p>ここまで15分</p>
+<p>目標15分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="最小二乗法ols" class="slide level2">
 <h2>最小二乗法（OLS）</h2>
@@ -206,7 +238,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06_OLSadv_slide_files/figure-html/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" width="900"></p>
+<p><img data-src="06_OLSadv_slide_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" width="900"></p>
 </figure>
 </div>
 </div>
@@ -240,26 +272,39 @@
 <section>
 <section id="適合度" class="title-slide slide level1 center">
 <h1>適合度</h1>
-
+<aside class="notes">
+<p>ここまで30分</p>
+<p>目標15分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="適合度-goodness-of-fit" class="slide level2">
 <h2>適合度 (goodness of fit)</h2>
 <p>モデルがデータにどれだけ適合しているかの度合い</p>
 <div class="fragment fade-in">
 <p>Q. 以下のデータ（a)と（b）ではどちらがデータに適合している？（<a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=55782cfa4c4320364f8bf4a3d03b59c6&amp;page=1">WebClassアンケート</a>）</p>
-<div class="cell quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06_OLSadv_slide_files/figure-html/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
+<p><img data-src="06_OLSadv_slide_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
 </figure>
 </div>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06_OLSadv_slide_files/figure-html/unnamed-chunk-3-2.png" class="quarto-figure quarto-figure-center" width="1200"></p>
+<p><img data-src="06_OLSadv_slide_files/figure-revealjs/unnamed-chunk-3-2.png" class="quarto-figure quarto-figure-center" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -285,7 +330,10 @@
 <p>適合度の尺度の1つで、<strong>予測値と実際の値の相関係数を二乗したもの</strong></p>
 <ul>
 <li class="fragment">0-1の値を取り、1に近ければ適合度は高く、0に近ければ適合度は低い</li>
-<li class="fragment">高い<span class="math inline">\(R^2\)</span>は予測値と実際の値が近いことを意味</li>
+<li class="fragment">高い<span class="math inline">\(R^2\)</span>は予測値と実際の値が近いことを意味
+<ul>
+<li class="fragment">具体的には、「従属変数のばらつきのうちどれくらいの割合が推定されたモデルで説明できるか」と解釈</li>
+</ul></li>
 <li class="fragment">しかし、それ以上でもそれ以下でもない
 <ul>
 <li class="fragment">内生性のあるモデルでも高い<span class="math inline">\(R^2\)</span>は出ることがある</li>
@@ -302,7 +350,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06_OLSadv_slide_files/figure-html/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+<p><img data-src="06_OLSadv_slide_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
 </figure>
 </div>
 </div>
@@ -327,7 +375,21 @@
 <section>
 <section id="外れ値" class="title-slide slide level1 center">
 <h1>外れ値</h1>
-
+<aside class="notes">
+<p>ここまで45分</p>
+<p>休憩5分</p>
+<p>目標15分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="外れ値-outlier" class="slide level2">
 <h2>外れ値 (outlier)</h2>
@@ -343,7 +405,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06_OLSadv_slide_files/figure-html/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+<p><img data-src="06_OLSadv_slide_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
 </figure>
 </div>
 </div>
@@ -370,7 +432,7 @@
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06_OLSadv_slide_files/figure-html/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
+<p><img data-src="06_OLSadv_slide_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" width="1200"></p>
 </figure>
 </div>
 </div>
@@ -386,7 +448,20 @@
 <section>
 <section id="qa" class="title-slide slide level1 center">
 <h1>Q&amp;A</h1>
-
+<aside class="notes">
+<p>ここまで65分（01:05:00）</p>
+<p>目標20分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="質問を募集します" class="slide level2">
 <h2>質問を募集します</h2>
@@ -396,7 +471,20 @@
 <section>
 <section id="まとめ" class="title-slide slide level1 center">
 <h1>まとめ</h1>
-
+<aside class="notes">
+<p>ここまで85分（01:25:00）</p>
+<p>目標5分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="本日の目的と到達目標-1" class="slide level2 smaller">
 <h2>本日の目的と到達目標</h2>
@@ -428,7 +516,7 @@
 </ul>
 </div>
 <div class="fragment fade-in">
-<p>来週はオンラインの実習回です。PCから参加してください。</p>
+<p>来週は<strong>オンラインの実習回</strong>です。PCから参加してください。</p>
 </div>
 
 
@@ -653,6 +741,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

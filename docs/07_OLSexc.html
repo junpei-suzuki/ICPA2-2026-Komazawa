@@ -251,8 +251,11 @@ window.Quarto = {
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
- <span class="menu-text">08/基本編</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./08_testbasics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">08/基本編</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
  <span class="menu-text">09/応用編</span>
   </li>
@@ -579,7 +582,7 @@ F-statistic: 22.48 on 1 and 11 DF,  p-value: 0.0006078</code></pre>
 <p>上記で注目すべきはまず<code>Coefficiets</code>の欄である。</p>
 <ul>
 <li><code>Estimate</code>はそれぞれ切片<code>(intercept)</code>と<code>donuts</code>の傾きを表している。<code>(intercept)</code>が55.6ということは、ドーナツを全く食べていない場合の平均体重は55.6キロ程度ということである。<code>donuts</code>の傾きは4.13だが、これはドーナツを週一個多く食べるごとに体重が4.13キロ増えることを意味する。</li>
-<li><code>Std. Error</code>では切片および傾きの標準誤差が表示されている。<code>donuts</code>の標準誤差を見ると0.87程度だが、これが傾き推定値のばらつきを表している。</li>
+<li><code>Std. Error</code>では切片および傾きの標準誤差が表示されている。<code>donuts</code>の標準誤差を見ると0.87程度だが、これが傾きの推定値のばらつきを表している。</li>
 <li><code>t value</code>と<code>Pr(&gt;|t|)</code>は統計的仮説検定に関わる。詳細は次週以降。</li>
 </ul>
 <p>次に決定係数<span class="math inline">\(R^2\)</span>もわかる。下から2行目の<code>Multiple R-squared</code>がそれで、この結果では0.67くらいである。体重のばらつきの67%がこのモデルで説明されていることを意味する。<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
@@ -686,14 +689,14 @@ F-statistic:  16.3 on 1 and 10 DF,  p-value: 0.002371</code></pre>
 </section>
 <section id="頑健標準誤差時間があれば" class="level3">
 <h3 class="anchored" data-anchor-id="頑健標準誤差時間があれば">頑健標準誤差（時間があれば）</h3>
-<p>傾き<span class="math inline">\(\hat{\beta_{1}}\)</span>の標準誤差は基本的に<span class="math inline">\(\text{var}(\hat{\beta_{1}})=\frac{\hat{\sigma}^2}{N\times\text{var}(X)}\)</span>で計算できるが、誤差項の均一分散や誤差項同士の相関がない場合に限られる。不均一分散や誤差項同士の相関が生じている場合には、<strong>頑健標準誤差</strong>という別の計算式を使った標準誤差を使う。</p>
-<p>実は頑健標準誤差はRのデフォルト機能では計算できない。ここで使うのは<strong>パッケージ</strong>である。ライブラリとはRに機能を追加するもので、ゲームで言ったらMODとかに近い（多分）。今回は<code>AER</code>パッケージをインストールし、Rに組み込む。インストールは<code>install.packages()</code><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>でできるが、これは基本一回やればよい。その上で<code>library()</code>コマンドを実行して、Rに組み込む。<code>library()</code>コマンドで組み込んだパッケージはセッションを立ち上げるたびにリセットされるので、その度に実行し直すこと。</p>
+<p>傾き<span class="math inline">\(\hat{\beta_{1}}\)</span>の標準誤差は基本的に<span class="math inline">\(\operatorname{se(\hat{\beta_{1}})}=\sqrt{\frac{\hat{\sigma}^2}{N\times\text{var}(X)}}\)</span>で計算できるが、誤差項の均一分散や誤差項同士の相関がない場合に限られる。不均一分散や誤差項同士の相関が生じている場合には、<strong>頑健標準誤差</strong>（robust standard errors）という別の計算式を使った標準誤差を使う。</p>
+<p>実は頑健標準誤差はRのデフォルト機能では計算できない。ここで使うのは<strong>パッケージ</strong>である。パッケージとはRに機能を追加するもので、ゲームで言ったらMODとかに近い（多分）。今回は<code>AER</code>パッケージをインストールし、Rに組み込む。インストールは<code>install.packages()</code><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>でできるが、これは基本一回やればよい。その上で<code>library()</code>コマンドを実行して、Rに組み込む。<code>library()</code>コマンドで組み込んだパッケージはセッションを立ち上げるたびにリセットされるので、その度に実行し直すこと。</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"AER"</span>) <span class="co"># これは一度だけで大丈夫</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 The downloaded binary packages are in
-    /var/folders/hy/0rwqjktd7mb2ycrqdj1w7pgc0000gn/T//RtmpFxY5p0/downloaded_packages</code></pre>
+    /var/folders/hy/0rwqjktd7mb2ycrqdj1w7pgc0000gn/T//RtmpF29dbI/downloaded_packages</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER) <span class="co"># これはセッションのたびに実行</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">

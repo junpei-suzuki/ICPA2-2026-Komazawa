@@ -218,8 +218,11 @@ window.Quarto = {
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
- <span class="menu-text">08/基本編</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./08_testbasics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">08/基本編</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
  <span class="menu-text">09/応用編</span>
   </li>
@@ -353,13 +356,13 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="問題">問題</h2>
 <p>問１：2つの散布図からわかる大まかな傾向は何か。正しいものを以下から1つ選びなさい。</p>
 <ol type="1">
-<li>年齢が高いほど自民党に対する好感度は高くなりそうである。</li>
+<li>年齢が高いほど自民党に対する好感度は高くなりそうである。◯</li>
 <li>年齢と自民党に対する感情温度は関係なさそうである。</li>
 <li>年齢が高いほど自民党に対する反感が高くなりそうである。</li>
 </ol>
 <p>問２：標本（A）と標本（B）それぞれにおける傾きのOLS推定値<span class="math inline">\(\hat{\beta}_{1}\)</span>の符号はどのようになるか。正しい組み合わせを以下から1つ選びなさい。</p>
 <ol type="1">
-<li>標本（A）：正、標本（B）：正</li>
+<li>標本（A）：正、標本（B）：正◯</li>
 <li>標本（A）：正、標本（B）：負</li>
 <li>標本（A）：負、標本（B）：正</li>
 <li>標本（A）：負、標本（B）：負</li>
@@ -367,31 +370,31 @@ window.Quarto = {
 <p>問３：年齢と誤差項に相関がない場合、傾き（回帰係数）のOLS推定値<span class="math inline">\(\hat{\beta}_{1}\)</span>の分散（<span class="math inline">\(\operatorname{var}(\hat{\beta_{1}})\)</span>）を計算する式として正しいものはどれか。</p>
 <ol type="1">
 <li><span class="math inline">\(\operatorname{var}(\hat{\beta_{1}})=\frac{\sum(X_i-\bar{X})(Y_i-\bar{Y})}{\sum(X_i-\bar{X})^2}\)</span></li>
-<li><span class="math inline">\(\operatorname{var}(\hat{\beta_{1}})=\frac{\hat{\sigma}^2}{N\times\operatorname{var}(X)}\)</span></li>
+<li><span class="math inline">\(\operatorname{var}(\hat{\beta_{1}})=\frac{\hat{\sigma}^2}{N\times\operatorname{var}(X)}\)</span>◯</li>
 <li><span class="math inline">\(\operatorname{var}(\hat{\beta_{1}})=\frac{\sum(Y_i-\hat{Y}_i)^2}{N-k}\)</span></li>
 </ol>
 <p>問４：問３の正答で示される分散の標準式を考えなさい。この式から<span class="math inline">\(\hat{\beta}_{1}\)</span>の分散について一般にどのようなことが言えるか。正しい説明を以下から全て選びなさい。</p>
 <ol type="1">
-<li>サンプルサイズが大きくなるほど<span class="math inline">\(\beta_{1}\)</span>の分散は小さくなる。</li>
-<li>独立変数の分散が大きいほど<span class="math inline">\(\beta_{1}\)</span>の分散は小さくなる。</li>
+<li>サンプルサイズが大きくなるほど<span class="math inline">\(\beta_{1}\)</span>の分散は小さくなる。◯</li>
+<li>独立変数の分散が大きいほど<span class="math inline">\(\beta_{1}\)</span>の分散は小さくなる。◯</li>
 <li>回帰直線から各データが離れているほど<span class="math inline">\(\beta_{1}\)</span>の分散は小さくなる。</li>
 <li>回帰直線が右肩上がりであるほど<span class="math inline">\(\beta_{1}\)</span>の分散は小さくなる。</li>
 </ol>
 <p>問５：2つのサンプルにおける傾きの推定値<span class="math inline">\(\hat{\beta}_{1}\)</span>の精度について考える。母集団における真の傾き<span class="math inline">\(\beta_{1}\)</span>に確率的に近い推定値が得られると思われるのは、標本（A）と標本（B）どちらで分析した場合だろうか。正しいものをどちらか選びなさい。</p>
 <ol type="1">
 <li>標本（A）</li>
-<li>標本（B）</li>
+<li>標本（B）◯</li>
 </ol>
 <p>問６：問５のように言えるのはなぜだろうか。正しい説明を以下から1つ選びなさい。</p>
 <ol type="1">
 <li>標本（A）よりも標本（B）の方が回帰分散が小さいから。</li>
-<li>標本（A）よりも標本（B）の方がサンプルサイズが大きいから。</li>
+<li>標本（A）よりも標本（B）の方がサンプルサイズが大きいから。◯</li>
 <li>標本（A）よりも標本（B）の方が独立変数の分散が大きいから。</li>
 </ol>
 <p>問７：また問３の正答で示される分散の標準式を考えなさい。この分析において標準式が使えない可能性はどのような原因によるものだろうか。正しい説明を以下から全て選びなさい。</p>
 <ol type="1">
-<li>都道府県ごとに自民党を支持する雰囲気が異なる。</li>
-<li>年齢が低くなるほど、自民党に対する感情がばらつく。</li>
+<li>都道府県ごとに自民党を支持する雰囲気が異なる。◯</li>
+<li>年齢が低くなるほど、自民党に対する感情がばらつく。◯</li>
 <li>年齢が高くなるにつれて自民党に対する感情が高まるというトレンドが生じている。</li>
 <li>年齢と誤差項の間に相関が生じている。</li>
 </ol>
