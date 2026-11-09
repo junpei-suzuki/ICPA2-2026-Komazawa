@@ -331,6 +331,7 @@ window.Quarto = {
   <li><a href="#準備学習" id="toc-準備学習" class="nav-link active" data-scroll-target="#準備学習">準備学習</a></li>
   <li><a href="#実習の進行と到達目標" id="toc-実習の進行と到達目標" class="nav-link" data-scroll-target="#実習の進行と到達目標">実習の進行と到達目標</a></li>
   <li><a href="#本日の授業の位置付け" id="toc-本日の授業の位置付け" class="nav-link" data-scroll-target="#本日の授業の位置付け">本日の授業の位置付け</a></li>
+  <li><a href="#小テストの講評" id="toc-小テストの講評" class="nav-link" data-scroll-target="#小テストの講評">小テストの講評</a></li>
   <li><a href="#実習の準備" id="toc-実習の準備" class="nav-link" data-scroll-target="#実習の準備">実習の準備</a>
   <ul class="collapse">
   <li><a href="#posit-cloudの準備" id="toc-posit-cloudの準備" class="nav-link" data-scroll-target="#posit-cloudの準備">Posit Cloudの準備</a></li>
@@ -387,7 +388,10 @@ window.Quarto = {
 <ul class="task-list">
 <li><label><input type="checkbox">【事前】教科書（第3章全て）を再読する。</label></li>
 <li><label><input type="checkbox">【事後】配布資料やノートを見直し、到達目標が達成できているかチェックする。</label></li>
-<li><label><input type="checkbox">【事後】R実習課題に回答し、提出（金曜日まで） <!-- - 問題は[こちら](07_OLSexec_assign.qmd) --></label></li>
+<li><label><input type="checkbox">【事後】R実習課題に回答し、提出（日曜日まで）</label>
+<ul>
+<li>問題は<a href="07_OLSexec_assign.qmd">こちら</a></li>
+</ul></li>
 </ul>
 </section>
 <section id="実習の進行と到達目標" class="level2">
@@ -415,6 +419,17 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="本日の授業の位置付け">本日の授業の位置付け</h2>
 <p><img src="figs/graphic_syllabus_ICPA2.png" class="r-stretch img-fluid"></p>
 </section>
+<section id="小テストの講評" class="level2">
+<h2 class="anchored" data-anchor-id="小テストの講評">小テストの講評</h2>
+<ul>
+<li>受験者数188人</li>
+<li>平均5.38/6点</li>
+<li>標準偏差1.14点</li>
+<li>最小値1点</li>
+<li>最大値6点</li>
+</ul>
+<p>大変良くできました。注意なのは問5と問6（→<a href="./06_OLSadv_quiz.html">正答</a>）</p>
+</section>
 <section id="実習の準備" class="level2">
 <h2 class="anchored" data-anchor-id="実習の準備">実習の準備</h2>
 <section id="posit-cloudの準備" class="level3">
@@ -423,6 +438,7 @@ window.Quarto = {
 <ul>
 <li>セッションのリスタート：最上部ツールバーのSession&gt;Restart R</li>
 <li>オブジェクトのクリア：右上Environmentの🧹をクリック</li>
+<li>コンソールのクリア：Consoleペーン右上の🧹をクリック（色が見づらいが🔍の隣にある）</li>
 <li>新しいスクリプトの作成と保存：ツールバーFile直下のアイコンからR Script
 <ul>
 <li>「07_OLSexc.R」などの名前をつけて保存</li>
@@ -431,7 +447,7 @@ window.Quarto = {
 </section>
 <section id="データのインポート" class="level3">
 <h3 class="anchored" data-anchor-id="データのインポート">データのインポート</h3>
-<p>次に今回の実習で使うドーナツデータ（donuts.RData）をダウンロードしインポートする</p>
+<p>次に今回の実習で使うドーナツデータ（donuts.RDS）をダウンロードしインポートする</p>
 <ul>
 <li>WebClassにアクセスし「第7回R実習データ（ドーナツ）」からデータをダウンロード</li>
 <li>PositCloud上にアップロードした上で<code>dta &lt;- readRDS("donuts.RDS")</code>を実行しインポート<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
@@ -696,7 +712,7 @@ F-statistic:  16.3 on 1 and 10 DF,  p-value: 0.002371</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 The downloaded binary packages are in
-    /var/folders/hy/0rwqjktd7mb2ycrqdj1w7pgc0000gn/T//Rtmpf4ACJ5/downloaded_packages</code></pre>
+    /var/folders/hy/0rwqjktd7mb2ycrqdj1w7pgc0000gn/T//RtmpmYX4Xx/downloaded_packages</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER) <span class="co"># これはセッションのたびに実行</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
