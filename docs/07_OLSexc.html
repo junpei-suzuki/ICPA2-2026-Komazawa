@@ -352,6 +352,7 @@ window.Quarto = {
   <li><a href="#一部のデータを使った分析" id="toc-一部のデータを使った分析" class="nav-link" data-scroll-target="#一部のデータを使った分析">一部のデータを使った分析</a></li>
   <li><a href="#頑健標準誤差時間があれば" id="toc-頑健標準誤差時間があれば" class="nav-link" data-scroll-target="#頑健標準誤差時間があれば">頑健標準誤差（時間があれば）</a></li>
   </ul></li>
+  <li><a href="#次回までに" id="toc-次回までに" class="nav-link" data-scroll-target="#次回までに">次回までに</a></li>
   </ul>
 </nav>
     </div>
@@ -390,7 +391,7 @@ window.Quarto = {
 <li><label><input type="checkbox">【事後】配布資料やノートを見直し、到達目標が達成できているかチェックする。</label></li>
 <li><label><input type="checkbox">【事後】R実習課題に回答し、提出（日曜日まで）</label>
 <ul>
-<li>問題は<a href="07_OLSexec_assign.qmd">こちら</a></li>
+<li>問題は<a href="./07_OLSexc_assign.html">こちら</a></li>
 </ul></li>
 </ul>
 </section>
@@ -414,6 +415,7 @@ window.Quarto = {
 </ul>
 </div>
 </div>
+<p><strong>WebClass上の出席登録も忘れずに！</strong></p>
 </section>
 <section id="本日の授業の位置付け" class="level2">
 <h2 class="anchored" data-anchor-id="本日の授業の位置付け">本日の授業の位置付け</h2>
@@ -563,6 +565,15 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 <li>切片：<span class="math inline">\(\hat{\beta_{0}}=\bar{Y}-\hat{\beta_{1}}\bar{X}\)</span></li>
 </ul>
 <p>上記のOLS推定値のばらつきを<strong>標準誤差</strong>（standard error）と呼ぶ。一定の条件を満たす場合、傾き<span class="math inline">\(\hat{\beta_{1}}\)</span>の標準誤差は<span class="math inline">\(\operatorname{se}(\hat{\beta_{1}})=\sqrt{\operatorname{var}(\hat{\beta_{1}})}=\sqrt{\frac{\hat{\sigma}^2}{N\times\operatorname{var}(X)}}\)</span>で計算できる。母集団における真の傾きを<span class="math inline">\(\beta_{1}\)</span>とした場合、推定される<span class="math inline">\(\hat{\beta_{1}}\)</span>は<span class="math inline">\(\beta_{1}\)</span>を期待値、<span class="math inline">\(\operatorname{se}(\hat{\beta_{1}})=\sqrt{\frac{\hat{\sigma}^2}{N\times\operatorname{var}(X)}}\)</span>を標準偏差とする正規分布にしたがう。</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_OLSexc_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="olsの実装と解釈" class="level3">
 <h3 class="anchored" data-anchor-id="olsの実装と解釈">OLSの実装と解釈</h3>
@@ -571,7 +582,7 @@ Y_i=\beta_{0}+\beta_{1}X_i+\varepsilon_{i}
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>OLSresult <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> donuts, <span class="at">data =</span> dta)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>この<code>OLS_result</code>オブジェクトをもう一度コンソールに打ち込んでも良いが、これだと結果が見づらい。以下のように<code>summary()</code>を使って結果をわかりやすく表示できる。</p>
+<p>この<code>OLS_result</code>オブジェクトをもう一度コンソールに打ち込んでも良いが、これだと結果がシンプルすぎる。以下のように<code>summary()</code>を使って結果をわかりやすく表示できる。</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSresult)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -612,7 +623,7 @@ F-statistic: 22.48 on 1 and 11 DF,  p-value: 0.0006078</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="07_OLSexc_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="07_OLSexc_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -712,7 +723,7 @@ F-statistic:  16.3 on 1 and 10 DF,  p-value: 0.002371</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 The downloaded binary packages are in
-    /var/folders/hy/0rwqjktd7mb2ycrqdj1w7pgc0000gn/T//RtmpmYX4Xx/downloaded_packages</code></pre>
+    /var/folders/hy/0rwqjktd7mb2ycrqdj1w7pgc0000gn/T//RtmpL1z0T8/downloaded_packages</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER) <span class="co"># これはセッションのたびに実行</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -720,6 +731,20 @@ The downloaded binary packages are in
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'car'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    recode</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:purrr':
+
+    some</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: lmtest</code></pre>
@@ -745,7 +770,7 @@ Attaching package: 'zoo'</code></pre>
 </div>
 <p>以上ができたら、<code>coeftest()</code>関数で頑健標準誤差を計算できる。<code>vcov = vcovHC</code>オプションで不均一分散を考慮した標準誤差を指定している</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSresult) <span class="co"># デフォルトの分析結果</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSresult) <span class="co"># デフォルトの分析結果</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -766,8 +791,8 @@ Residual standard error: 20.68 on 11 degrees of freedom
 Multiple R-squared:  0.6715,    Adjusted R-squared:  0.6416 
 F-statistic: 22.48 on 1 and 11 DF,  p-value: 0.0006078</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 頑健標準誤差を使った分析結果</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(OLSresult, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(OLSresult, <span class="at">type =</span> <span class="st">"HC1"</span>))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 頑健標準誤差を使った分析結果</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(OLSresult, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(OLSresult, <span class="at">type =</span> <span class="st">"HC1"</span>))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 t test of coefficients:
@@ -780,6 +805,25 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>最初のモデルと結果を見比べると、切片と係数の値（<code>Estimate</code>）自体は同じである一方、標準誤差<code>Std. Error</code>の値が変わっている。</p>
+</section>
+</section>
+<section id="次回までに" class="level2">
+<h2 class="anchored" data-anchor-id="次回までに">次回までに</h2>
+<section id="事後学習" class="level4">
+<h4 class="anchored" data-anchor-id="事後学習">事後学習</h4>
+<ul>
+<li>授業資料を見直し、目標到達をセルフチェック</li>
+<li>WebClass上でのR実習課題（日曜日まで）
+<ul>
+<li>問題は<a href="./07_OLSexc_assign.html">こちら</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="事前学習" class="level4">
+<h4 class="anchored" data-anchor-id="事前学習">事前学習</h4>
+<ul>
+<li>教科書（第4章冒頭および4.1-4.3: pp.125-146）を読む。</li>
+</ul>
 
 
 </section>

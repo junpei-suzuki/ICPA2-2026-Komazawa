@@ -33,7 +33,7 @@ local({
  - [ ] 【事前】教科書（第3章全て）を再読する。
  - [ ] 【事後】配布資料やノートを見直し、到達目標が達成できているかチェックする。
  - [ ] 【事後】R実習課題に回答し、提出（日曜日まで）
-    - 問題は[こちら](07_OLSexec_assign.qmd)
+    - 問題は[こちら](07_OLSexc_assign.qmd)
 
 ## 実習の進行と到達目標
 今回の実習ではスライドではなくこちらのファイルに沿って行う。到達目標は以下の通り。
@@ -45,6 +45,8 @@ local({
 - [ ] R上で二変量回帰分析を実装し、解釈できる。
 
 :::
+
+**WebClass上の出席登録も忘れずに！**
 
 ## 本日の授業の位置付け
 ![](figs/graphic_syllabus_ICPA2.png){.r-stretch}
@@ -150,6 +152,29 @@ $$
 
 上記のOLS推定値のばらつきを**標準誤差**（standard error）と呼ぶ。一定の条件を満たす場合、傾き$\hat{\beta_{1}}$の標準誤差は$\operatorname{se}(\hat{\beta_{1}})=\sqrt{\operatorname{var}(\hat{\beta_{1}})}=\sqrt{\frac{\hat{\sigma}^2}{N\times\operatorname{var}(X)}}$で計算できる。母集団における真の傾きを$\beta_{1}$とした場合、推定される$\hat{\beta_{1}}$は$\beta_{1}$を期待値、$\operatorname{se}(\hat{\beta_{1}})=\sqrt{\frac{\hat{\sigma}^2}{N\times\operatorname{var}(X)}}$を標準偏差とする正規分布にしたがう。
 
+```{r}
+#| include: false
+library(tidyverse)
+
+theme_set(theme_bw(base_family = "Hiragino Sans"))
+```
+
+
+```{r}
+#| echo: false
+tibble(x = c(-3, 3)) |> 
+  ggplot(aes(x = x)) +
+  stat_function(fun = dnorm,
+                n = 1000, 
+                args = list(mean = 0, sd = 1)) +
+  scale_x_continuous(breaks = c(-3, 0, 3),
+                     labels = c("",
+                                bquote(beta[1]),
+                                "")) +
+  labs(x = "", y = "")
+```
+
+
 ### OLSの実装と解釈
 OLS推定をR上で実施するには`lm()`関数を使う。`lm()`関数に限らず、Rではコマンドのヘルプを`?関数`で閲覧できる。`?lm`と入力すると、`lm()`関数の使い方が載っている[^help]。`lm()`関数の第一引数はformulaであり、`y ~ x`のように従属変数と独立変数をモデル化する。`data`引数では使うデータを指定する。
 
@@ -161,7 +186,7 @@ OLS推定をR上で実施するには`lm()`関数を使う。`lm()`関数に限�
 OLSresult <- lm(weight ~ donuts, data = dta)
 ```
 
-この`OLS_result`オブジェクトをもう一度コンソールに打ち込んでも良いが、これだと結果が見づらい。以下のように`summary()`を使って結果をわかりやすく表示できる。
+この`OLS_result`オブジェクトをもう一度コンソールに打ち込んでも良いが、これだと結果がシンプルすぎる。以下のように`summary()`を使って結果をわかりやすく表示できる。
 
 ```{r}
 summary(OLSresult)
@@ -238,3 +263,15 @@ coeftest(OLSresult, vcov = vcovHC(OLSresult, type = "HC1"))
 
 最初のモデルと結果を見比べると、切片と係数の値（`Estimate`）自体は同じである一方、標準誤差`Std. Error`の値が変わっている。
 
+
+## 次回までに
+#### 事後学習
+
+ - 授業資料を見直し、目標到達をセルフチェック
+ - WebClass上でのR実習課題（日曜日まで）
+    - 問題は[こちら](07_OLSexc_assign.qmd)
+
+#### 事前学習
+
+ - 教科書（第4章冒頭および4.1-4.3: pp.125-146）を読む。
+ 
