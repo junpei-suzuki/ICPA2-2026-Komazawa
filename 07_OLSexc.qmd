@@ -49,7 +49,7 @@ local({
 **WebClass上の出席登録も忘れずに！**
 
 ## 本日の授業の位置付け
-![](figs/graphic_syllabus_ICPA2.png){.r-stretch}
+![](figs/graphic_syllabus_ICPA2.png)
 
 ## 小テストの講評
 - 受験者数188人
