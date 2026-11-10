@@ -40,13 +40,13 @@ website:
         contents: 
         - text: "08/基本編"
           href: 08_testbasics.qmd
-        - text: "09/応用編"
+        - text: "09/発展編"
           href: 09_testadv.qmd
         - text: "10/実習編"
       - section: 多変量回帰分析
         contents: 
         - text: "11/基本編"
-        - text: "12/応用編"
+        - text: "12/発展編"
         - text: "13/実習編"
       - section: ふりかえり
         contents: 
