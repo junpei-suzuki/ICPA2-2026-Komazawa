@@ -187,11 +187,21 @@
 </section>
 <section id="本日の授業の位置付け" class="slide level2">
 <h2>本日の授業の位置付け</h2>
-<img data-src="figs/graphic_syllabus_ICPA2.png" class="r-stretch">
+<img data-src="figs/graphic_syllabus_icpa2.png" class="r-stretch">
 </section>
 <section id="小テストの講評" class="slide level2">
 <h2>小テストの講評</h2>
-<p>TBD</p>
+<ul>
+<li>受験者数192人</li>
+<li>平均6.92/8点</li>
+<li>標準偏差2.65点</li>
+<li>最小値0点</li>
+<li>最大値8点</li>
+</ul>
+<p>まあまあよくできましたが、問２・６・８は注意（→<a href="./07_OLSexc_assign.html">正答</a>）</p>
+<ul>
+<li>サンプルコード（第7回実習課題のコード）はWebClassにもあります</li>
+</ul>
 </section></section>
 <section>
 <section id="統計的仮説検定" class="title-slide slide level1 center">
@@ -206,8 +216,21 @@
 \]</span></p>
 <div class="fragment fade-in">
 <p>OLS推定をしたところ、傾きの推定値は<span class="math inline">\(\hat{\beta}_{1}=220\)</span>となった。</p>
-<p>身長が高くなるほど賃金も上がる、と結論づけて良いだろうか？（<a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=520bfaa84709978d160c509dba98f066">WebClassチャット</a>）</p>
+<p>身長が高くなるほど賃金も上がる、と結論づけて良いだろうか？（内生性はないとする）（<a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=520bfaa84709978d160c509dba98f066">WebClassチャット</a>）</p>
 </div>
+<aside class="notes">
+<p>220という値は偶然出てたものかもしれない。本当は関係はない<span class="math inline">\(\beta_{1}=0\)</span>なのに、この選ばれた100人でたまたま正の相関が生じているのかもしれない。</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>賃金は円（時給）、身長はcm単位。</p></li></ol></aside></section>
 <section id="統計的仮説検定-hypothesis-testing" class="slide level2">
 <h2>統計的仮説検定 (hypothesis testing)</h2>
@@ -219,12 +242,12 @@
 </ul></li>
 <li class="fragment"><strong>対立仮説</strong>を定める
 <ul>
-<li class="fragment">「身長は賃金に影響を<strong>与える</strong>」（<span class="math inline">\(H_{1}:\beta_{1}\ne0\)</span>）</li>
+<li class="fragment">「身長は賃金に影響を<strong>与える</strong>」（<span class="math inline">\(H_{A}:\beta_{1}\ne0\)</span>）</li>
 </ul></li>
 <li class="fragment">帰無仮説が正しいと仮定したときに、推定された<span class="math inline">\(\hat{\beta}_{1}\)</span>がどれだけ出やすいかを検討
 <ul>
-<li class="fragment"><span class="math inline">\(\hat{\beta}_{1}\)</span>が0から離れている→帰無仮説が正しいとしたら出そうにない→帰無仮説を棄却</li>
-<li class="fragment"><span class="math inline">\(\hat{\beta}_{1}\)</span>が0に近い→帰無仮説が正しいとしたら普通にあり得る→帰無仮説は棄却できない</li>
+<li class="fragment"><span class="math inline">\(\hat{\beta}_{1}\)</span>が0から離れている→帰無仮説が正しいとしたら出そうにない→帰無仮説を棄却（対立仮説を採択）</li>
+<li class="fragment"><span class="math inline">\(\hat{\beta}_{1}\)</span>が0に近い→帰無仮説が正しいとしたら普通にあり得る→帰無仮説は棄却できない（対立仮説を棄却）</li>
 </ul></li>
 </ol>
 </section>
@@ -370,7 +393,7 @@
 </section>
 <section id="質問" class="slide level2">
 <h2>質問</h2>
-<p>なたは妊娠検査薬の開発者です。</p>
+<p>あなたは妊娠検査薬の開発者です。</p>
 <p>製品に「妊娠していないのに妊娠していると判定する」という、偽陽性をめぐる苦情が多く寄せられたため、陽性と判定する基準を厳しくすることにしました。</p>
 <p>この変更によって、今度はどのような問題が起こる可能性があるでしょうか？（<a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=520bfaa84709978d160c509dba98f066">WebClassチャット</a>）</p>
 <aside class="notes">
@@ -542,9 +565,9 @@
 <ul>
 <li class="fragment"><span class="math inline">\(N\)</span>はサンプルサイズ、<span class="math inline">\(k\)</span>は変数の数</li>
 </ul></li>
-<li class="fragment">自由度が小さい時は裾が厚く、自由度が大きくなるにつれて正規分布に近づく
+<li class="fragment">自由度が小さい時は裾が厚く、自由度が大きくなるにつれて標準正規分布<sup>1</sup>に近づく
 <ul>
-<li class="fragment">サンプルが十分大きければ、正規分布とみなしてよい</li>
+<li class="fragment">サンプルが十分大きければ、標準正規分布とみなしてよい</li>
 </ul></li>
 </ul>
 <div class="r-stack">
@@ -582,7 +605,7 @@
 </div>
 </div>
 </div>
-</section>
+<aside><ol class="aside-footnotes"><li id="fn5"><p>期待値0、標準偏差1の正規分布</p></li></ol></aside></section>
 <section id="臨界値" class="slide level2">
 <h2>臨界値</h2>
 <p>統計的に有意かどうかを判断するための閾値</p>
@@ -622,7 +645,7 @@
 </div>
 </div>
 <aside class="notes">
-<p>統計的に有意かどうかを判断するための閾値</p>
+<p>統計的に有意かどうかを判断するための閾値→係数を標準誤差で割った<span class="math inline">\(t\)</span>値がどれくらい大きければ／小さければ統計的に有意だろうか？</p>
 <ul>
 <li>サンプルサイズが十分に大きい<span class="math inline">\(t\)</span>分布なら…
 <ul>
@@ -692,6 +715,20 @@
 </div>
 </div>
 </div>
+<aside class="notes">
+<p>臨界値→<span class="math inline">\(t\)</span>値の値それ自体を見て、1.96/-1.96以下であるかをチェックする</p>
+<p><span class="math inline">\(p\)</span>値→計算された<span class="math inline">\(t\)</span>値よりも極端な値が出る確率をみて、5%を超えるかどうかをチェックする</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="まとめ" class="title-slide slide level1 center">

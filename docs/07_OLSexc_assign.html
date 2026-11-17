@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -195,8 +230,11 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">09/応用編</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./09_testadv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">09/発展編</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
  <span class="menu-text">10/実習編</span>
   </li>
@@ -215,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">11/基本編</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">12/応用編</span>
+ <span class="menu-text">12/発展編</span>
   </li>
           <li class="sidebar-item">
  <span class="menu-text">13/実習編</span>
@@ -322,25 +360,71 @@ ul.task-list li input[type="checkbox"] {
 <p>問１：与党候補の得票率の記述統計として正しいものを以下から選びなさい（小数点3位以下は四捨五入）。</p>
 <ol type="1">
 <li>観察数18、平均51.98、標準偏差3.48、最小値33.25、最大値61.79</li>
-<li>観察数18、平均51.98、標準偏差5.17、最小値44.55、最大値61.79</li>
+<li>観察数18、平均51.98、標準偏差5.17、最小値44.55、最大値61.79◯</li>
 <li>観察数18、平均44.55、標準偏差3.48、最小値44.55、最大値51.98</li>
 <li>観察数18、平均44.55、標準偏差3.48、最小値51.98、最大値61.79</li>
 </ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 得票率の記述統計：2が正解</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.finite</span>(dta<span class="sc">$</span>Vote100))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dta<span class="sc">$</span>Vote100, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 51.98107</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(dta<span class="sc">$</span>Vote100, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.28013</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(dta<span class="sc">$</span>Vote100, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 44.5481</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(dta<span class="sc">$</span>Vote100, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 61.7861</code></pre>
+</div>
+</div>
 <p>問２：前回選挙からの実質可処分所得の変化の記述統計として正しいものを以下から選びなさい（小数点3位以下は四捨五入）。</p>
 <ol type="1">
 <li>観察数16、平均3.48、標準偏差2.66、最小値-0.44、最大値5.98</li>
 <li>観察数16、平均2.66、標準偏差1.69、最小値-0.44、最大値5.98</li>
 <li>観察数18、平均3.48、標準偏差2.66、最小値-0.44、最大値5.98</li>
-<li>観察数18、平均2.66、標準偏差1.69、最小値-0.44、最大値5.98</li>
+<li>観察数18、平均2.66、標準偏差1.69、最小値-0.44、最大値5.98◯</li>
 </ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 前回選挙からの実質可処分所得の変化の記述統計：4が正解</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.finite</span>(dta<span class="sc">$</span>RDI))</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dta<span class="sc">$</span>RDI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.66213</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(dta<span class="sc">$</span>RDI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.695629</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(dta<span class="sc">$</span>RDI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.4444883</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(dta<span class="sc">$</span>RDI, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.967757</code></pre>
+</div>
+</div>
 <p>問３：実質可処分所得の変化を横軸、現職得票率を縦軸とした散布図を作成するコマンドは次のうちどちらか。</p>
 <ol type="1">
-<li><code>plot(dta$RDI, dta$Vote100)</code></li>
+<li><code>plot(dta$RDI, dta$Vote100)</code>◯</li>
 <li><code>plot(dta$Vote100, dta$RDI)</code></li>
 <li><code>plot(dta$RDI, dta$term)</code></li>
 <li><code>plot(dta$RDI, dta$Reelection)</code></li>
 </ol>
-<p>問４：問３の正しいコマンドを実行した結果出力されるグラフは次のうちどれか。</p>
+<p>問４：問３の正しいコマンドを実行した結果出力されるグラフは次のうちどれか。（正解は1）</p>
 <div class="cell quarto-layout-panel" data-layout-nrow="2" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -363,31 +447,109 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li><code>OLSResult &lt;- lm(RDI ~ Reelection, data = dta)</code></li>
 <li><code>OLSResult &lt;- lm(RDI ~ Vote100, data = dta)</code></li>
-<li><code>OLSResult &lt;- lm(Vote100 ~ RDI, data = dta)</code></li>
+<li><code>OLSResult &lt;- lm(Vote100 ~ RDI, data = dta)</code>◯</li>
 <li><code>OLSResult &lt;- lm(Vote100 ~ term, data = dta)</code></li>
 </ol>
 <p>問６：問５の正しいコマンドを実行した結果の解釈として正しいものを次から全て選べ。</p>
 <ol type="1">
-<li>前回選挙から実質所得が1%増えるごとに与党候補者の得票率も2.2%上昇する</li>
-<li>実質所得の変化がないと仮定すると、与党候補者の得票率の期待値は46%程度になる。</li>
-<li>実質所得の変化がないと仮定すると、与党候補者の得票率の期待値は60%程度になる。</li>
+<li>前回選挙から実質所得が1%増えるごとに与党候補者の得票率も2.2%上昇する◯</li>
+<li>実質所得の変化がないと仮定すると、与党候補者の得票率の期待値は46%程度になる。◯</li>
+<li>実質所得の変化がないと仮定すると、与党候補者の得票率の期待値は<del>60%</del>→50%程度になる。</li>
 <li>前回選挙から実質所得が1%増えるごとに与党候補者の得票率も0.23%上昇する。</li>
-<li>推定されたモデルは与党候補者の得票率のばらつきの約50%を説明している。</li>
+<li>推定されたモデルは与党候補者の得票率のばらつきの約50%を説明している。◯</li>
 </ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 正解は１、２、５</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>OLSResult <span class="ot">&lt;-</span> <span class="fu">lm</span>(Vote100 <span class="sc">~</span> RDI, <span class="at">data =</span> dta)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSResult)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Vote100 ~ RDI, data = dta)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.9735 -1.6769 -0.4575  2.7576  7.5961 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  46.1157     1.7224  26.774 1.02e-14 ***
+RDI           2.2033     0.5501   4.005  0.00102 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.846 on 16 degrees of freedom
+Multiple R-squared:  0.5006,    Adjusted R-squared:  0.4694 
+F-statistic: 16.04 on 1 and 16 DF,  p-value: 0.001021</code></pre>
+</div>
+</div>
 <p>問７：同じデータを使って、現職が立候補している場合としていない場合でそれぞれ回帰分析を行い、結果を比較したい。この時実行すべき正しいコマンドは次のうちどれか、全て選べ。なお現職立候補の結果は<code>OLSResult_Incum</code>、現職不出馬の結果は<code>OLS_Result_NoIncum</code>というオブジェクトにそれぞれ格納するものとする。</p>
 <ol type="1">
-<li><code>OLSResult_Incum &lt;- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 1))</code></li>
+<li><code>OLSResult_Incum &lt;- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 1))</code>◯</li>
 <li><code>OLSResult_Incum &lt;- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 0))</code></li>
-<li><code>OLSResult_NoIncum &lt;- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 0))</code></li>
+<li><code>OLSResult_NoIncum &lt;- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 0))</code>◯</li>
 <li><code>OLSResult_NoIncum &lt;- lm(Vote100 ~ RDI, data = dta, subset = (Reelection == 1))</code></li>
 </ol>
 <p>問８：問７の正しいコマンドを実行した結果の解釈として正しいものを次から全て選べ。</p>
 <ol type="1">
-<li>現職が立候補している場合も不出馬の場合も、所得の変化は与党候補の得票を増やす効果がありそうである。</li>
+<li>現職が立候補している場合も不出馬の場合も、所得の変化は与党候補の得票を増やす効果がありそうである。◯</li>
 <li>現職が立候補している場合、所得の変化は与党候補の得票を増やす効果があるが、現職不出馬の場合は減らす効果がありそうである。</li>
-<li>所得の変化の係数は、現職が立候補している場合の方が不出馬の場合よりも大きい値が推定されている。</li>
+<li>所得の変化の係数は、現職が立候補している場合の方が不出馬の場合よりも大きい値が推定されている。◯</li>
 <li>所得の変化の係数は現職が立候補する場合としない場合であまり違いがない。</li>
 </ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 正解は1, 3</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 現職立候補</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>OLSResult_Incum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Vote100 <span class="sc">~</span> RDI, <span class="at">data =</span> dta, <span class="at">subset =</span> (Reelection <span class="sc">==</span> <span class="dv">1</span>))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSResult_Incum)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Vote100 ~ RDI, data = dta, subset = (Reelection == 
+    1))
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-3.369 -2.482 -1.586  2.588  5.574 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  47.3546     2.2315  21.221  1.3e-07 ***
+RDI           2.4169     0.6152   3.928  0.00569 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.347 on 7 degrees of freedom
+Multiple R-squared:  0.688, Adjusted R-squared:  0.6434 
+F-statistic: 15.43 on 1 and 7 DF,  p-value: 0.005687</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 現職不出馬</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>OLSResult_NoIncum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Vote100 <span class="sc">~</span> RDI, <span class="at">data =</span> dta, <span class="at">subset =</span> (Reelection <span class="sc">==</span> <span class="dv">0</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSResult_NoIncum)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Vote100 ~ RDI, data = dta, subset = (Reelection == 
+    0))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.1348 -1.5920 -0.0031  2.0362  3.7920 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  47.4908     1.8614  25.513 3.63e-08 ***
+RDI           0.6986     0.7330   0.953    0.372    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.853 on 7 degrees of freedom
+Multiple R-squared:  0.1149,    Adjusted R-squared:  -0.01158 
+F-statistic: 0.9084 on 1 and 7 DF,  p-value: 0.3723</code></pre>
+</div>
+</div>
 
 
 </section>
