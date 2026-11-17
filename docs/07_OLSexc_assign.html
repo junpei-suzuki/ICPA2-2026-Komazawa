@@ -443,6 +443,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dta<span class="sc">$</span>RDI, dta<span class="sc">$</span>Vote100)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_OLSexc_assign_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>問５：実質可処分所得の変化を独立変数、現職得票率を従属変数として二変量回帰分析を実行するコマンドは次のうちどれか。なお結果は<code>OLSResult</code>というオブジェクトに保存するものとする。</p>
 <ol type="1">
 <li><code>OLSResult &lt;- lm(RDI ~ Reelection, data = dta)</code></li>
@@ -459,10 +469,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>推定されたモデルは与党候補者の得票率のばらつきの約50%を説明している。◯</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 正解は１、２、５</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>OLSResult <span class="ot">&lt;-</span> <span class="fu">lm</span>(Vote100 <span class="sc">~</span> RDI, <span class="at">data =</span> dta)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSResult)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 正解は１、２、５</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>OLSResult <span class="ot">&lt;-</span> <span class="fu">lm</span>(Vote100 <span class="sc">~</span> RDI, <span class="at">data =</span> dta)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSResult)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -499,11 +509,11 @@ F-statistic: 16.04 on 1 and 16 DF,  p-value: 0.001021</code></pre>
 <li>所得の変化の係数は現職が立候補する場合としない場合であまり違いがない。</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 正解は1, 3</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 現職立候補</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>OLSResult_Incum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Vote100 <span class="sc">~</span> RDI, <span class="at">data =</span> dta, <span class="at">subset =</span> (Reelection <span class="sc">==</span> <span class="dv">1</span>))</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSResult_Incum)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 正解は1, 3</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 現職立候補</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>OLSResult_Incum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Vote100 <span class="sc">~</span> RDI, <span class="at">data =</span> dta, <span class="at">subset =</span> (Reelection <span class="sc">==</span> <span class="dv">1</span>))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSResult_Incum)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -525,9 +535,9 @@ Residual standard error: 3.347 on 7 degrees of freedom
 Multiple R-squared:  0.688, Adjusted R-squared:  0.6434 
 F-statistic: 15.43 on 1 and 7 DF,  p-value: 0.005687</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 現職不出馬</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>OLSResult_NoIncum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Vote100 <span class="sc">~</span> RDI, <span class="at">data =</span> dta, <span class="at">subset =</span> (Reelection <span class="sc">==</span> <span class="dv">0</span>))</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSResult_NoIncum)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 現職不出馬</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>OLSResult_NoIncum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Vote100 <span class="sc">~</span> RDI, <span class="at">data =</span> dta, <span class="at">subset =</span> (Reelection <span class="sc">==</span> <span class="dv">0</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSResult_NoIncum)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
