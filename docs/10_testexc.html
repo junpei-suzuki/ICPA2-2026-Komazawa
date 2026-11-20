@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>10/統計的仮説検定：実習編 – 現代政治分析入門2@駒大2026</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "一致なし",
+    "search-matching-documents-text": "一致した文書",
+    "search-copy-link-title": "検索へのリンクをコピー",
+    "search-hide-matches-text": "追加の検索結果を非表示",
+    "search-more-match-text": "追加の検索結果",
+    "search-more-matches-text": "追加の検索結果",
+    "search-clear-button-title": "消去",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "検索",
+    "search-label": "サーチ"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="サイドバーを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      現代政治分析入門2@駒大2026
+      </li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="サイドバーを切り替える" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="サーチ" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">現代政治分析入門2@駒大2026</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="サーチ"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">シラバス</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">イントロダクション</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="セクションを切り替え">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01/はじめに</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_causality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02/数量データと因果推論</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_statR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">03/統計学とR言語</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">二変量回帰分析</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="セクションを切り替え">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_OLSbasics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">04/基本編</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_OLSapp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">05/応用編</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_OLSadv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">06/発展編</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_OLSexc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">07/実習編</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">統計的仮説検定</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="セクションを切り替え">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_testbasics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">08/基本編</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_testadv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">09/発展編</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">10/実習編</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">多変量回帰分析</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="セクションを切り替え">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+ <span class="menu-text">11/基本編</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">12/発展編</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">13/実習編</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">ふりかえり</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="セクションを切り替え">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+ <span class="menu-text">14/授業全体のふりかえり</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">15/理解度の確認</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">付録</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="セクションを切り替え">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app01_pdfexport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">付録01/スライドの保存方法</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目次</h2>
+   
+  <ul>
+  <li><a href="#準備学習" id="toc-準備学習" class="nav-link active" data-scroll-target="#準備学習">準備学習</a></li>
+  <li><a href="#実習の進行と到達目標" id="toc-実習の進行と到達目標" class="nav-link" data-scroll-target="#実習の進行と到達目標">実習の進行と到達目標</a></li>
+  <li><a href="#本日の授業の位置付け" id="toc-本日の授業の位置付け" class="nav-link" data-scroll-target="#本日の授業の位置付け">本日の授業の位置付け</a></li>
+  <li><a href="#小テストの講評" id="toc-小テストの講評" class="nav-link" data-scroll-target="#小テストの講評">小テストの講評</a></li>
+  <li><a href="#実習の準備" id="toc-実習の準備" class="nav-link" data-scroll-target="#実習の準備">実習の準備</a>
+  <ul class="collapse">
+  <li><a href="#posit-cloudの準備" id="toc-posit-cloudの準備" class="nav-link" data-scroll-target="#posit-cloudの準備">Posit Cloudの準備</a></li>
+  <li><a href="#データのインポート" id="toc-データのインポート" class="nav-link" data-scroll-target="#データのインポート">データのインポート</a></li>
+  </ul></li>
+  <li><a href="#統計的仮説検定の復習" id="toc-統計的仮説検定の復習" class="nav-link" data-scroll-target="#統計的仮説検定の復習">統計的仮説検定の復習</a>
+  <ul class="collapse">
+  <li><a href="#統計的仮説検定の手順" id="toc-統計的仮説検定の手順" class="nav-link" data-scroll-target="#統計的仮説検定の手順">統計的仮説検定の手順</a></li>
+  <li><a href="#t検定" id="toc-t検定" class="nav-link" data-scroll-target="#t検定"><span class="math inline">\(t\)</span>検定</a></li>
+  <li><a href="#信頼区間" id="toc-信頼区間" class="nav-link" data-scroll-target="#信頼区間">信頼区間</a></li>
+  </ul></li>
+  <li><a href="#確率密度関数" id="toc-確率密度関数" class="nav-link" data-scroll-target="#確率密度関数">確率密度関数</a>
+  <ul class="collapse">
+  <li><a href="#確率密度関数-1" id="toc-確率密度関数-1" class="nav-link" data-scroll-target="#確率密度関数-1">確率密度関数</a></li>
+  <li><a href="#r上での確率計算" id="toc-r上での確率計算" class="nav-link" data-scroll-target="#r上での確率計算">R上での確率計算</a></li>
+  </ul></li>
+  <li><a href="#p値と信頼区間" id="toc-p値と信頼区間" class="nav-link" data-scroll-target="#p値と信頼区間"><span class="math inline">\(p\)</span>値と信頼区間</a>
+  <ul class="collapse">
+  <li><a href="#r上でのols実装と仮説検定" id="toc-r上でのols実装と仮説検定" class="nav-link" data-scroll-target="#r上でのols実装と仮説検定">R上でのOLS実装と仮説検定</a></li>
+  <li><a href="#t検定をもう少していねいに" id="toc-t検定をもう少していねいに" class="nav-link" data-scroll-target="#t検定をもう少していねいに">t検定をもう少していねいに</a></li>
+  <li><a href="#信頼区間-1" id="toc-信頼区間-1" class="nav-link" data-scroll-target="#信頼区間-1">信頼区間</a></li>
+  </ul></li>
+  <li><a href="#検出力" id="toc-検出力" class="nav-link" data-scroll-target="#検出力">検出力</a>
+  <ul class="collapse">
+  <li><a href="#検出力復習" id="toc-検出力復習" class="nav-link" data-scroll-target="#検出力復習">検出力：復習</a></li>
+  </ul></li>
+  <li><a href="#次回までに" id="toc-次回までに" class="nav-link" data-scroll-target="#次回までに">次回までに</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">10/統計的仮説検定：実習編</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">概要</div>
+    （R実習回）統計的仮説検定について、これまで学んだことをふりかえるとともに、自分でR上の分析結果を仮説検定の枠組みを用いて解釈してみる。
+  </div>
+</div>
+
+
+</header>
+
+
+<!-- # ```{r} -->
+<!-- # #| echo: false -->
+<!-- # load("~/Documents/ICPA2-2026-Komazawa/data/Ch2_ChapterExample_Donuts.RData") -->
+<!-- #  -->
+<!-- # donuts_data <- data.frame( -->
+<!-- #   name = name, -->
+<!-- #   male = male, -->
+<!-- #   child = child, -->
+<!-- #   donuts = donuts, -->
+<!-- #   weight = weight / 2.205 -->
+<!-- # ) -->
+<!-- #  -->
+<!-- # donuts_data |>  -->
+<!-- #   saveRDS(file = "donuts.RDS") -->
+<!-- #  -->
+<!-- # local({ -->
+<!-- #   r <- getOption("repos") -->
+<!-- #   r["CRAN"] <- "https://cloud.r-project.org/" -->
+<!-- #   options(repos = r) -->
+<!-- # }) -->
+<!-- # ``` -->
+<section id="準備学習" class="level2">
+<h2 class="anchored" data-anchor-id="準備学習">準備学習</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">【事前】教科書（第4章全て）を再読する。</label></li>
+<li><label><input type="checkbox">【事後】配布資料やノートを見直し、到達目標が達成できているかチェックする。</label></li>
+<li><label><input type="checkbox">【事後】R実習課題に回答し、提出（日曜日まで） <!-- - 問題は[こちら](10_testexc_assign.qmd) --></label></li>
+</ul>
+</section>
+<section id="実習の進行と到達目標" class="level2">
+<h2 class="anchored" data-anchor-id="実習の進行と到達目標">実習の進行と到達目標</h2>
+<p>今回の実習ではスライドではなくこちらのファイルに沿って行う。到達目標は以下の通り。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">ノート</span>到達目標
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul class="task-list">
+<li><label><input type="checkbox">R上で必要なコマンドを使い、正規分布やt分布における臨界値やp値を計算できる。</label></li>
+<li><label><input type="checkbox">R上で推定したOLSの結果からp値や信頼区間を計算できる。</label></li>
+<li><label><input type="checkbox">R上で検出力を計算できる。</label></li>
+</ul>
+</div>
+</div>
+<p><strong>WebClass上の出席登録も忘れずに！</strong></p>
+</section>
+<section id="本日の授業の位置付け" class="level2">
+<h2 class="anchored" data-anchor-id="本日の授業の位置付け">本日の授業の位置付け</h2>
+<p><img src="figs/graphic_syllabus_icpa2.png" class="img-fluid"></p>
+</section>
+<section id="小テストの講評" class="level2">
+<h2 class="anchored" data-anchor-id="小テストの講評">小テストの講評</h2>
+<p>TBD</p>
+<!-- - 受験者数188人 -->
+<!-- - 平均5.38/6点 -->
+<!-- - 標準偏差1.14点 -->
+<!-- - 最小値1点 -->
+<!-- - 最大値6点 -->
+</section>
+<section id="実習の準備" class="level2">
+<h2 class="anchored" data-anchor-id="実習の準備">実習の準備</h2>
+<section id="posit-cloudの準備" class="level3">
+<h3 class="anchored" data-anchor-id="posit-cloudの準備">Posit Cloudの準備</h3>
+<p>Posit Cloudにログインし、前回のWorkspace（例えば「ICPA2」）に入ったら、以下の準備を行おう。</p>
+<ul>
+<li>セッションのリスタート：最上部ツールバーのSession&gt;Restart R</li>
+<li>オブジェクトのクリア：右上Environmentの🧹をクリック</li>
+<li>コンソールのクリア：Consoleペーン右上の🧹をクリック（色が見づらいが🔍の隣にある）</li>
+<li>新しいスクリプトの作成と保存：ツールバーFile直下のアイコンからR Script
+<ul>
+<li>「10_testexc.R」などの名前をつけて保存</li>
+</ul></li>
+</ul>
+</section>
+<section id="データのインポート" class="level3">
+<h3 class="anchored" data-anchor-id="データのインポート">データのインポート</h3>
+<p>次に今回の実習で使うドーナツデータ（donuts.RDS）をダウンロードしインポートする</p>
+<ul>
+<li>WebClassにアクセスし「第7回R実習データ（ドーナツ）」からデータをダウンロード</li>
+<li>PositCloud上にアップロードした上で<code>dta &lt;- readRDS("donuts.RDS")</code>を実行しインポート<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+</ul>
+</section>
+</section>
+<section id="統計的仮説検定の復習" class="level2">
+<h2 class="anchored" data-anchor-id="統計的仮説検定の復習">統計的仮説検定の復習</h2>
+<section id="統計的仮説検定の手順" class="level3">
+<h3 class="anchored" data-anchor-id="統計的仮説検定の手順">統計的仮説検定の手順</h3>
+<p>身長が高いほど賃金は上がるのだろうか。100人の日本人のデータを使ってモデル<span class="math inline">\(賃金_{i}=\beta_{0}+\beta_{1}身長_{i}+\varepsilon_{i}\)</span>を推定したところ、<span class="math inline">\(\hat{\beta}_{1}=220\)</span>で標準誤差は<span class="math inline">\(100\)</span>と推定された。この結果から果たして身長が高くなるほど賃金も上がると結論づけてよいだろうか。判別するための枠組みが統計的仮説検定である。統計的仮説検定は以下の手順で行う。</p>
+<ol type="1">
+<li>まず、<strong>帰無仮説</strong>を定める。今回は「身長は賃金に影響を<strong>与えない</strong>」、つまり<span class="math inline">\(H_{0}:\beta_{1}=0\)</span>であるとする。</li>
+<li>次に、<strong>対立仮説</strong>を定める。今回は「身長は賃金に<strong>（正であれ負であれ）なんらかの影響</strong>を与える」、つまり<span class="math inline">\(H_{1}:\beta_{1}\ne0\)</span>であるとする。<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+<li>最後に帰無仮説が正しいとした場合に推定結果<span class="math inline">\(\hat{\beta}_1=220\)</span>がどれくらいの確率で出やすいかを評価する。
+<ul>
+<li>もし確率が低いのであれば帰無仮説が正しくなさそうだとして棄却することになり、日本人全体では<span class="math inline">\(H_{1}:\beta_{1}\ne0\)</span>、つまり身長は賃金に影響を与えていることになる。</li>
+<li>もし確率が高いのであれば帰無仮説は棄却できず、<span class="math inline">\(H_{0}:\beta_{1}=0\)</span>、つまり身長は賃金に影響を与えないということになる。</li>
+</ul></li>
+</ol>
+<p>この身長と賃金の例で考えると、帰無仮説が正しい場合<span class="math inline">\(\hat{\beta}_{1}\)</span>は期待値0、標準偏差100の正規分布にしたがう。下の図の青の網掛けはこの分布で196以上あるいは196以下の値が出る確率を表し、合わせて5%である。これを<strong>有意水準</strong>とし、220という値がどれほど珍しいのかを考えてみよう。下の図の赤の網掛けの部分の面積は220以上あるいは-220以下の値が出る確率で<strong><span class="math inline">\(p\)</span>値</strong>といい、計算すると2.6%程度である。p値は有意水準を下回っているため、220という値は帰無仮説が正しいという前提では稀にしか出てこない値だといえる。したがって帰無仮説は棄却され、<span class="math inline">\(\hat{\beta}_1=220\)</span>という推定結果は<strong>有意</strong>であると言える。</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">有意水準</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">p値</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="t検定" class="level3">
+<h3 class="anchored" data-anchor-id="t検定"><span class="math inline">\(t\)</span>検定</h3>
+<p>以上は係数<span class="math inline">\(\hat{\beta}_{1}\)</span>そのものを見て、正規分布上で検定することを考えたが、実際のOLSの検定は<span class="math inline">\(t\)</span>検定を行うことが圧倒的に多い。係数を標準誤差で割った値<span class="math inline">\(\hat{\beta}_{1}/\operatorname{se}(\hat{\beta}_{1})\)</span>を<span class="math inline">\(t\)</span>値といい、<strong><span class="math inline">\(t\)</span>分布</strong>にしたがう。<span class="math inline">\(t\)</span>分布は自由度（<span class="math inline">\(n-k\)</span><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>）によって形が変わり、自由度が小さいうちは裾が厚いが自由度が大きくなるにつれて<strong>標準正規分布</strong><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>に近づく。サンプルサイズが大体100くらいあれば標準正規分布上の検定と同じように考えられる。</p>
+<p><span class="math inline">\(t\)</span>検定を使うメリットはその分かりやすさにある。期待値0の正規分布のもとで220という値の珍しさは標準誤差によって変わり、標準誤差が大きい場合よりも小さい場合のほうが珍しいと言える。標準誤差で割ることでこうした点を差し引くのである。結果サンプルサイズが大きい場合これだけの<span class="math inline">\(t\)</span>値があれば有意であるという<strong>臨界値</strong>も共通のものが出てくることになり、5%水準であればt値の絶対値が1.96よりも大きければ有意であると言える。身長と賃金の例でいえば<span class="math inline">\(t\)</span>値は<span class="math inline">\(220/100=2.2&gt;1.96\)</span>なので、この点からも推定結果は統計的に有意である。</p>
+</section>
+<section id="信頼区間" class="level3">
+<h3 class="anchored" data-anchor-id="信頼区間">信頼区間</h3>
+<p>ここまでOLS推定の係数が有意か有意でないを考えてきたが、それでは実際に真の値はどのあたりにありそうなのか。その手がかりになるのが<strong>信頼区間</strong>である。信頼区間は一般に<span class="math inline">\(\hat\beta_{1} \pm \operatorname{t臨界値}\times \operatorname{se}(\hat\beta_{1})\)</span>で計算でき、95%水準なら<span class="math inline">\(\hat\beta_{1} \pm 1.96\times \operatorname{se}(\hat\beta_{1})\)</span>である。身長の係数で計算すると<span class="math inline">\(220\pm1.96\times100\)</span>で、は<span class="math inline">\([24, 416]\)</span>が95%信頼区間である。この結果から分析結果を解釈すると、真の値は24から416あたりに位置していると考えればこの結果は無理がない、ということになる。<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>ちなみにこの区間は0を跨いでいないが、これは5%水準で統計的に有意であることと密接に関係する。一般に有意水準を<span class="math inline">\(\alpha\)</span>とした時、<span class="math inline">\(100\times(1-\alpha)\)</span>%水準の信頼区間が0を跨いでいなければその係数は統計的に有意で、跨いでいなかったら有意でないと判断できる。</p>
+</section>
+</section>
+<section id="確率密度関数" class="level2">
+<h2 class="anchored" data-anchor-id="確率密度関数">確率密度関数</h2>
+<section id="確率密度関数-1" class="level3">
+<h3 class="anchored" data-anchor-id="確率密度関数-1">確率密度関数</h3>
+<p>今まで正規分布などの確率分布を扱い、以下のようなグラフがよく出てきた。実はこのグラフは<strong>確率密度関数</strong>というものを図示したものである。横軸がその確率変数の値であり、縦軸は確率密度を表す。</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>縦軸の確率密度は対応する値の出やすさを表してはいるが、<strong>確率そのものではない</strong>ことに注意が必要である。なぜなら確率密度関数は連続変数に対して定義されるものだからである。例えば連続変数の典型例として身長を考えてみよう。身長が取りうる範囲は0cmから理論上は上限がなく、そのなかのどんな細かい値をも取りうる。鈴木の身長が167cmだとして、この範囲のなかで167cmドンピシャになる確率は0である（無限にある範囲に対してただ1点だから）。同じ理由で上記の正規分布上で例えば1.5がドンピシャで出る確率もまた0である。</p>
+<p>それでは連続変数の確率はどのように定義されるのか。それは1.2以上2.3以下などといった範囲に対してである。実は確率密度関数のグラフでは、関数を表す線と横軸の間の面積が確率になり、全体の合計は1である。横軸で一定の範囲を定めた上でその部分の面積がその値の範囲が出る確率になる。下の図では標準正規分布で特定の範囲が出る確率（＝面積）を示している。</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">0以下</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">-2以上1以下</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">0以上</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false" href="">-0.7以上0.7以下</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="r上での確率計算" class="level3">
+<h3 class="anchored" data-anchor-id="r上での確率計算">R上での確率計算</h3>
+<section id="pnorm関数" class="level4">
+<h4 class="anchored" data-anchor-id="pnorm関数"><code>pnorm()</code>関数</h4>
+<p>Rで正規分布上の特定の範囲が出る確率は<code>pnorm()</code>関数を使って計算できる。例えば期待値0、標準偏差1の正規分布上で上のグラフの範囲を計算するには以下のコマンドを実行する。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.5以下が出る確率</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">0.5</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6914625</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -2以上1以下が出る確率</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">1</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8185946</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.5以下が出る確率</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">0.5</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3085375</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -2以上1以下が出る確率</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">1</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8185946</code></pre>
+</div>
+</div>
+<p>ここで<code>pnorm()</code>関数の使い方に注意。この関数は<strong>第一引数に入力された値以下の範囲を計算してくれるが、単体ではそれ以上のことはできない。</strong><code>pnorm(1, mean = 0, sd = 1)</code>を実行すれば、標準正規分布上で１以下の値が出る確率が、<code>pnorm(-0.5, mean = 0, sd = 1)</code>とすれば-0.5以下の値が出る確率がそれぞれ計算されるが、それで終わりである（下図の通り）。上記のコマンドのとおり、<strong>1以上</strong>を計算したい場合は<code>1 - pnorm(1, mean = 0, sd = 1))</code>、<strong>-0.5以上1以下</strong>を計算したい場合は<code>pnorm(1, mean = 0, sd = 1)) - pnorm(-0.5, mean = 0, sd = 1)</code>とする。</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">pnorm(1)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">pnorm(-0.5)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false" href="">1以上</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false" href="">-0.5以上1以下</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="qnorm関数" class="level4">
+<h4 class="anchored" data-anchor-id="qnorm関数"><code>qnorm()</code>関数</h4>
+<p><code>pnorm()</code>関数を逆の操作をしてくれるのが<code>qnorm()</code>関数である。例えば標準正規分布で1以下の値が出る確率は0.84で、<code>pnorm(1, mean = 0, sd = 1)</code>で計算できる。反対に、どの値以下なら0.84の確率で出るか、という計算をしてくれるのが<code>qnorm()</code>である。以下のコマンドでは標準正規分布上でそれぞれ0.05、0.1、0.6、0.75、0.9の確率を出す値の範囲の上限が計算される。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.05（下位5%）</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.05</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.644854</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.1（下位10%）</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.1</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.281552</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.6（下位60%）</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.6</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2533471</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.75（下位75%）</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.75</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6744898</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.9（下位90%）</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.9</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.281552</code></pre>
+</div>
+</div>
+<p>上記のコマンドの計算を図示すると以下のようになる。-1.65以下の値が出る確率が5％、0.25以下の値が出る確率が60%、1.28以下の値が出る確率が90%といった具合である。</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">0.05（下位5%）</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">0.1（下位10%）</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false" href="">0.6（下位60%）</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-4" role="tab" aria-controls="tabset-4-4" aria-selected="false" href="">0.75（下位75%）</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-5" role="tab" aria-controls="tabset-4-5" aria-selected="false" href="">0.9（下位90%）</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-4-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-5-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="t分布での計算" class="level4">
+<h4 class="anchored" data-anchor-id="t分布での計算"><span class="math inline">\(t\)</span>分布での計算</h4>
+<p>t分布上で上記の<code>pnorm()</code>および<code>qnorm()</code>に対応するのはそれぞれ<code>pt()</code>および<code>qt()</code>である。自由度100のt分布上において1以下の値が出る確率と、下位45%の範囲の上限となる値を計算するには以下のコマンドを実行する。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1以下の値が出る確率</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="dv">1</span>, <span class="at">df =</span> <span class="dv">100</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8401379</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 下位45%の範囲の上限となる値</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.45</span>, <span class="at">df =</span> <span class="dv">100</span>)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.1259809</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="p値と信頼区間" class="level2">
+<h2 class="anchored" data-anchor-id="p値と信頼区間"><span class="math inline">\(p\)</span>値と信頼区間</h2>
+<section id="r上でのols実装と仮説検定" class="level3">
+<h3 class="anchored" data-anchor-id="r上でのols実装と仮説検定">R上でのOLS実装と仮説検定</h3>
+<p>第7回の実習で使ったドーナツのデータを再度分析してみよう。（データのインポートはすでに行なっているが）以下のコマンドを実行すればデータのインポートからOLSの推定までを行える。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"donuts.RDS"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>OLSresult <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> donuts, <span class="at">data =</span> dta)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>OLSresult</code>オブジェクトにOLSの推定結果はすでに保存されているが、<code>summary</code>関数を使うとその詳細を見ることができる。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(OLSresult)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = weight ~ donuts, data = dta)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-42.238  -4.299   0.343  15.922  24.976 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  55.6080     7.4200   7.494 1.21e-05 ***
+donuts        4.1287     0.8707   4.742 0.000608 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 20.68 on 11 degrees of freedom
+Multiple R-squared:  0.6715,    Adjusted R-squared:  0.6416 
+F-statistic: 22.48 on 1 and 11 DF,  p-value: 0.0006078</code></pre>
+</div>
+</div>
+<p>繰り返しになるが、上記で注目すべきはまず<code>Coefficiets</code>の欄である。</p>
+<ul>
+<li><code>Estimate</code>はそれぞれ切片<code>(intercept)</code>と<code>donuts</code>の傾きを表している。<code>(intercept)</code>が55.6ということは、ドーナツを全く食べていない場合の平均体重は55.6キロ程度ということである。<code>donuts</code>の傾きは4.13だが、これはドーナツを週一個多く食べるごとに体重が4.13キロ増えることを意味する。</li>
+<li><code>Std. Error</code>では切片および傾きの標準誤差が表示されている。<code>donuts</code>の標準誤差を見ると0.87程度だが、これが傾きの推定値のばらつきを表している。</li>
+<li><code>t value</code>は<span class="math inline">\(t\)</span>値であり、係数<code>Estimate</code>を標準誤差<code>Std. Error</code>で割ったものである。<code>donuts</code>を見ると4.742になっているが、これは<span class="math inline">\(4.1287/0.8707\)</span>を計算すれば出てくる（切片<code>(intercept)</code>も同様）。</li>
+<li><code>Pr(&gt;|t|)</code>が係数の<span class="math inline">\(p\)</span>値である。上記のとおり<code>donuts</code>の<span class="math inline">\(t\)</span>値は4.742であるが、この係数が<span class="math inline">\(t\)</span>分布上でどれくらい珍しいかがこれで評価できる。<span class="math inline">\(p\)</span>値は0.000608なので、5%（0.05）を遥かに下回っているため有意である。</li>
+<li><code>Pr(&gt;|t|)</code>にある星<code>***</code>は有意水準を表す。下の<code>Signif. codes</code>に凡例が書いてあるが、星三つは<code>***</code>は0.001、つまり0.1%水準での有意性を表している。つまりこの推定された係数の帰無仮説は有意水準0.1%で棄却されたということであり、ドーナツが体重に何らかの影響を与えることがかなりの確信を持って言える、ということに他ならない。星が多いほど、より厳しい有意水準でも帰無仮説を棄却できることを意味する。ただし、星が多いからといって、効果が大きい、あるいは研究上重要であるとは限らないのに注意。</li>
+</ul>
+</section>
+<section id="t検定をもう少していねいに" class="level3">
+<h3 class="anchored" data-anchor-id="t検定をもう少していねいに">t検定をもう少していねいに</h3>
+<p>以上からドーナツの係数は0.01%水準で有意であることがわかったが、この検定をもう少し詳細に見てみよう。行なっているのは<span class="math inline">\(t\)</span>検定で、<span class="math inline">\(t\)</span>値4.742が<span class="math inline">\(t\)</span>分布上でどれくらいレアかを評価している。ここで<span class="math inline">\(t\)</span>分布は自由度によって形がかわることは学んだ通りだが、実は上記の分析結果の下から3行目に<code>11 degrees of freedom</code>と記載があり、自由度11であることがわかる。上記の<span class="math inline">\(p\)</span>値は両側検定で算出されているが、これはすなわち自由度11の<span class="math inline">\(t\)</span>分布上で4.742以上または-4.742以下の値が出る確率を計算しているのである。</p>
+<p>この確率の計算は上記の<code>pt()</code>関数を使えば行うことができる。自由度は11、<span class="math inline">\(t\)</span>値は4.742なので、以下のコマンドを実行することで分析結果と同じ<span class="math inline">\(p\)</span>値が計算できるはずだ。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>tval <span class="ot">&lt;-</span> <span class="fl">4.742</span> <span class="co"># t値</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df   <span class="ot">&lt;-</span> <span class="dv">11</span>    <span class="co"># 自由度</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>lower <span class="ot">&lt;-</span> <span class="fu">pt</span>(<span class="sc">-</span>tval, <span class="at">df =</span> df) <span class="co"># -4.742以下が出る確率</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>upper <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(tval, <span class="at">df =</span> df)  <span class="co"># 4.742以上が出る確率</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>(pval <span class="ot">&lt;-</span> lower <span class="sc">+</span> upper) <span class="co"># 注：コマンドを()で括ると結果も一緒に出力してくれる</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0006074774</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># このコマンドで一括でできる</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(tval), df))　<span class="co"># 注: abs()は絶対値を計算する関数</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0006074774</code></pre>
+</div>
+</div>
+</section>
+<section id="信頼区間-1" class="level3">
+<h3 class="anchored" data-anchor-id="信頼区間-1">信頼区間</h3>
+<p>この分析結果から信頼区間を計算してみよう。信頼区間の計算は簡単で、<code>confint()</code>関数でできる。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(OLSresult)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                2.5 %    97.5 %
+(Intercept) 39.276641 71.939334
+donuts       2.212227  6.045187</code></pre>
+</div>
+</div>
+<p><code>donuts</code>を見れば傾きの信頼区間がわかる。<code>2.5%</code>が下限で2.21、<code>97.5%</code>が上限で6.05になっており、信頼区間は<span class="math inline">\([2.21, 6.05]\)</span>である。</p>
+</section>
+</section>
+<section id="検出力" class="level2">
+<h2 class="anchored" data-anchor-id="検出力">検出力</h2>
+<section id="検出力復習" class="level3">
+<h3 class="anchored" data-anchor-id="検出力復習">検出力：復習</h3>
+<p><strong>検出力</strong>とは観察されたデータが誤っている帰無仮説を棄却できる力であり、すなわち<strong>第2種の過誤</strong>を避けられる確率を意味する。身長と賃金の例で言えば、本当は身長は賃金に影響を与えるにも関わらず与えないと結論づけるのが第2種の過誤であり、この過誤を避けて身長は賃金に影響すると結論づけられる力が検出力である。以下は標準誤差2、真の値が5の時の有意水準5%の片側検定での検出力を計算するコマンドである。ここでは、推定された係数は平均5、標準誤差2の正規分布に従うと仮定している。検出力を計算すると0.8になる。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>true <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># 真の値</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>se   <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># 標準誤差</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>cval <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.95</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> se) <span class="co"># 片側5%水準の臨界値</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>power <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(cval, <span class="at">mean =</span> true, <span class="at">sd =</span> se) <span class="co"># 検出力</span></span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>検出力に影響する要因の1つが真の値である。一般に真の値が0から離れるほど検出力は高まる。身長が賃金により大きな影響を与えるほど、影響がないと誤って判断される確率は下がる＝影響があると正しく判断される確率は上がるということである。以下、標準誤差1、有意水準5%の片側検定を考えて（臨界値は1.64）、真の値を1から5まで0.1ずつ増やしていったときの検出力を計算し、図示ししている。真値が大きくなるほど検出力は上がっている。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>true <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.1</span>) <span class="co"># 真の値</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>se   <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># 標準誤差</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>cval <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.95</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> se) <span class="co"># 片側5%水準の臨界値</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>power <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(cval, <span class="at">mean =</span> true, <span class="at">sd =</span> se) <span class="co"># 検出力</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(true, power)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>検出力に影響を与えるもう一つの要因が標準誤差である。一般に標準誤差が大きくなると検出力は下がる。標準誤差はサンプルサイズが小さくなるほど大きくなるので、小さいサンプルのデータは検出力が低い。従ってサンプルが小さいときに有意でない結果が出た場合は検出力の低さのためにそうなったのかもしれず、影響がないと判断しない方がよい。以下は標準誤差を1から2にして、上記と同様に検出力を計算・図示するコマンドである。図を比べると一目瞭然で、どんな真の値に対しても検出力が低いことがわかる。</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>true <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.1</span>) <span class="co"># 真の値</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>se   <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># 標準誤差</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>cval <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.95</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> se) <span class="co"># 片側5%水準の臨界値</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>power <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(cval, <span class="at">mean =</span> true, <span class="at">sd =</span> se) <span class="co"># 検出力</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(true, power)</span></code></pre></div><button title="コピー" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10_testexc_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="次回までに" class="level2">
+<h2 class="anchored" data-anchor-id="次回までに">次回までに</h2>
+<section id="事後学習" class="level4">
+<h4 class="anchored" data-anchor-id="事後学習">事後学習</h4>
+<ul>
+<li>授業資料を見直し、目標到達をセルフチェック</li>
+<li>WebClass上でのR実習課題（日曜日まで） <!-- - 問題は[こちら](10_testexc_assign.qmd) --></li>
+</ul>
+</section>
+<section id="事前学習" class="level4">
+<h4 class="anchored" data-anchor-id="事前学習">事前学習</h4>
+<ul>
+<li>教科書（第5章冒頭および5.1-5.3: pp.169-192）を読む。</li>
+</ul>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">脚注</h2>
+
+<ol>
+<li id="fn1"><p>前回のRData形式とは違い、RDS拡張子になっている点に注意。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>この場合の対立仮説は両側対立仮説というが、<span class="math inline">\(H_{1}:\beta_{1}&gt;0\)</span>（正の影響を与える）あるいは<span class="math inline">\(H_{1}:\beta_{1}&lt;0\)</span>（負の影響を与える）のように向きを定めると片側対立仮説になる。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><span class="math inline">\(n\)</span>はサンプルサイズで<span class="math inline">\(k\)</span>は変数の数である。変数の数は実際にモデルに投入している変数に定数項を加えたものであり、この二変量回帰の場合は<span class="math inline">\(k=2\)</span>になる。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>正規分布のうち期待値0、標準偏差1のものを特別にこのように呼ぶ。<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>信頼区間は非常に誤解が多い概念である。よくあるのが「真の値が24から416に分布している確率が95%」という解釈だが、これは間違いである。正確には、同じ方法で標本抽出と区間の計算を繰り返した場合、得られる区間の約95%が真の値を含むと解釈する。今回得られた区間は[24, 416]であり、この方法で計算された区間の一つである。<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "コピーしました");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "コピーしました");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p><span class="citation" data-cites="2026">@2026</span> Junpei Suzuki</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

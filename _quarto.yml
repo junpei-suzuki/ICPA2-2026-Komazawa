@@ -43,6 +43,7 @@ website:
         - text: "09/発展編"
           href: 09_testadv.qmd
         - text: "10/実習編"
+          href: 10_testexc.qmd
       - section: 多変量回帰分析
         contents: 
         - text: "11/基本編"

@@ -91,5 +91,14 @@
   },
   "09_testadv_quiz.qmd": {
     "09_testadv_quiz.html": "a564a561"
+  },
+  "10_testexc.qmd": {
+    "10_testexc.html": "8339eb55"
+  },
+  "11_testexc_assign.qmd": {
+    "11_testexc_assign.html": "620b54cd"
+  },
+  "10_testexc_assign.qmd": {
+    "10_testexc_assign.html": "592adbfc"
   }
 }
