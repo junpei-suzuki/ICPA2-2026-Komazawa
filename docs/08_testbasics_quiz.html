@@ -230,8 +230,11 @@ window.Quarto = {
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">10/実習編</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./10_testexc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10/実習編</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -383,56 +386,56 @@ window.Quarto = {
 <p>問１：上の文章の【１】に当てはまるのは以下のどれか。</p>
 <ol type="1">
 <li><span class="math inline">\(民主主義度_{i} = \beta_{0} + \beta_{1} 所得の不平等度_{i} + \varepsilon_{i}\)</span></li>
-<li><span class="math inline">\(所得分配の不平等度_{i} = \beta_{0} + \beta_{1} 民主主義度_{i} + \varepsilon_{i}\)</span></li>
+<li><span class="math inline">\(所得分配の不平等度_{i} = \beta_{0} + \beta_{1} 民主主義度_{i} + \varepsilon_{i}\)</span>◯</li>
 </ol>
 <p>問２：上の文章の【２】に当てはまるのは以下のどれか。なおデータセットは<code>world</code>、分析結果は<code>OLS_result</code>というオブジェクトに格納されているものとする。</p>
 <ol type="1">
 <li><code>OLS_result &lt;- lm(dem_score14 ~ gini10, data = world)</code></li>
-<li><code>OLS_result &lt;- lm(gini10 ~ dem_score14, data = world)</code></li>
+<li><code>OLS_result &lt;- lm(gini10 ~ dem_score14, data = world)</code>◯</li>
 <li><code>world &lt;- lm(dem_score14 ~ gini10, data = OLS_result)</code></li>
 <li><code>world &lt;- lm(gini10 ~ dem_score14, data = OLS_result)</code></li>
 </ol>
 <p>問３：上の文章の【２】について、推定された係数<span class="math inline">\(\hat{\beta}_{1}\)</span>の値からわかることとして正しいのは以下のうちどれか。</p>
 <ol type="1">
 <li>民主主義度が1単位増えるほど不平等度は約0.89上がる。</li>
-<li>民主主義度が1単位増えるほど不平等度は約0.89下がる。</li>
+<li>民主主義度が1単位増えるほど不平等度は約0.89下がる。◯</li>
 <li>民主主義度が1単位増えるほど不平等度は約0.35上がる。</li>
 <li>民主主義度が1単位増えるほど不平等度は約0.35下がる。</li>
 </ol>
 <p>問４：上の文章の下線部の分析結果について考える。係数<span class="math inline">\(\hat{\beta}_{1}\)</span>についての<strong>帰無仮説</strong>として正しいものは以下のうちどれか。</p>
 <ol type="1">
 <li>民主主義度が増えると不平等度が下がる。</li>
-<li>民主主義度が増えても不平等度は変化しない。</li>
+<li>民主主義度が増えても不平等度は変化しない。◯</li>
 <li>民主主義度が増えると不平等度が上がる。</li>
 </ol>
 <p>問５：上の文章の下線部の分析結果について考える。係数<span class="math inline">\(\hat{\beta}_{1}\)</span>についての<strong>両側対立仮説</strong>として正しいものは以下のうちどれか。</p>
 <ol type="1">
-<li>民主主義度が増えると不平等度に何らかの変化が起こる。</li>
+<li>民主主義度が増えると不平等度に何らかの変化が起こる。◯</li>
 <li>民主主義度が増えても不平等度は変化しない。</li>
 <li>民主主義度が増えると不平等度が下がる。</li>
 <li>民主主義度が増えると不平等度が上がる。</li>
 </ol>
 <p>問６：上の文章の下線部の分析結果について考える。係数<span class="math inline">\(\hat{\beta}_{1}\)</span>および<span class="math inline">\(t\)</span>値<span class="math inline">\(\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}\)</span>について正しい説明は次のうちどれか。正しいものを全て選べ。</p>
 <ol type="1">
-<li>帰無仮説が正しいとした場合、<span class="math inline">\(\hat{\beta}_{1}\)</span>は期待値を0とする正規分布にしたがう。</li>
-<li>帰無仮説が正しいとした場合、<span class="math inline">\(\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}\)</span>は<span class="math inline">\(t\)</span>分布にしたがう。</li>
-<li>このデータとモデルの自由度では、<span class="math inline">\(\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}\)</span>がしたがう分布はほぼ正規分布に近似できる。</li>
+<li>帰無仮説が正しいとした場合、<span class="math inline">\(\hat{\beta}_{1}\)</span>は期待値を0とする正規分布にしたがう。◯</li>
+<li>帰無仮説が正しいとした場合、<span class="math inline">\(\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}\)</span>は<span class="math inline">\(t\)</span>分布にしたがう。◯</li>
+<li>このデータとモデルの自由度では、<span class="math inline">\(\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}\)</span>がしたがう分布はほぼ正規分布に近似できる。。◯</li>
 <li>このデータとモデルの自由度では、<span class="math inline">\(\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}\)</span>がしたがう分布は正規分布よりも裾が厚くなる。</li>
 </ol>
 <p>問７：上の文章の下線部の分析結果について考える。この結果における<span class="math inline">\(t\)</span>値<span class="math inline">\(\frac{\hat{\beta}_{1}}{\operatorname{se}(\hat{\beta}_{1})}\)</span>はいくつか。小数点第3位以下は四捨五入した上で数値を入力しなさい。</p>
 <ul>
-<li>数値を入力：<u>　　　</u></li>
+<li>数値を入力：<u>　-2.56　</u></li>
 </ul>
 <p>問８：上の文章の下線部の分析結果について考える。問７で計算された<span class="math inline">\(t\)</span>値に対応する<span class="math inline">\(p\)</span>値について正しい説明は次のうちどれか。正しいものを全て選べ。</p>
 <ol type="1">
-<li>有意水準を<span class="math inline">\(\alpha=0.1\)</span>とすると、対応する<span class="math inline">\(p\)</span>値は<span class="math inline">\(\alpha\)</span>を下回る。</li>
-<li>有意水準を<span class="math inline">\(\alpha=0.05\)</span>とすると、対応する<span class="math inline">\(p\)</span>値は<span class="math inline">\(\alpha\)</span>を下回る。</li>
+<li>有意水準を<span class="math inline">\(\alpha=0.1\)</span>とすると、対応する<span class="math inline">\(p\)</span>値は<span class="math inline">\(\alpha\)</span>を下回る。◯</li>
+<li>有意水準を<span class="math inline">\(\alpha=0.05\)</span>とすると、対応する<span class="math inline">\(p\)</span>値は<span class="math inline">\(\alpha\)</span>を下回る。◯</li>
 <li>有意水準を<span class="math inline">\(\alpha=0.01\)</span>とすると、対応する<span class="math inline">\(p\)</span>値は<span class="math inline">\(\alpha\)</span>を下回る。</li>
 </ol>
 <p>問９：上の文章の下線部の分析結果について考える。問８の正しい説明から、係数の推定値<span class="math inline">\(\hat{\beta}_{1}=-0.8944\)</span>について言えることは何か。次から正しい説明を全て選べ。</p>
 <ol type="1">
-<li>民主主義度が上がるほど不平等度が下がるという関係は10%水準で有意である。</li>
-<li>民主主義度が上がるほど不平等度が下がるという関係は5%水準で有意である。</li>
+<li>民主主義度が上がるほど不平等度が下がるという関係は10%水準で有意である。◯</li>
+<li>民主主義度が上がるほど不平等度が下がるという関係は5%水準で有意である。◯</li>
 <li>民主主義度が上がるほど不平等度が下がるという関係は1%水準で有意である。</li>
 <li>民主主義度と不平等度との関係は有意ではない。</li>
 </ol>
@@ -440,7 +443,7 @@ window.Quarto = {
 <ol type="1">
 <li>本当は民主主義度と不平等度に何らかの関係があるにも関わらず、何も関係がないと判断される。</li>
 <li>本当は民主主義度と不平等度に何らかの関係があると考えられるが、分析結果もこれを支持している。</li>
-<li>本当は民主主義度は不平等度と関係がないにも関わらず、負の関係にあると判断されている。</li>
+<li>本当は民主主義度は不平等度と関係がないにも関わらず、負の関係にあると判断されている。◯</li>
 <li>本当は民主主義度は不平等度と正の関係にあるにも関わらず、負の関係にあると判断されている。</li>
 </ol>
 
