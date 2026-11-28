@@ -47,6 +47,7 @@ website:
       - section: 多変量回帰分析
         contents: 
         - text: "11/基本編"
+          href: 11_multibasics.qmd
         - text: "12/発展編"
         - text: "13/実習編"
       - section: ふりかえり

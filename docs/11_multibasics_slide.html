@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
+
+  <meta name="author" content="鈴木淳平">
+  <meta name="dcterms.date" content="2026-12-08">
+  <title>現代政治分析入門2@駒大2026 – 11/多変量回帰分析：基本編</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-96e6a22729f2e36e9055975844f07e0f.css">
+  <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-pointer/pointer.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+  <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">11/多変量回帰分析：基本編</h1>
+  <p class="subtitle">現代政治分析入門2</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+鈴木淳平 
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:jsuzuki@komazawa-u.ac.jp">jsuzuki@komazawa-u.ac.jp</a>
+</div>
+        <p class="quarto-title-affiliation">
+            駒澤大学法学部政治学科
+          </p>
+    </div>
+</div>
+
+  <p class="date">2026-12-08</p>
+</section>
+<section id="出席登録をお願いします" class="slide level2">
+<h2>出席登録をお願いします</h2>
+<p><img data-src="figs/attendance_webclass.png"></p>
+</section>
+<section id="今日の目次" class="slide level2">
+<h2>今日の目次</h2>
+<ol type="1">
+<li>はじめに</li>
+<li>二変量から多変量へ</li>
+<li>多変量回帰分析</li>
+<li>欠落変数バイアス</li>
+<li>測定誤差</li>
+<li>まとめ</li>
+</ol>
+</section>
+<section>
+<section id="はじめに" class="title-slide slide level1 center">
+<h1>はじめに</h1>
+<aside class="notes">
+<p>目標15分</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="本日の目的と到達目標" class="slide level2">
+<h2>本日の目的と到達目標</h2>
+<h4 id="目的">目的</h4>
+<p>回帰分析のスタンダードである多変量モデルを紹介する。二変量モデルについて復習した後、多変量モデルが内生性の問題にどのように対処するのかを議論する。統制すべき変数を統制しない時に発生する欠落変数バイアスや、独立変数に測定誤差が含まれる場合の問題も合わせて検討する。</p>
+<div class="fragment fade-in">
+<h4 id="到達目標">到達目標</h4>
+<ol type="1">
+<li>多変量回帰モデル（<span class="math inline">\(Y_i=\beta_0+\beta_{1}X_{i}+\cdots+\beta_{k}X_{i}+\varepsilon_i\)</span>）の係数の意味を説明できる。</li>
+<li>多変量モデルが欠落変数バイアスにどのように対処できるのかを説明できる。</li>
+<li>欠落変数バイアスが生じる2つの条件を列挙できる。</li>
+<li>従属変数および独立変数における測定誤差の存在が係数の推定値に与える影響を説明できる。</li>
+</ol>
+</div>
+</section>
+<section id="本日の授業の位置付け" class="slide level2">
+<h2>本日の授業の位置付け</h2>
+<img data-src="figs/graphic_syllabus_ICPA2.png" class="r-stretch">
+</section>
+<section id="小テストの講評" class="slide level2">
+<h2>小テストの講評</h2>
+<p>TBD</p>
+<!-- - 受験者数158人 -->
+<!-- - 平均7.86/10点 -->
+<!-- - 標準偏差2.4点 -->
+<!-- - 最小値0点 -->
+<!-- - 最大値10点 -->
+<!-- よくできました。注意すべきは問6・問7（→[正答](08_testbasics_quiz.qmd)） -->
+</section></section>
+<section>
+<section id="二変量から多変量へ" class="title-slide slide level1 center">
+<h1>二変量から多変量へ</h1>
+
+</section>
+<section id="例気温と売上高" class="slide level2">
+<h2>例：気温と売上高</h2>
+<p>二変量モデル：<span class="math inline">\(売上高_{i}=\beta_{0}+\beta_{1}気温_{t}+\varepsilon_{t}\)</span></p>
+<div class="fragment fade-in">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="11_multibasics_slide_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="分析結果とその問題" class="slide level2">
+<h2>分析結果とその問題</h2>
+<p>分析結果：気温が上がるほど売上は下がる</p>
+<ul>
+<li class="fragment"><span class="math inline">\(\hat{\beta}_{1}=-0.019\)</span>で標準誤差<span class="math inline">\(0.007\)</span></li>
+<li class="fragment"><span class="math inline">\(t値\)</span>は<span class="math inline">\(-2.6\)</span>で5%有意</li>
+</ul>
+<div class="fragment fade-in">
+<p>しかし、内生性の問題</p>
+<ul>
+<li class="fragment">誤差項の中に「12月とそれ以外」という変数</li>
+<li class="fragment">従属変数への影響：12月はクリスマス商戦で売上を上げる</li>
+<li class="fragment">独立変数との相関：12月は気温が低い</li>
+</ul>
+</div>
+</section>
+<section id="月の影響を差し引く" class="slide level2">
+<h2>12月の影響を「差し引く」</h2>
+<div class="r-stack">
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="11_multibasics_slide_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="11_multibasics_slide_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="分析結果" class="slide level2">
+<h2>分析結果</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto; font-size: 30px; width: auto !important; margin-left: auto; margin-right: auto;" class="table table table-striped table-hover">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> 二変量 </th>
+   <th style="text-align:center;"> 多変量 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 定数項 </td>
+   <td style="text-align:center;"> 7.157*** </td>
+   <td style="text-align:center;"> 4.941*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.408) </td>
+   <td style="text-align:center;"> (0.262) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> [17.536] </td>
+   <td style="text-align:center;"> [18.861] </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 気温 </td>
+   <td style="text-align:center;"> −0.019* </td>
+   <td style="text-align:center;"> 0.014** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.007) </td>
+   <td style="text-align:center;"> (0.005) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> [−2.585] </td>
+   <td style="text-align:center;"> [3.017] </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 12月 </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> 5.633*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> (0.259) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> [21.757] </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> N </td>
+   <td style="text-align:center;"> 256 </td>
+   <td style="text-align:center;"> 256 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 回帰標準偏差 </td>
+   <td style="text-align:center;"> 1.808 </td>
+   <td style="text-align:center;"> 1.067 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:center;"> 0.026 </td>
+   <td style="text-align:center;"> 0.661 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr></tfoot>
+</table>
+
+</div>
+</div>
+</section></section>
+<section>
+<section id="多変量回帰分析" class="title-slide slide level1 center">
+<h1>多変量回帰分析</h1>
+
+</section>
+<section id="多変量回帰分析重回帰分析" class="slide level2">
+<h2>多変量回帰分析（重回帰分析）</h2>
+<h4 id="multiple-regression">multiple regression</h4>
+<p><span class="math inline">\(k\)</span>個の独立変数を含む以下の多変量モデルを推定</p>
+<p><span class="math display">\[
+Y_i=\beta_0+\underbrace{\beta_{1}X_{i1}+\beta_{2}X_{2i}+\cdots+\beta_{k}X_{ki}}_{k\text{個の独立変数}}+\varepsilon_i
+\]</span></p>
+<ul>
+<li class="fragment"><span class="math inline">\(j\)</span>番目の係数<span class="math inline">\(\beta_{j}\)</span>：<strong>他の変数の値を固定した上で、</strong><span class="math inline">\(X_{i}\)</span>が1単位増えると<span class="math inline">\(Y_{i}\)</span>がどれくらい増えるか
+<ul>
+<li class="fragment">「他の条件が等しければ（<em>ceteris paribus</em>）」</li>
+</ul></li>
+<li class="fragment">関心のある独立変数以外の別の変数を<strong>統制変数</strong>という
+<ul>
+<li class="fragment">統制変数を投入することで、その変数を誤差項から引き出し内生性に対処できる</li>
+</ul></li>
+</ul>
+</section>
+<section id="推定プロセス" class="slide level2">
+<h2>推定プロセス</h2>
+<p>推定プロセスは二変量と基本的には同じ</p>
+<ul>
+<li class="fragment">残差平方和：<span class="math inline">\(\sum \hat{\varepsilon_{i}}^2=\sum (\underbrace{Y_{i} - \hat{Y}_{i}}_{残差})^2=\sum \{Y_{i}-(\hat{\beta_{0}}+\hat{\beta_{1}}X_{1i}+\hat{\beta_{2}}X_{2i}+\cdots+\hat{\beta_{k}}X_{ki})\}^2\)</span></li>
+<li class="fragment">残差平方和を最小化する<span class="math inline">\(\hat{\beta}_{0}, \hat{\beta}_{1}, \cdots, \hat{\beta}_{k}\)</span>を求める
+<ul>
+<li class="fragment">数学的に求めようとすると微積分＋線形代数が必要</li>
+<li class="fragment">実際にはRがやってくれる</li>
+</ul></li>
+</ul>
+</section>
+<section id="例身長と賃金" class="slide level2 scrollable">
+<h2>例：身長と賃金</h2>
+<p>身長と賃金の関係の分析→何が読み取れる？（<a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=0dba425ee2848c03be42bb29355450d9">WebClassチャット</a>）</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto; font-size: 30px; width: auto !important; margin-left: auto; margin-right: auto;" class="table table table-striped table-hover">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> 二変量 </th>
+   <th style="text-align:center;"> 多変量(a) </th>
+   <th style="text-align:center;"> 多変量(b) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 定数項 </td>
+   <td style="text-align:center;"> −13.093+ </td>
+   <td style="text-align:center;"> −18.142* </td>
+   <td style="text-align:center;"> −13.568+ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (6.897) </td>
+   <td style="text-align:center;"> (7.137) </td>
+   <td style="text-align:center;"> (7.054) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> [−1.898] </td>
+   <td style="text-align:center;"> [−2.542] </td>
+   <td style="text-align:center;"> [−1.924] </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 成人身長 </td>
+   <td style="text-align:center;"> 0.412*** </td>
+   <td style="text-align:center;"> 0.003 </td>
+   <td style="text-align:center;"> 0.034 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.098) </td>
+   <td style="text-align:center;"> (0.199) </td>
+   <td style="text-align:center;"> (0.195) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> [4.225] </td>
+   <td style="text-align:center;"> [0.016] </td>
+   <td style="text-align:center;"> [0.174] </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 青年期の身長 </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> 0.484* </td>
+   <td style="text-align:center;"> 0.348+ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> (0.194) </td>
+   <td style="text-align:center;"> (0.191) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> [2.492] </td>
+   <td style="text-align:center;"> [1.823] </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 運動部所属 </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> 3.018*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> (0.563) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> [5.361] </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> クラブ所属数 </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> 1.884*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> (0.282) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> [6.686] </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> N </td>
+   <td style="text-align:center;"> 1910 </td>
+   <td style="text-align:center;"> 1870 </td>
+   <td style="text-align:center;"> 1851 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 回帰標準偏差 </td>
+   <td style="text-align:center;"> 11.925 </td>
+   <td style="text-align:center;"> 11.946 </td>
+   <td style="text-align:center;"> 11.691 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:center;"> 0.009 </td>
+   <td style="text-align:center;"> 0.013 </td>
+   <td style="text-align:center;"> 0.061 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr></tfoot>
+</table>
+
+</div>
+</div>
+<aside class="notes">
+<p>例：身長と賃金</p>
+<ul>
+<li>二変量モデル：<span class="math inline">\(賃金_{i}=\beta_{0}+\beta_{1}成人身長_{i}+\varepsilon_{i}\)</span></li>
+<li>分析結果からは成人時身長が高いほど賃金も高い
+<ul>
+<li>しかし、青年期の身長も関係するのでは？
+<ul>
+<li>青年期の高身長→多くの活動→高賃金</li>
+<li>青年期の高身長→成人期の高身長</li>
+</ul></li>
+</ul></li>
+<li>多変量モデル(a)：<span class="math inline">\(賃金_{i}=\beta_{0}+\beta_{1}成人身長_{i}+\beta_{2}青年期の身長_{i}+\varepsilon_{i}\)</span>
+<ul>
+<li>成人身長の影響が消えた！</li>
+<li>とはいえ、活動の影響は？
+<ul>
+<li>青年期の高身長↔︎多くの活動</li>
+<li>多くの活動→高賃金</li>
+</ul></li>
+</ul></li>
+<li>多変量モデル(b)：<span class="math inline">\(賃金_{i}=\beta_{0}+\beta_{1}成人身長_{i}+\beta_{2}青年期の身長_{i}+\beta_{3}運動部所属_{i}+\beta_{4}クラブ所属数_{i}+\varepsilon_{i}\)</span>
+<ul>
+<li>今度は青年期の身長の影響が消えた！</li>
+</ul></li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="欠落変数バイアス" class="title-slide slide level1 center">
+<h1>欠落変数バイアス</h1>
+
+</section>
+<section id="欠落変数バイアス-1" class="slide level2">
+<h2>欠落変数バイアス</h2>
+<h4 id="omitted-variable-bias">omitted variable bias</h4>
+<p>従属変数に影響し、独立変数と相関している変数をモデルに含めないと関心のある独立変数の推定値が歪む</p>
+<ul>
+<li class="fragment">以下2つの条件が満たされるとき、欠落変数バイアスが発生
+<ul>
+<li class="fragment">欠落変数が従属変数に確かに影響する</li>
+<li class="fragment">欠落変数と独立変数の間に相関がある</li>
+</ul></li>
+<li class="fragment">独立変数が持つ真の影響<span class="math inline">\(\beta_{1}\)</span>は欠落変数がもつ影響<span class="math inline">\(\beta_{2}\)</span>と独立変数と欠落変数の相関<span class="math inline">\(\delta_{1}\)</span>をかけたものだけ歪む</li>
+</ul>
+</section>
+<section id="例気温と売上" class="slide level2">
+<h2>例：気温と売上</h2>
+<img data-src="figs/ommitted_bias.png" class="r-stretch">
+</section>
+<section id="クイズ" class="slide level2">
+<h2>クイズ</h2>
+<p>洋画の視聴時間とTOEICの点数の例を考えます。洋画の視聴時間は本当にTOEICの点数を上げますが、他の変数として海外経験が存在するとします。</p>
+<ol type="1">
+<li>海外経験はTOEICの点数に正負どちらの効果を与えるでしょうか。</li>
+<li>海外経験は洋画の視聴時間と正負どちらの相関にあるでしょうか。</li>
+<li>海外経験を含めずにモデルを分析した場合、推定される洋画視聴時間の係数は真の係数と比べて大きくなるでしょうか、それとも小さくなるでしょうか。</li>
+</ol>
+<p><a href="https://webclass.komazawa-u.ac.jp/webclass/login.php?id=019e0bff82a200c607625d68042f1f6c&amp;page=1">WebClassで回答</a></p>
+</section>
+<section id="なぜ欠落変数バイアスが生じるのか" class="slide level2">
+<h2>なぜ欠落変数バイアスが生じるのか</h2>
+<p>真のモデルは以下のように2つの独立変数（<span class="math inline">\(X_{1i}\)</span>と<span class="math inline">\(X_{2i}\)</span>）を持つとする。<sup>1</sup></p>
+<p><span class="math display">\[
+Y_{i}=\beta_{0}+\beta_{1}X_{1i}+\beta_{2}X_{2i}+\nu_{i}
+\]</span></p>
+<div class="fragment fade-in">
+<p>ここで変数<span class="math inline">\(X_{2i}\)</span>を欠落させたモデルを考える。</p>
+<p><span class="math display">\[
+Y_{i}=\beta_{0}^{omit}+\beta_{1}^{omit}X_{1i}+\epsilon_{i}
+\]</span></p>
+</div>
+<div class="fragment fade-in">
+<p>このとき係数<span class="math inline">\(\beta_{1}^{omit}\)</span>の推定値がどのようになるかを考えてみよう。</p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>ここでは内生性はないと仮定する。すなわち<span class="math inline">\(X_{1i}\)</span>と<span class="math inline">\(X_{2i}\)</span>も誤差項<span class="math inline">\(\nu_{i}\)</span>と相関はないとする。</p></li></ol></aside></section>
+<section class="slide level2">
+
+<p>2つの独立変数<span class="math inline">\(X_{1i}\)</span>と<span class="math inline">\(X_{2i}\)</span>の関係をモデル化した補助回帰分析を考えてみる。<sup>1</sup> <span class="math display">\[
+X_{2i}=\delta_{0}+\delta_{1}X_{1i}+\tau_{i}
+\]</span></p>
+<div class="fragment fade-in">
+<p>補助回帰分析を式変形の上で真のモデルに代入すると以下のように変形できる。</p>
+<p><span class="math display">\[
+\begin{align}
+  Y_{i}&amp;=\beta_{0}+\beta_{1}X_{1i}+\beta_{2}X_{2i}+\nu_{i}\\
+       &amp;=\beta_{0}+\beta_{1}X_{1i}+\beta_{2}(\delta_{0}+\delta_{1}X_{1i}+\tau_{i})+\nu_{i} \\
+       &amp;=(\beta_{0}+\beta_{2}\delta_{0})+(\beta_{1}+\beta_{2}\delta_{1})X_{1i}+(\beta_{2}\tau_{i}+\nu_{i})\\
+       &amp;=\beta_{0}^{omit}+\beta_{1}^{omit}X_{1i}+\epsilon_{i}
+\end{align}
+\]</span></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>ここでも内生性はない、すなわち誤差項<span class="math inline">\(\tau_{i}\)</span>は<span class="math inline">\(X_{1i}\)</span>と相関していないと仮定。</p></li></ol></aside></section>
+<section class="slide level2">
+
+<p>したがって、欠落モデルにおける<span class="math inline">\(X_{1i}\)</span>の係数<span class="math inline">\(\beta_{1}^{omit}\)</span>は以下の通りになるが、真の値からずれていることがわかる。 <span class="math display">\[
+\beta_{1}^{omit}=\underbrace{\beta_{1}}_{真の係数}+\underbrace{\beta_{2}\delta_{1}}_{バイアス}
+\]</span></p>
+<div class="fragment fade-in">
+<p>バイアスの構成要素は以下のとおり</p>
+<ul>
+<li class="fragment"><span class="math inline">\(\beta_{2}\)</span>：真のモデルにおける<span class="math inline">\(X_{2i}\)</span>の係数→従属変数<span class="math inline">\(Y_{i}\)</span>に与える影響</li>
+<li class="fragment"><span class="math inline">\(\delta_{1}\)</span>：補助回帰分析における<span class="math inline">\(X_{1i}\)</span>の係数→<span class="math inline">\(X_{1i}\)</span>と<span class="math inline">\(X_{2i}\)</span>の関係</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="測定誤差" class="title-slide slide level1 center">
+<h1>測定誤差</h1>
+
+</section>
+<section id="クイズ-1" class="slide level2">
+<h2>クイズ</h2>
+<p>アメリカ大統領の分析の例を考えます。今、所得変化と与党候補の得票率のデータを集めましたが、所得変化のデータの担当者が<strong>どうしようもないポンコツ</strong>であり、実際の所得変化よりもだいぶばらついていることがわかりました。このとき所得変化が与党候補の得票率に与える影響の推定値（直線の傾き）は、実際のデータとポンコツデータとではどう違うでしょうか。</p>
+<div class="r-stack">
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="11_multibasics_slide_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="11_multibasics_slide_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" width="1800"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="測定誤差-1" class="slide level2">
+<h2>測定誤差</h2>
+<h4 id="measurement-error">measurement error</h4>
+<p>真の値と観測された値の間のずれ</p>
+<ul>
+<li class="fragment">従属変数の測定誤差は大きな問題ではない</li>
+<li class="fragment">独立変数の測定誤差は<strong>減衰バイアス</strong>を起こす
+<ul>
+<li class="fragment">独立変数が従属変数に与える効果が小さく推定される</li>
+</ul></li>
+</ul>
+<div class="fragment fade-in">
+<p>大統領選挙の例：</p>
+<ul>
+<li class="fragment">実際に所得上昇は与党候補得票率を増やす</li>
+<li class="fragment">所得変化データにランダムな誤差が生じると散布図が横に広がる</li>
+<li class="fragment">結果、推定される回帰直線の傾きが<strong>なだらか</strong>になる</li>
+</ul>
+</div>
+</section>
+<section id="減衰バイアスが生じるメカニズム" class="slide level2">
+<h2>減衰バイアスが生じるメカニズム</h2>
+<p>真のモデルを以下のように考える（内生性はないと仮定）。</p>
+<p><span class="math display">\[
+Y_{i}=\beta_{0}+\beta_{1}X_{1i}^{*}+\varepsilon_{i}
+\]</span></p>
+<div class="fragment fade-in">
+<p>ここで変数<span class="math inline">\(X_{1i}^{*}\)</span>それ自体は直接観測できないとし、<span class="math inline">\(X_{1i}\)</span>として測定されるとする（ここでも内生性はないと仮定）<sup>1</sup>。</p>
+<p><span class="math display">\[
+X_{1i}=\underbrace{X_{1i}^{*}}_{真の値}+\underbrace{\nu_{i}}_{測定誤差}
+\]</span></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>真の変数<span class="math inline">\(X_{1i}^{*}\)</span>と測定誤差<span class="math inline">\(\nu_{i}\)</span>は相関しない。</p></li></ol></aside></section>
+<section class="slide level2">
+
+<p>測定値<span class="math inline">\(X_{1i}\)</span>の式を変形して真のモデルに代入すると以下の通り。</p>
+<div class="fragment fade-in">
+<p><span class="math display">\[
+\begin{align}
+　　　Y_{i}&amp;=\beta_{0}+\beta_{1}X_{1i}^{*}+\nu_{i} \\
+     　　　&amp;=\beta_{0}+\beta_{1}(X_{1i}-\nu_{i})+\varepsilon_{i} \\
+     　　　&amp;=\beta_{0}+\beta_{1}\underbrace{X_{1i}}_{=X_{1i}^{*}+\nu_{i}}+(\underbrace{-\beta_{1}\nu_{i}+\varepsilon_{i}}_{新しい誤差項})
+\end{align}
+\]</span></p>
+</div>
+<ul>
+<li class="fragment">測定値<span class="math inline">\(X_{1i}\)</span>と新しい誤差項が測定誤差<span class="math inline">\(\nu_{i}\)</span>を介して相関しているので内生性の問題が発生。</li>
+<li class="fragment">測定誤差をモデルに投入して分析できればよいが、それは不可能なので欠落変数バイアスが発生</li>
+</ul>
+</section></section>
+<section>
+<section id="まとめ" class="title-slide slide level1 center">
+<h1>まとめ</h1>
+
+</section>
+<section id="本日の目的と到達目標-1" class="slide level2">
+<h2>本日の目的と到達目標</h2>
+<h4 id="目的-1">目的</h4>
+<p>回帰分析のスタンダードである多変量モデルを紹介する。二変量モデルについて復習した後、多変量モデルが内生性の問題にどのように対処するのかを議論する。統制すべき変数を統制しない時に発生する欠落変数バイアスや、独立変数に測定誤差が含まれる場合の問題も合わせて検討する。</p>
+<div class="fragment fade-in">
+<h4 id="到達目標-1">到達目標</h4>
+<ol type="1">
+<li>多変量回帰モデル（<span class="math inline">\(Y_i=\beta_0+\beta_{1}X_{i}+\cdots+\beta_{k}X_{i}+\varepsilon_i\)</span>）の係数の意味を説明できる。</li>
+<li>多変量モデルが欠落変数バイアスにどのように対処できるのかを説明できる。</li>
+<li>欠落変数バイアスが生じる2つの条件を列挙できる。</li>
+<li>従属変数および独立変数における測定誤差の存在が係数の推定値に与える影響を説明できる。</li>
+</ol>
+</div>
+</section>
+<section id="次回までに" class="slide level2">
+<h2>次回までに</h2>
+<div class="fragment fade-in">
+<h4 id="事後学習">事後学習</h4>
+<ul>
+<li>授業資料を見直し、目標到達をセルフチェック</li>
+<li>WebClass上での確認小テスト（金曜日まで）</li>
+</ul>
+</div>
+<div class="fragment fade-in">
+<h4 id="事前学習">事前学習</h4>
+<ul>
+<li>教科書（第5章5.4-5.6および結論: pp.192-219）を読む。</li>
+</ul>
+</div>
+
+
+</section></section>
+
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="figs/Komazawa_univ._logo.svg" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>多変量回帰分析：基本編</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-pointer/pointer.js"></script>
+  <script src="site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'pointer': {"key":"q","color":"red","pointerSize":16,"alwaysVisible":false},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1200,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, RevealPointer, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "コピーしました");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "コピーしました");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+                // target, if specified
+                link.setAttribute("target", "_blank");
+                if (link.getAttribute("rel") === null) {
+                  link.setAttribute("rel", "noopener");
+                }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+            let selectedAnnoteEl;
+            const selectorForAnnotation = ( cell, annotation) => {
+              let cellAttr = 'data-code-cell="' + cell + '"';
+              let lineAttr = 'data-code-annotation="' +  annotation + '"';
+              const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+              return selector;
+            }
+            const selectCodeLines = (annoteEl) => {
+              const doc = window.document;
+              const targetCell = annoteEl.getAttribute("data-target-cell");
+              const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+              const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+              const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+              const lineIds = lines.map((line) => {
+                return targetCell + "-" + line;
+              })
+              let top = null;
+              let height = null;
+              let parent = null;
+              if (lineIds.length > 0) {
+                  //compute the position of the single el (top and bottom and make a div)
+                  const el = window.document.getElementById(lineIds[0]);
+                  top = el.offsetTop;
+                  height = el.offsetHeight;
+                  parent = el.parentElement.parentElement;
+                if (lineIds.length > 1) {
+                  const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+                  const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+                  height = bottom - top;
+                }
+                if (top !== null && height !== null && parent !== null) {
+                  // cook up a div (if necessary) and position it 
+                  let div = window.document.getElementById("code-annotation-line-highlight");
+                  if (div === null) {
+                    div = window.document.createElement("div");
+                    div.setAttribute("id", "code-annotation-line-highlight");
+                    div.style.position = 'absolute';
+                    parent.appendChild(div);
+                  }
+                  div.style.top = top - 2 + "px";
+                  div.style.height = height + 4 + "px";
+                  div.style.left = 0;
+                  let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+                  if (gutterDiv === null) {
+                    gutterDiv = window.document.createElement("div");
+                    gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                    gutterDiv.style.position = 'absolute';
+                    const codeCell = window.document.getElementById(targetCell);
+                    const gutter = codeCell.querySelector('.code-annotation-gutter');
+                    gutter.appendChild(gutterDiv);
+                  }
+                  gutterDiv.style.top = top - 2 + "px";
+                  gutterDiv.style.height = height + 4 + "px";
+                }
+                selectedAnnoteEl = annoteEl;
+              }
+            };
+            const unselectCodeLines = () => {
+              const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+              elementsIds.forEach((elId) => {
+                const div = window.document.getElementById(elId);
+                if (div) {
+                  div.remove();
+                }
+              });
+              selectedAnnoteEl = undefined;
+            };
+              // Handle positioning of the toggle
+          window.addEventListener(
+            "resize",
+            throttle(() => {
+              elRect = undefined;
+              if (selectedAnnoteEl) {
+                selectCodeLines(selectedAnnoteEl);
+              }
+            }, 10)
+          );
+          function throttle(fn, ms) {
+          let throttle = false;
+          let timer;
+            return (...args) => {
+              if(!throttle) { // first call gets through
+                  fn.apply(this, args);
+                  throttle = true;
+              } else { // all the others get throttled
+                  if(timer) clearTimeout(timer); // cancel #2
+                  timer = setTimeout(() => {
+                    fn.apply(this, args);
+                    timer = throttle = false;
+                  }, ms);
+              }
+            };
+          }
+            const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+            for (let i=0; i<annoteTargets.length; i++) {
+              const annoteTarget = annoteTargets[i];
+              const targetCell = annoteTarget.getAttribute("data-target-cell");
+              const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+              const contentFn = () => {
+                const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+                if (content) {
+                  const tipContent = content.cloneNode(true);
+                  tipContent.classList.add("code-annotation-tip-content");
+                  return tipContent.outerHTML;
+                }
+              }
+              const config = {
+                allowHTML: true,
+                content: contentFn,
+                onShow: (instance) => {
+                  selectCodeLines(instance.reference);
+                  instance.reference.classList.add('code-annotation-active');
+                  window.tippy.hideAll();
+                },
+                onHide: (instance) => {
+                  unselectCodeLines();
+                  instance.reference.classList.remove('code-annotation-active');
+                },
+                maxWidth: 300,
+                delay: [50, 0],
+                duration: [200, 0],
+                offset: [5, 10],
+                arrow: true,
+                trigger: 'click',
+                appendTo: function(el) {
+                  return el.parentElement.parentElement.parentElement;
+                },
+                interactive: true,
+                interactiveBorder: 10,
+                theme: 'light-border',
+                placement: 'right',
+                positionFixed: true,
+                popperOptions: {
+                  modifiers: [
+                  {
+                    name: 'flip',
+                    options: {
+                      flipVariations: false, // true by default
+                      allowedAutoPlacements: ['right'],
+                      fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+                    },
+                  },
+                  {
+                    name: 'preventOverflow',
+                    options: {
+                      mainAxis: false,
+                      altAxis: false
+                    }
+                  }
+                  ]        
+                }      
+              };
+              window.tippy(annoteTarget, config); 
+            }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
